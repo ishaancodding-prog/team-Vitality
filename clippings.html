@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB Talks - ABG News & Clippings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="flex justify-between items-center px-8 py-5 border-b border-slate-800">
+        <h1 class="text-xl font-bold tracking-wider text-cyan-400">ABG NEWS & CLIPPINGS</h1>
+        <div class="space-x-4">
+            <a href="dashboard.html" class="text-slate-300 hover:text-cyan-400 text-sm font-medium">Dashboard</a>
+            <a href="index.html" class="text-slate-300 hover:text-cyan-400 text-sm font-medium">Home</a>
+        </div>
+    </header>
+
+    <!-- Content Hub -->
+    <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full space-y-10">
+        
+        <!-- AB Talks YouTube Links Section -->
+        <section>
+            <h2 class="text-2xl font-bold mb-2">Featured AB Talks & ABG News Broadcasts</h2>
+            <p class="text-slate-400 text-sm mb-6">Direct streams and community highlights.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Video Card 1 -->
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs text-cyan-400 font-bold uppercase">ViCodathon Kickoff</span>
+                        <h3 class="font-semibold text-lg mt-1">ViCodathon LIVE | Winning Strategy, Tips & Mistakes to Avoid</h3>
+                        <p class="text-sm text-slate-400 mt-2">Complete briefing on hackathon metrics, problem statements, and rules.</p>
+                    </div>
+                    <a href="https://www.youtube.com/live/Tl7kFB_DXYc" target="_blank" class="mt-6 inline-block text-center bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold py-2 rounded-lg text-sm transition">
+                        Watch on YouTube ↗
+                    </a>
+                </div>
+
+                <!-- Video Card 2 -->
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs text-indigo-400 font-bold uppercase">Podcast Feature</span>
+                        <h3 class="font-semibold text-lg mt-1">GenAI & Agentic AI Skills That Will 10X Your Career</h3>
+                        <p class="text-sm text-slate-400 mt-2">Deep dive into tools like Cursor and modern prompt engineering frameworks.</p>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=-hLZnMSIRAw" target="_blank" class="mt-6 inline-block text-center bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2 rounded-lg text-sm border border-slate-700 transition">
+                        Watch on YouTube ↗
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Clippings Manager -->
+        <section class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h2 class="text-xl font-bold mb-4">Your Custom Clippings & Notes</h2>
+            <div class="flex gap-3 mb-6">
+                <input type="text" id="clipInput" placeholder="Add a new clipping note or resource link..." class="flex-grow bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                <button onclick="addClipping()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-lg text-sm transition">Save Clip</button>
+            </div>
+
+            <div id="clippingsList" class="space-y-3">
+                <!-- Dynamically added clippings will appear here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Script for Clippings Logic -->
+    <script>
+        function loadClippings() {
+            const list = document.getElementById('clippingsList');
+            const clips = JSON.parse(localStorage.getItem('ab_clippings') || '[]');
+            
+            if (clips.length === 0) {
+                list.innerHTML = '<p class="text-slate-500 text-sm italic">No saved clippings yet. Add one above!</p>';
+                return;
+            }
+
+            list.innerHTML = clips.map((clip, index) => `
+                <div class="bg-slate-800/60 p-3.5 rounded-lg border border-slate-700/60 flex justify-between items-center text-sm">
+                    <span>${clip}</span>
+                    <button onclick="deleteClip(${index})" class="text-red-400 hover:text-red-300 text-xs font-semibold">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function addClipping() {
+            const input = document.getElementById('clipInput');
+            if (!input.value.trim()) return;
+
+            const clips = JSON.parse(localStorage.getItem('ab_clippings') || '[]');
+            clips.push(input.value);
+            localStorage.setItem('ab_clippings', JSON.stringify(clips));
+            
+            input.value = '';
+            loadClippings();
+        }
+
+        function deleteClip(index) {
+            const clips = JSON.parse(localStorage.getItem('ab_clippings') || '[]');
+            clips.splice(index, 1);
+            localStorage.setItem('ab_clippings', JSON.stringify(clips));
+            loadClippings();
+        }
+
+        loadClippings();
+    </script>
+</body>
+</html>
