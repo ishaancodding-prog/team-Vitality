@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSpace | Minimalist Gen-Z Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">DevSpace_</div>
+        <div class="nav-links">
+            <button onclick="showSection('home')" class="nav-btn active">Home</button>
+            <button onclick="showSection('dashboard')" class="nav-btn">Programmer Profile</button>
+            <button onclick="showSection('auth')" class="nav-btn auth-cta">Login / Sign In</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <span class="badge">Vibe Check: Passed ✨</span>
+                <h1>Crafting code for the <span class="gradient-text">Next Gen</span>.</h1>
+                <p>Minimal, clean, and aesthetic engineering hub inspired by top-tier modern portfolios.</p>
+                <button class="cta-btn" onclick="showSection('auth')">Let's Dive In 🚀</button>
+            </div>
+        </section>
+
+        <!-- Auth / Login & Sign In Section -->
+        <section id="auth" class="section">
+            <div class="auth-card">
+                <h2>Welcome Back 👀</h2>
+                <p>Enter your credentials to access your developer node.</p>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label>Email / Username</label>
+                        <input type="text" placeholder="coder@genz.dev" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="cta-btn full-width">Access Portal</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Programmer Profile / Data Section -->
+        <section id="dashboard" class="section">
+            <div class="dashboard-header">
+                <h2>Programmer Analytics & Profile 📊</h2>
+                <p>Live metrics and data feed of the developer who built this space.</p>
+            </div>
+            <div class="grid-stats">
+                <div class="stat-card">
+                    <h3>Commits</h3>
+                    <p class="stat-number">1,342</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Projects Shipped</h3>
+                    <p class="stat-number">18</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Coffee/Code Ratio</h3>
+                    <p class="stat-number">99.9%</p>
+                </div>
+            </div>
+            <div class="profile-box">
+                <div class="profile-info">
+                    <h3>Ishaan (Lead Creator)</h3>
+                    <p>Full-stack developer building aesthetic web interfaces and high-performance engineering tools.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Chatbot Widget Integration Area -->
+    <div id="chatbot-container">
+        <div id="chat-toggle-btn" onclick="toggleChat()">💬 Chat with AI</div>
+        <div id="chat-window" class="hidden">
+            <div class="chat-header">
+                <span>DevBot 🤖</span>
+                <button onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="bot-message">Yo! What's up? Ask me anything about this platform.</div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="checkEnter(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
