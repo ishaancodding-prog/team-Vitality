@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABTalks - 60-Day Coding Challenge Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
+
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 px-10 py-4 flex justify-between items-center shadow-lg">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="router.navigateTo('/')">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950 text-lg shadow-lg shadow-cyan-500/20">AB</div>
+            <div>
+                <span class="font-extrabold tracking-wider text-base bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">ABTALKS</span>
+                <span class="block text-[10px] text-cyan-400 font-semibold tracking-widest uppercase">Desktop Workstation</span>
+            </div>
+        </div>
+        <nav class="flex items-center gap-8">
+            <button onclick="router.navigateTo('/')" id="nav-home" class="text-sm font-semibold transition text-slate-400 hover:text-white flex items-center gap-2">🏠 Home</button>
+            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="text-sm font-semibold transition text-slate-400 hover:text-white flex items-center gap-2">📊 Dashboard</button>
+            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="text-sm font-semibold transition text-slate-400 hover:text-white flex items-center gap-2">⚡ Day 1 Challenge</button>
+            <div class="h-5 w-px bg-slate-800"></div>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> India Cohort 2026
+            </span>
+        </nav>
+    </header>
+
+    <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-8 py-10 z-10"></main>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-6 px-10 text-center text-xs text-slate-500 flex justify-between items-center z-10">
+        <div>© 2026 ABTalks Ecosystem. All rights reserved.</div>
+        <div class="flex gap-6">
+            <a href="https://abtalks.in" target="_blank" class="hover:text-cyan-400 transition">Official Platform</a>
+            <a href="https://github.com" target="_blank" class="hover:text-cyan-400 transition">GitHub Organization</a>
+        </div>
+    </footer>
+
+    <script>
+        const appState = {
+            streakState: 'zero',
+            selectedTrack: 'AI & Full Stack',
+            githubLink: '',
+            linkedinLink: '',
+            isSubmitted: false,
+            synergyPoints: 50,
+            activeTab: 'tasks',
+            captchaNum1: Math.floor(Math.random() * 8) + 2,
+            captchaNum2: Math.floor(Math.random() * 8) + 1,
+            captchaInput: '',
+            toastMessage: null
+        };
+
+        function showToast(msg) {
+            appState.toastMessage = msg;
+            render();
+            setTimeout(() => { appState.toastMessage = null; render(); }, 3000);
+        }
+
+        const router = {
+            currentRoute: '/',
+            init() { 
+                const path = window.location.hash.replace('#', '') || '/';
+                this.currentRoute = path;
+                render();
+            },
+            navigateTo(route) { 
+                window.location.hash = route;
+                this.currentRoute = route;
+                render(); 
+                window.scrollTo(0,0);
+            }
+        };
+
+        window.addEventListener('hashchange', () => {
+            router.currentRoute = window.location.hash.replace('#', '') || '/';
+            render();
+        });
+
+        function renderLanding() {
+            return `
+                <div class="space-y-10 animate-fadeIn">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold">
+                                🌱 Day 1 Kickoff • 60-Day Engineering Challenge
+                            </div>
+                            <h1 class="text-4xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                                Start your journey.<br>Build your first <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">public streak today.</span>
+                            </h1>
+                            <p class="text-slate-400 text-base lg:text-lg leading-relaxed max-w-2xl">
+                                Code post-college, build real applications from Day 1, commit to public GitHub repos, and share your proof of work on LinkedIn to become visible to top recruiters.
+                            </p>
+                            <button onclick="router.navigateTo('/dashboard')" class="bg-gradient-to-r from-cyan-500 to-indigo-500 hover:opacity-95 text-slate-950 font-extrabold px-8 py-4 rounded-2xl text-base transition shadow-xl shadow-cyan-500/25 flex items-center gap-3">
+                                <span>Begin Day 1 Challenge</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDashboard() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
+                    <div class="bg-amber-500/10 border border-amber-500/30 p-5 rounded-3xl flex items-center gap-4 backdrop-blur-md">
+                        <span class="text-3xl">🌱</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-amber-400 uppercase">Day 1 - Fresh Start</h4>
+                            <p class="text-xs text-slate-300 mt-0.5">Complete Day 1 task to ignite your 60-day public streak!</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="glass-card p-6 rounded-3xl">
+                            <span class="text-xs font-bold text-cyan-400">Current Streak</span>
+                            <div class="text-4xl font-extrabold mt-2">1 <span class="text-lg text-slate-400 font-normal">Day 🔥</span></div>
+                        </div>
+                    </div>
+                    <button onclick="router.navigateTo('/day/1')" class="bg-cyan-500 text-slate-950 font-bold px-8 py-4 rounded-2xl">Start Day 1 Task</button>
+                </div>
+            `;
+        }
+
+        function renderDayChallenge() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+                    <h1 class="text-4xl font-extrabold text-white">Environment Setup & Hello World</h1>
+                    <div class="glass-card p-8 rounded-3xl space-y-4">
+                        <input type="text" id="ghInput" placeholder="GitHub URL" class="w-full bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <input type="text" id="liInput" placeholder="LinkedIn URL" class="w-full bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <button onclick="handleSubmission()" class="bg-cyan-500 text-slate-950 font-bold px-8 py-4 rounded-xl">Verify & Submit</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleSubmission() {
+            appState.isSubmitted = true;
+            showToast('🎉 Day 1 Verified!');
+            setTimeout(() => router.navigateTo('/dashboard'), 1500);
+        }
+
+        function render() {
+            const route = router.currentRoute;
+            let html = '';
+            if (route === '/') html = renderLanding();
+            else if (route === '/dashboard') html = renderDashboard();
+            else if (route === '/day/1') html = renderDayChallenge();
+            document.getElementById('app-router').innerHTML = html;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => { router.init(); });
+    </script>
+</body>
+</html>
