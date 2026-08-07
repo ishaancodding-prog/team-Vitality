@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB Talks - User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="flex justify-between items-center px-8 py-5 border-b border-slate-800">
+        <h1 class="text-xl font-bold tracking-wider text-cyan-400">AB TALKS DASHBOARD</h1>
+        <div class="space-x-6 flex items-center">
+            <a href="clippings.html" class="text-slate-300 hover:text-cyan-400 text-sm font-medium">Clippings & News</a>
+            <button onclick="logout()" class="bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg text-sm hover:bg-red-500/20 transition">Log Out</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold" id="welcomeText">Welcome Back!</h2>
+            <p class="text-slate-400 text-sm mt-1">Here is your verified account session status and activity.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-slate-400 text-xs font-semibold uppercase">Account Email</h3>
+                <p class="text-lg font-mono text-cyan-400 mt-2" id="displayEmail">Loading...</p>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-slate-400 text-xs font-semibold uppercase">Auth Method</h3>
+                <p class="text-lg font-semibold text-indigo-400 mt-2" id="displayMethod">Loading...</p>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-slate-400 text-xs font-semibold uppercase">Synergy Points</h3>
+                <p class="text-2xl font-bold text-emerald-400 mt-2">450 SP</p>
+            </div>
+        </div>
+
+        <!-- Quick Links Container -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+            <h3 class="text-lg font-semibold mb-4">Quick Navigation</h3>
+            <div class="flex gap-4">
+                <a href="clippings.html" class="bg-slate-800 hover:bg-slate-700 px-4 py-2.5 rounded-lg text-sm font-medium border border-slate-700 transition">View ABG News & Saved Clippings →</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script to Load Data -->
+    <script>
+        const email = localStorage.getItem('ab_user_email');
+        const method = localStorage.getItem('ab_auth_method');
+
+        if (!email) {
+            // Redirect back if not logged in
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('displayEmail').innerText = email;
+            document.getElementById('displayMethod').innerText = method || 'Standard';
+            document.getElementById('welcomeText').innerText = `Welcome, ${email.split('@')[0]}! 👋`;
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
