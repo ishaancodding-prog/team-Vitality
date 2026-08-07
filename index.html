@@ -48,7 +48,7 @@
     <!-- MAIN ROUTER VIEW -->
     <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-8 py-10 z-10"></main>
 
-    <!-- CLEAN FOOTER (Without redundant team card repetition) -->
+    <!-- CLEAN FOOTER -->
     <footer class="border-t border-slate-900 bg-slate-950 py-8 px-10 z-10">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
             <div>© 2026 ABTalks Ecosystem. All rights reserved. Made by Team : <strong>Vitality</strong>.</div>
@@ -102,7 +102,7 @@
             render();
         });
 
-        // 1. LANDING PAGE (Clean, no redundant bottom team block)
+        // 1. LANDING PAGE
         function renderLanding() {
             return `
                 <div class="space-y-12 animate-fadeIn">
@@ -299,7 +299,7 @@
             `;
         }
 
-        // 4. ABOUT US SECTION
+        // 4. ABOUT US SECTION (ONLY place with member info)
         function renderAbout() {
             return `
                 <div class="space-y-10 animate-fadeIn max-w-5xl mx-auto">
@@ -314,21 +314,18 @@
                             <div class="w-16 h-16 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-2xl mx-auto">🎨</div>
                             <h3 class="text-xl font-extrabold text-white">Mahima</h3>
                             <p class="text-xs text-pink-400 font-bold uppercase tracking-wider">Designer</p>
-                            <p class="text-slate-400 text-xs leading-relaxed">Crafted the user interface layouts, visual aesthetics, and overall design system.</p>
                         </div>
 
                         <div class="glass-card p-8 rounded-3xl space-y-4 text-center">
                             <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-2xl mx-auto">🤖</div>
                             <h3 class="text-xl font-extrabold text-white">Diksha</h3>
                             <p class="text-xs text-indigo-400 font-bold uppercase tracking-wider">AI chatbot</p>
-                            <p class="text-slate-400 text-xs leading-relaxed">Specialized in developing the intelligent assistant workflows and chatbot features.</p>
                         </div>
 
                         <div class="glass-card p-8 rounded-3xl space-y-4 text-center">
                             <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-2xl mx-auto">💻</div>
                             <h3 class="text-xl font-extrabold text-white">Ishaan</h3>
                             <p class="text-xs text-cyan-400 font-bold uppercase tracking-wider">frontend and Backend Developer</p>
-                            <p class="text-slate-400 text-xs leading-relaxed">Built the full-stack architecture, routing mechanics, and application logic.</p>
                         </div>
                     </div>
                 </div>
