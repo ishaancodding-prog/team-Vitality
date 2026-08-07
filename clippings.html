@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AB Talks - ABG News, Clippings & Community Posts</title>
+    <title>AB Talks - News, Community Posts & Reviews</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
@@ -18,7 +18,7 @@
     </header>
 
     <!-- Content Hub -->
-    <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full space-y-10">
+    <main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full space-y-12">
         
         <!-- Community Posting Section -->
         <section class="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg">
@@ -62,6 +62,53 @@
             </div>
         </section>
 
+        <!-- Reviews & Testimonials Section -->
+        <section class="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-amber-400">Platform & Hackathon Reviews</h2>
+                    <p class="text-slate-400 text-sm mt-1">Leave your feedback and ratings for AB Talks & ViCodathon.</p>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-lg text-center">
+                    <span class="text-xs uppercase text-slate-400 block font-semibold">Average Rating</span>
+                    <span class="text-xl font-bold text-amber-400" id="avgRating">0.0 / 5.0 ⭐</span>
+                </div>
+            </div>
+
+            <!-- Review Submission Form -->
+            <form id="reviewForm" class="bg-slate-800/50 border border-slate-700/60 p-4 rounded-xl mb-8 space-y-4">
+                <h3 class="font-semibold text-sm text-slate-200">Write a Review</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase font-semibold text-slate-400 mb-1">Your Name</label>
+                        <input type="text" id="reviewAuthor" required placeholder="Enter your name" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-semibold text-slate-400 mb-1">Rating (1 to 5 Stars)</label>
+                        <select id="reviewRating" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
+                            <option value="5">⭐⭐⭐⭐⭐ (5 - Amazing)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 - Great)</option>
+                            <option value="3">⭐⭐⭐ (3 - Good)</option>
+                            <option value="2">⭐⭐ (2 - Fair)</option>
+                            <option value="1">⭐ (1 - Poor)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase font-semibold text-slate-400 mb-1">Review Comment</label>
+                    <textarea id="reviewComment" rows="2" required placeholder="What do you think about the platform or hackathon experience?" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-400"></textarea>
+                </div>
+                <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-sm transition shadow-md">
+                    Submit Review ✍️
+                </button>
+            </form>
+
+            <!-- Reviews Feed -->
+            <div id="reviewsFeed" class="space-y-4">
+                <!-- Reviews will load dynamically here -->
+            </div>
+        </section>
+
         <!-- AB Talks YouTube Links Section -->
         <section>
             <h2 class="text-2xl font-bold mb-2">Featured AB Talks & Broadcasts</h2>
@@ -94,8 +141,9 @@
 
     </main>
 
-    <!-- Script for Handling Posts -->
+    <!-- Script for Handling Posts & Reviews -->
     <script>
+        // --- Posts Logic ---
         function loadPosts() {
             const feed = document.getElementById('postsFeed');
             const posts = JSON.parse(localStorage.getItem('ab_community_posts') || '[]');
@@ -125,7 +173,6 @@
 
         document.getElementById('postForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const title = document.getElementById('postTitle').value;
             const category = document.getElementById('postCategory').value;
             const author = document.getElementById('postAuthor').value || localStorage.getItem('ab_user_email') || 'Community Member';
@@ -133,12 +180,10 @@
             const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
             const newPost = { title, category, author, content, date };
-            
             const posts = JSON.parse(localStorage.getItem('ab_community_posts') || '[]');
-            posts.unshift(newPost); // Add to the top of the feed
+            posts.unshift(newPost);
             localStorage.setItem('ab_community_posts', JSON.stringify(posts));
 
-            // Reset form
             document.getElementById('postForm').reset();
             loadPosts();
         });
@@ -150,8 +195,64 @@
             loadPosts();
         }
 
-        // Load posts on page start
+        // --- Reviews Logic ---
+        function loadReviews() {
+            const feed = document.getElementById('reviewsFeed');
+            const avgDisplay = document.getElementById('avgRating');
+            const reviews = JSON.parse(localStorage.getItem('ab_platform_reviews') || '[]');
+            
+            if (reviews.length === 0) {
+                feed.innerHTML = '<p class="text-slate-500 text-sm italic">No reviews submitted yet. Be the first to share your experience!</p>';
+                avgDisplay.innerText = '0.0 / 5.0 ⭐';
+                return;
+            }
+
+            // Calculate Average Rating
+            let totalScore = reviews.reduce((sum, r) => sum + parseInt(r.rating), 0);
+            let avg = (totalScore / reviews.length).toFixed(1);
+            avgDisplay.innerText = `${avg} / 5.0 ⭐`;
+
+            feed.innerHTML = reviews.map((rev, index) => `
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/60 space-y-1.5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="font-semibold text-white text-sm">${rev.author}</span>
+                            <span class="text-amber-400 text-xs">${'⭐'.repeat(rev.rating)}</span>
+                        </div>
+                        <button onclick="deleteReview(${index})" class="text-red-400 hover:text-red-300 text-xs font-semibold">Delete</button>
+                    </div>
+                    <p class="text-slate-300 text-sm">${rev.comment}</p>
+                    <span class="text-[11px] text-slate-500 block">${rev.date}</span>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const author = document.getElementById('reviewAuthor').value;
+            const rating = document.getElementById('reviewRating').value;
+            const comment = document.getElementById('reviewComment').value;
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            const newReview = { author, rating, comment, date };
+            const reviews = JSON.parse(localStorage.getItem('ab_platform_reviews') || '[]');
+            reviews.unshift(newReview);
+            localStorage.setItem('ab_platform_reviews', JSON.stringify(reviews));
+
+            document.getElementById('reviewForm').reset();
+            loadReviews();
+        });
+
+        function deleteReview(index) {
+            const reviews = JSON.parse(localStorage.getItem('ab_platform_reviews') || '[]');
+            reviews.splice(index, 1);
+            localStorage.setItem('ab_platform_reviews', JSON.stringify(reviews));
+            loadReviews();
+        }
+
+        // Initial Data Load
         loadPosts();
+        loadReviews();
     </script>
 </body>
 </html>
