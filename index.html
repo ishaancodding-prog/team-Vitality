@@ -19,7 +19,6 @@
     <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
     <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-    <!-- NAVBAR WITH FALLBACK LOGO -->
     <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 px-10 py-4 flex justify-between items-center shadow-lg">
         <div class="flex items-center gap-3 cursor-pointer" onclick="router.navigateTo('/')">
             <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950 text-lg shadow-lg shadow-cyan-500/20 overflow-hidden">
@@ -45,7 +44,6 @@
 
     <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-8 py-10 z-10"></main>
 
-    <!-- CLEAN FOOTER -->
     <footer class="border-t border-slate-900 bg-slate-950 py-8 px-10 z-10 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>© 2026 ABTalks Ecosystem • Made by Team : <strong>Vitality</strong></div>
         <div class="flex gap-6">
@@ -114,7 +112,6 @@
                         </button>
                     </div>
 
-                    <!-- Team Showcase Section (Fixed Image Fallback) -->
                     <div class="pt-10 border-t border-slate-900 grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
                         <div class="glass-card p-5 rounded-3xl flex items-center gap-4">
                             <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center font-bold text-cyan-400 shrink-0 overflow-hidden">
@@ -126,19 +123,19 @@
                             </div>
                         </div>
 
-                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover" onclick="router.navigateTo('/about')">
+                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover cursor-pointer" onclick="router.navigateTo('/about')">
                             <div class="text-xl">🎨</div>
                             <h4 class="font-bold text-white text-sm mt-1">Mahima</h4>
                             <p class="text-[11px] text-pink-400 font-semibold uppercase tracking-wider">Designer</p>
                         </div>
 
-                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover" onclick="router.navigateTo('/about')">
+                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover cursor-pointer" onclick="router.navigateTo('/about')">
                             <div class="text-xl">🤖</div>
                             <h4 class="font-bold text-white text-sm mt-1">Diksha</h4>
                             <p class="text-[11px] text-indigo-400 font-semibold uppercase tracking-wider">AI chatbot</p>
                         </div>
 
-                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover" onclick="router.navigateTo('/about')">
+                        <div class="glass-card p-5 rounded-3xl text-center glass-card-hover cursor-pointer" onclick="router.navigateTo('/about')">
                             <div class="text-xl">💻</div>
                             <h4 class="font-bold text-white text-sm mt-1">Ishaan</h4>
                             <p class="text-[11px] text-cyan-400 font-semibold uppercase tracking-wider">frontend and Backend Developer</p>
@@ -148,7 +145,6 @@
             `;
         }
 
-        // SEPARATE ABOUT US SECTION
         function renderAbout() {
             return `
                 <div class="space-y-10 animate-fadeIn max-w-5xl mx-auto">
@@ -184,7 +180,6 @@
             `;
         }
 
-        // SEPARATE CONTACT US SECTION
         function renderContact() {
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto">
