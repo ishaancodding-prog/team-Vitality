@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABTalks - Sign In (Team Vitality Edition)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
+
+    <!-- Interactive Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <div class="glass-panel px-6 py-4 rounded-2xl border border-cyan-500/40 text-sm font-bold text-white shadow-2xl flex items-center gap-3">
+            <span id="toast-icon">✨</span>
+            <span id="toast-text">Notification message</span>
+        </div>
+    </div>
+
+    <!-- Background Glows -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+    <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+    <!-- Top Navbar Simplistic -->
+    <header class="border-b border-slate-900/80 bg-[#030712]/90 backdrop-blur-2xl px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-extrabold text-slate-950 text-lg shadow-lg shadow-cyan-500/25">
+                ⚡
+            </div>
+            <div>
+                <span class="font-extrabold tracking-widest text-base text-white">ABTALKS</span>
+                <span class="block text-[10px] text-cyan-400 font-bold tracking-widest uppercase">Team Vitality</span>
+            </div>
+        </div>
+        <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full font-bold">Secure Portal</span>
+    </header>
+
+    <!-- Main Sign In Card Container -->
+    <main class="flex-grow flex items-center justify-center px-6 py-12 z-10">
+        <div class="glass-panel p-8 sm:p-10 rounded-[2.5rem] w-full max-w-md space-y-6 border border-cyan-500/20 shadow-2xl relative overflow-hidden">
+            
+            <div class="space-y-2 text-center">
+                <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1 rounded-full uppercase tracking-wider">Member Access</span>
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">Welcome Back</h1>
+                <p class="text-slate-400 text-xs sm:text-sm">Sign in to access your ABTalks 60-Day Hub session.</p>
+            </div>
+
+            <form id="signin-form" onsubmit="handleSignIn(event)" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold uppercase text-slate-300 tracking-wider">College Email</label>
+                    <input type="email" id="email" required placeholder="student@university.ac.in" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition shadow-inner">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-bold uppercase text-slate-300 tracking-wider">Password</label>
+                    <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition shadow-inner">
+                </div>
+
+                <div class="flex items-center justify-between text-xs pt-1">
+                    <label class="flex items-center gap-2 cursor-pointer text-slate-400 hover:text-slate-300">
+                        <input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-cyan-500 focus:ring-0"> Remember me
+                    </label>
+                    <a href="#" onclick="showToast('Password reset link sent to your email!', '✉️'); return false;" class="text-cyan-400 hover:underline font-semibold">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-indigo-500 hover:opacity-95 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/25 mt-2">
+                    Sign In to Dashboard 🚀
+                </button>
+            </form>
+
+            <div class="text-center pt-2 border-t border-slate-800/80">
+                <p class="text-xs text-slate-500">Need help? Contact <span class="text-cyan-400 font-bold">Team Vitality</span> support.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-[#030712] py-6 px-8 text-center text-xs text-slate-500">
+        © 2026 ABTalks Ecosystem. Made by Team : <strong class="text-cyan-400">Vitality</strong>.
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        function showToast(msg, icon = "✨") {
+            const container = document.getElementById('toast-container');
+            const textBox = container.querySelector('#toast-text');
+            const iconBox = container.querySelector('#toast-icon');
+            
+            textBox.innerText = msg;
+            iconBox.innerText = icon;
+            
+            container.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            container.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                container.classList.remove('translate-y-0', 'opacity-100');
+                container.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3500);
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            if(email) {
+                showToast(`🎉 Welcome back, ${email}! Redirecting...`, '🚀');
+                setTimeout(() => {
+                    window.location.href = 'index.html#dashboard';
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
