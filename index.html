@@ -44,32 +44,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .interactive-tab {
-            transition: all 0.25s ease;
-        }
-        .interactive-tab:hover {
-            transform: scale(1.02);
-        }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- Toast Notification System -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-        <div id="toast-box" class="glass-panel px-6 py-4 rounded-2xl border border-cyan-500/40 text-sm font-bold text-white shadow-2xl flex items-center gap-3">
-            <span id="toast-icon">✨</span>
-            <span id="toast-text">Notification message</span>
-        </div>
-    </div>
-
-    <!-- Animated Background Orbs -->
+    <!-- Premium Animated Background Gradients -->
     <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none animate-pulse-slow"></div>
     <div class="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-slate-900/80 bg-[#030712]/90 backdrop-blur-2xl sticky top-0 z-40 px-8 lg:px-12 py-4 flex justify-between items-center shadow-2xl">
+    <header class="border-b border-slate-900/80 bg-[#030712]/90 backdrop-blur-2xl sticky top-0 z-50 px-8 lg:px-12 py-4 flex justify-between items-center shadow-2xl">
         <div class="flex items-center gap-3.5 cursor-pointer group" onclick="router.navigateTo('/')">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-pink-500 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-lg shadow-cyan-500/25 group-hover:scale-110 transition">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-pink-500 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-lg shadow-cyan-500/25 group-hover:scale-105 transition">
                 ⚡
             </div>
             <div>
@@ -99,7 +85,7 @@
     <!-- FOOTER -->
     <footer class="border-t border-slate-900 bg-[#030712] py-10 px-8 lg:px-12 z-10">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-            <div>© 2026 ABTalks Ecosystem. Crafted with interactive precision by Team : <strong class="text-cyan-400">Vitality</strong>.</div>
+            <div>© 2026 ABTalks Ecosystem. Crafted with precision by Team : <strong class="text-cyan-400">Vitality</strong>.</div>
             <div class="flex gap-6">
                 <a href="https://abtalks.in" target="_blank" class="hover:text-cyan-400 transition font-semibold">Official Platform</a>
                 <a href="#about" onclick="router.navigateTo('/about')" class="hover:text-cyan-400 transition font-semibold">About Us</a>
@@ -108,7 +94,7 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE ENGINE & STATE MANAGEMENT -->
+    <!-- APP ENGINE -->
     <script>
         const appState = {
             streakDays: 1,
@@ -122,38 +108,18 @@
             captchaNum2: Math.floor(Math.random() * 8) + 1,
             captchaInput: '',
             feedbacks: [
-                { name: "Aarav Mehta", role: "Full Stack Engineer", text: "Team Vitality's platform is super snappy and interactive. Tracking daily code challenges has never been this engaging!" },
-                { name: "Sneha Roy", role: "AI Student Developer", text: "The live quote cycler and instant submission feedback make this app stand out completely." }
+                { name: "Aarav Mehta", role: "Full Stack Engineer", text: "Team Vitality's platform completely transformed how I execute daily coding challenges. Absolute masterpiece!" },
+                { name: "Sneha Roy", role: "AI Student Developer", text: "The consistency tracker and UI aesthetics are top tier. Keeps me motivated post-college every single day." }
             ],
-            quotes: [
-                { quote: "Success isn't always about greatness. It's about consistency. Consistent hard work leads to success.", author: "Dwayne Johnson" },
-                { quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
-                { quote: "Small disciplines repeated with consistency every day lead to great achievements gained slowly over time.", author: "John C. Maxwell" },
-                { quote: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
-            ],
-            currentQuoteIdx: 0,
             toastMessage: null
         };
 
-        // Interactive Toast Trigger
-        function showToast(msg, icon = "✨") {
-            const container = document.getElementById('toast-container');
-            const textBox = document.getElementById('toast-text');
-            const iconBox = document.getElementById('toast-icon');
-            
-            textBox.innerText = msg;
-            iconBox.innerText = icon;
-            
-            container.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-            container.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                container.classList.remove('translate-y-0', 'opacity-100');
-                container.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-            }, 3500);
+        function showToast(msg) {
+            appState.toastMessage = msg;
+            render();
+            setTimeout(() => { appState.toastMessage = null; render(); }, 3500);
         }
 
-        // Router Setup
         const router = {
             currentRoute: '/',
             init() { 
@@ -174,24 +140,8 @@
             render();
         });
 
-        // Interactive Quote Cycler
-        function nextQuote() {
-            appState.currentQuoteIdx = (appState.currentQuoteIdx + 1) % appState.quotes.length;
-            const quoteEl = document.getElementById('dynamic-quote');
-            const authorEl = document.getElementById('dynamic-author');
-            if(quoteEl && authorEl) {
-                quoteEl.style.opacity = 0;
-                setTimeout(() => {
-                    quoteEl.innerText = `"${appState.quotes[appState.currentQuoteIdx].quote}"`;
-                    authorEl.innerText = `— ${appState.quotes[appState.currentQuoteIdx].author}`;
-                    quoteEl.style.opacity = 1;
-                }, 200);
-            }
-        }
-
-        // 1. INTERACTIVE LANDING PAGE
+        // 1. LANDING PAGE (Refined Ultra-Appealing Design)
         function renderLanding() {
-            const q = appState.quotes[appState.currentQuoteIdx];
             return `
                 <div class="space-y-20 animate-fadeIn py-6">
                     <!-- Hero Section -->
@@ -199,8 +149,8 @@
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-                        <div class="inline-flex items-center gap-2.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/25 px-5 py-2 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner cursor-pointer hover:bg-cyan-500/20 transition" onclick="showToast('Welcome to Team Vitality Hub!', '⚡')">
-                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span> Made by Team : Vitality • Interactive Edition
+                        <div class="inline-flex items-center gap-2.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/25 px-5 py-2 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span> Made by Team : Vitality • Day 1 Kickoff
                         </div>
                         
                         <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-5xl mx-auto">
@@ -221,21 +171,33 @@
                         </div>
                     </div>
 
-                    <!-- Interactive Consistency Quote Cycler -->
-                    <div class="space-y-6 pt-4 max-w-3xl mx-auto text-center">
-                        <div class="space-y-2">
-                            <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full uppercase tracking-widest">Interactive Motivation</span>
+                    <!-- Inspirational Consistency Quotes -->
+                    <div class="space-y-8 pt-4">
+                        <div class="text-center space-y-3">
+                            <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full uppercase tracking-widest">Daily Motivation</span>
                             <h2 class="text-3xl font-extrabold text-white tracking-tight">Wisdom on Consistency</h2>
                         </div>
-                        
-                        <div class="glass-panel p-8 lg:p-10 rounded-[2.5rem] space-y-6 relative overflow-hidden border border-cyan-500/30 shadow-2xl interactive-tab">
-                            <div class="absolute top-6 right-6 text-cyan-500/10 text-6xl font-serif font-bold">“</div>
-                            <p id="dynamic-quote" class="text-base lg:text-lg text-slate-200 italic leading-relaxed font-medium transition-opacity duration-200">"${q.quote}"</p>
-                            <div class="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <span id="dynamic-author" class="text-sm font-extrabold text-cyan-400 tracking-wider">— ${q.author}</span>
-                                <button onclick="nextQuote()" class="bg-cyan-500/15 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/30 px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2">
-                                    <span>Next Quote 🔄</span>
-                                </button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="glass-panel glass-panel-hover p-8 rounded-[2rem] space-y-4 relative overflow-hidden group">
+                                <div class="absolute top-6 right-6 text-cyan-500/15 text-5xl font-serif font-bold group-hover:text-cyan-500/30 transition">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed font-medium">"Success isn't always about greatness. It's about consistency. Consistent hard work leads to success."</p>
+                                <div class="pt-2 border-t border-slate-800/80">
+                                    <span class="block text-xs font-extrabold text-cyan-400 tracking-wider">— Dwayne Johnson</span>
+                                </div>
+                            </div>
+                            <div class="glass-panel glass-panel-hover p-8 rounded-[2rem] space-y-4 relative overflow-hidden group">
+                                <div class="absolute top-6 right-6 text-indigo-500/15 text-5xl font-serif font-bold group-hover:text-indigo-500/30 transition">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed font-medium">"We are what we repeatedly do. Excellence, then, is not an act, but a habit."</p>
+                                <div class="pt-2 border-t border-slate-800/80">
+                                    <span class="block text-xs font-extrabold text-indigo-400 tracking-wider">— Aristotle</span>
+                                </div>
+                            </div>
+                            <div class="glass-panel glass-panel-hover p-8 rounded-[2rem] space-y-4 relative overflow-hidden group">
+                                <div class="absolute top-6 right-6 text-pink-500/15 text-5xl font-serif font-bold group-hover:text-pink-500/30 transition">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed font-medium">"Small disciplines repeated with consistency every day lead to great achievements gained slowly over time."</p>
+                                <div class="pt-2 border-t border-slate-800/80">
+                                    <span class="block text-xs font-extrabold text-pink-400 tracking-wider">— John C. Maxwell</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -247,9 +209,9 @@
                             <h2 class="text-3xl font-extrabold text-white tracking-tight">Student Feedback & Reviews</h2>
                         </div>
 
-                        <div id="feedback-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             ${appState.feedbacks.map(fb => `
-                                <div class="glass-panel p-7 rounded-[2rem] space-y-4 interactive-tab">
+                                <div class="glass-panel p-7 rounded-[2rem] space-y-4">
                                     <div class="flex items-center justify-between">
                                         <h4 class="font-extrabold text-white text-base">${fb.name}</h4>
                                         <span class="text-[11px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/25 px-3 py-1 rounded-full font-bold">${fb.role}</span>
@@ -263,14 +225,14 @@
                         <div class="glass-panel p-8 rounded-[2.5rem] space-y-5 max-w-2xl mx-auto border border-cyan-500/20">
                             <div class="text-center space-y-1">
                                 <h3 class="text-lg font-extrabold text-white uppercase tracking-wider">Leave Your Feedback</h3>
-                                <p class="text-xs text-slate-400">Share your thoughts on Team Vitality's platform live.</p>
+                                <p class="text-xs text-slate-400">Share your thoughts on Team Vitality's platform.</p>
                             </div>
                             <div class="space-y-4">
                                 <input type="text" id="fbName" placeholder="Your Name / Role (e.g., Alex, Frontend Dev)" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
                                 <textarea id="fbText" rows="3" placeholder="Write your experience here..." class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
                             </div>
                             <button onclick="submitFeedback()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
-                                Post Feedback Live 🚀
+                                Post Feedback to Community 🚀
                             </button>
                         </div>
                     </div>
@@ -361,18 +323,18 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                    <input type="text" id="dashName" placeholder="Ishaan Thusoo" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400">
+                                    <input type="text" placeholder="Ishaan Thusoo" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email</label>
-                                    <input type="email" id="dashEmail" placeholder="student@university.ac.in" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400">
+                                    <input type="email" placeholder="student@university.ac.in" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400">
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Issue / Message</label>
-                                <textarea id="dashMsg" rows="3" placeholder="Describe your issue regarding submission..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 resize-none"></textarea>
+                                <textarea rows="3" placeholder="Describe your issue regarding submission..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 resize-none"></textarea>
                             </div>
-                            <button onclick="submitDashboardContact()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-3.5 px-8 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
+                            <button onclick="showToast('✅ Inquiry sent from Dashboard to Team Vitality!')" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 px-8 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
                                 Submit Support Ticket 📨
                             </button>
                         </div>
@@ -384,18 +346,6 @@
         function setDashboardTab(tab) {
             appState.dashboardTab = tab;
             render();
-        }
-
-        function submitDashboardContact() {
-            const name = document.getElementById('dashName').value;
-            if(!name) {
-                showToast('Please enter your name!', '⚠️');
-                return;
-            }
-            showToast(`✅ Support ticket successfully sent by ${name}!`, '📨');
-            document.getElementById('dashName').value = '';
-            document.getElementById('dashEmail').value = '';
-            document.getElementById('dashMsg').value = '';
         }
 
         // 3. DAY 1 CHALLENGE
@@ -450,7 +400,7 @@
             `;
         }
 
-        // 4. ABOUT US SECTION (Strictly Isolated Member Information)
+        // 4. ABOUT US SECTION (Strictly Isolated Member Information with Diksha as AI Engineer)
         function renderAbout() {
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
@@ -461,7 +411,7 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group interactive-tab">
+                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group">
                             <div class="w-16 h-16 rounded-2xl bg-pink-500/10 border border-pink-500/25 text-pink-400 flex items-center justify-center font-bold text-2xl mx-auto group-hover:scale-110 transition">🎨</div>
                             <div class="space-y-1">
                                 <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
@@ -470,7 +420,7 @@
                             <p class="text-slate-400 text-xs font-medium">Crafted intuitive layouts, visual aesthetics, and overall user experience.</p>
                         </div>
 
-                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group interactive-tab">
+                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group">
                             <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 flex items-center justify-center font-bold text-2xl mx-auto group-hover:scale-110 transition">🤖</div>
                             <div class="space-y-1">
                                 <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
@@ -479,7 +429,7 @@
                             <p class="text-slate-400 text-xs font-medium">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
                         </div>
 
-                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group interactive-tab">
+                        <div class="glass-panel glass-panel-hover p-8 rounded-[2.5rem] space-y-5 text-center group">
                             <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-bold text-2xl mx-auto group-hover:scale-110 transition">💻</div>
                             <div class="space-y-1">
                                 <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
@@ -506,18 +456,18 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" id="mainContactName" placeholder="Enter your name" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                <input type="text" placeholder="Enter your name" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" id="mainContactEmail" placeholder="student@college.edu" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                <input type="email" placeholder="student@college.edu" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message</label>
-                            <textarea id="mainContactMsg" rows="4" placeholder="How can we help you?" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
+                            <textarea rows="4" placeholder="How can we help you?" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
                         </div>
-                        <button onclick="submitMainContact()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-xl shadow-cyan-500/20">
+                        <button onclick="showToast('✅ Message sent to Team Vitality successfully!')" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-xl shadow-cyan-500/20">
                             Send Message to Team Vitality 🚀
                         </button>
                     </div>
@@ -525,29 +475,17 @@
             `;
         }
 
-        function submitMainContact() {
-            const name = document.getElementById('mainContactName').value;
-            if(!name) {
-                showToast('Please enter your name!', '⚠️');
-                return;
-            }
-            showToast(`✅ Thank you ${name}! Message delivered to Team Vitality.`, '📬');
-            document.getElementById('mainContactName').value = '';
-            document.getElementById('mainContactEmail').value = '';
-            document.getElementById('mainContactMsg').value = '';
-        }
-
         function submitFeedback() {
             const name = document.getElementById('fbName').value.trim();
             const text = document.getElementById('fbText').value.trim();
             if (!name || !text) {
-                showToast('❌ Please fill in both your name and feedback.', '⚠️');
+                showToast('❌ Please fill in both your name and feedback.');
                 return;
             }
             appState.feedbacks.unshift({ name, role: "Community User", text });
             document.getElementById('fbName').value = '';
             document.getElementById('fbText').value = '';
-            showToast('✅ Thank you! Your feedback has been posted live.', '🌟');
+            showToast('✅ Thank you! Your feedback has been posted.');
             render();
         }
 
@@ -564,13 +502,13 @@
             const captchaVal = parseInt(document.getElementById('captchaInput').value);
 
             if (!gh || !li) {
-                showToast('Please provide both GitHub and LinkedIn URLs.', '⚠️');
+                showToast('Please provide both GitHub and LinkedIn URLs.');
                 return;
             }
 
             const expectedAnswer = appState.captchaNum1 + appState.captchaNum2;
             if (isNaN(captchaVal) || captchaVal !== expectedAnswer) {
-                showToast('❌ Incorrect CAPTCHA answer. Please try again.', '⚠️');
+                showToast('❌ Incorrect CAPTCHA answer. Please try again.');
                 refreshCaptcha();
                 return;
             }
@@ -578,7 +516,7 @@
             appState.isSubmitted = true;
             appState.streakDays = 1;
             appState.synergyPoints += 50;
-            showToast('🎉 Day 1 Verified! Streak ignited & +50 Synergy Points added.', '🔥');
+            showToast('🎉 Day 1 Verified! Streak ignited & +50 Synergy Points added.');
             setTimeout(() => router.navigateTo('/dashboard'), 1500);
         }
 
