@@ -46,7 +46,7 @@
         }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
 
     <!-- Premium Animated Background Gradients -->
     <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none animate-pulse-slow"></div>
@@ -104,6 +104,7 @@
             isSubmitted: false,
             synergyPoints: 50,
             dashboardTab: 'tasks',
+            selectedCalendarDay: 1, // Track which day is selected in the calendar view
             captchaNum1: Math.floor(Math.random() * 8) + 2,
             captchaNum2: Math.floor(Math.random() * 8) + 1,
             captchaInput: '',
@@ -140,11 +141,10 @@
             render();
         });
 
-        // 1. LANDING PAGE (Refined Ultra-Appealing Design)
+        // 1. LANDING PAGE
         function renderLanding() {
             return `
                 <div class="space-y-20 animate-fadeIn py-6">
-                    <!-- Hero Section -->
                     <div class="glass-panel p-10 lg:p-16 rounded-[2.5rem] relative overflow-hidden text-center space-y-8 border border-cyan-500/20 shadow-2xl">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -171,7 +171,6 @@
                         </div>
                     </div>
 
-                    <!-- Inspirational Consistency Quotes -->
                     <div class="space-y-8 pt-4">
                         <div class="text-center space-y-3">
                             <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full uppercase tracking-widest">Daily Motivation</span>
@@ -202,7 +201,6 @@
                         </div>
                     </div>
 
-                    <!-- Community Feedback Section -->
                     <div class="space-y-8 pt-6 border-t border-slate-900">
                         <div class="text-center space-y-3">
                             <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full uppercase tracking-widest">Testimonials</span>
@@ -221,27 +219,78 @@
                             `).join('')}
                         </div>
 
-                        <!-- Add Feedback Form -->
                         <div class="glass-panel p-8 rounded-[2.5rem] space-y-5 max-w-2xl mx-auto border border-cyan-500/20">
                             <div class="text-center space-y-1">
                                 <h3 class="text-lg font-extrabold text-white uppercase tracking-wider">Leave Your Feedback</h3>
                                 <p class="text-xs text-slate-400">Share your thoughts on Team Vitality's platform.</p>
-                            </div>
-                            <div class="space-y-4">
-                                <input type="text" id="fbName" placeholder="Your Name / Role (e.g., Alex, Frontend Dev)" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                                <textarea id="fbText" rows="3" placeholder="Write your experience here..." class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
-                            </div>
-                            <button onclick="submitFeedback()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
-                                Post Feedback to Community 🚀
-                            </button>
+                          </div>
+                          <div class="space-y-4">
+                              <input type="text" id="fbName" placeholder="Your Name / Role (e.g., Alex, Frontend Dev)" class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                              <textarea id="fbText" rows="3" placeholder="Write your experience here..." class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
                         </div>
+                        <button onclick="submitFeedback()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold py-4 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
+                            Post Feedback to Community 🚀
+                        </button>
                     </div>
                 </div>
             `;
         }
 
-        // 2. DASHBOARD VIEW
+        // 2. DASHBOARD VIEW WITH INTERACTIVE DAY-WISE CALENDAR
         function renderDashboard() {
+            // Generate array of 60 days for calendar
+            let daysHtml = '';
+            for (let i = 1; i <= 60; i++) {
+                const isSelected = appState.selectedCalendarDay === i;
+                const isUnlocked = i === 1; // Day 1 is unlocked by default
+                
+                let btnClasses = "p-3 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 border ";
+                if (isSelected) {
+                    btnClasses += "bg-cyan-500 text-slate-950 border-cyan-400 shadow-lg shadow-cyan-500/30 scale-105 z-10";
+                } else if (isUnlocked) {
+                    btnClasses += "bg-slate-900/90 text-cyan-400 border-cyan-500/30 hover:border-cyan-400 hover:bg-slate-800";
+                } else {
+                    btnClasses += "bg-slate-950/40 text-slate-600 border-slate-900/80 cursor-not-allowed";
+                }
+
+                daysHtml += `
+                    <button onclick="${isUnlocked ? `selectCalendarDay(${i})` : `showToast('🔒 Day ${i} unlocks after completing previous days!')`}" class="${btnClasses}">
+                        <span>Day ${i}</span>
+                        <span class="text-[9px] ${isSelected ? 'text-slate-900 font-bold' : (isUnlocked ? 'text-emerald-400' : 'text-slate-600')}">${i === 1 ? '✓ Done' : 'Locked'}</span>
+                    </button>
+                `;
+            }
+
+            // Content for the selected day in calendar view
+            let selectedDayContent = '';
+            if (appState.selectedCalendarDay === 1) {
+                selectedDayContent = `
+                    <div class="space-y-4 animate-fadeIn">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-cyan-400 uppercase tracking-widest">Day 1 Details • Completed Work</span>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3.5 py-1 rounded-full font-bold">Verified ✓</span>
+                        </div>
+                        <h4 class="text-xl font-extrabold text-white">Environment Setup & Hello World</h4>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                            Initialized public GitHub repository, configured development environment, established Team Vitality layout structure, and published the initial core framework.
+                        </p>
+                        <div class="pt-2 flex gap-3">
+                            <button onclick="router.navigateTo('/day/1')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 font-bold px-4 py-2 rounded-xl text-xs transition">
+                                View Day 1 Submission Form →
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                selectedDayContent = `
+                    <div class="space-y-4 animate-fadeIn text-center py-8">
+                        <span class="text-3xl">🔒</span>
+                        <h4 class="text-lg font-extrabold text-white">Day ${appState.selectedCalendarDay} Preview</h4>
+                        <p class="text-slate-400 text-xs max-w-md mx-auto">This milestone unlocks progressively as you advance through your 60-day public coding challenge streak.</p>
+                    </div>
+                `;
+            }
+
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 p-6 rounded-[2rem] flex items-center gap-5 backdrop-blur-xl">
@@ -268,31 +317,39 @@
                     </div>
 
                     <div class="glass-panel p-2.5 rounded-2xl flex flex-wrap gap-2">
-                        <button onclick="setDashboardTab('tasks')" class="flex-1 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl transition ${appState.dashboardTab === 'tasks' ? 'bg-cyan-500 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">📋 Today's Task</button>
+                        <button onclick="setDashboardTab('tasks')" class="flex-1 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl transition ${appState.dashboardTab === 'tasks' ? 'bg-cyan-500 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">📋 Day-Wise Calendar</button>
                         <button onclick="setDashboardTab('leaderboard')" class="flex-1 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl transition ${appState.dashboardTab === 'leaderboard' ? 'bg-cyan-500 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">🏆 Leaderboard</button>
                         <button onclick="setDashboardTab('contact')" class="flex-1 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl transition ${appState.dashboardTab === 'contact' ? 'bg-cyan-500 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">📬 Dashboard Contact Us</button>
                     </div>
 
-                    ${renderDashboardTabContent()}
+                    ${renderDashboardTabContent(daysHtml, selectedDayContent)}
                 </div>
             `;
         }
 
-        function renderDashboardTabContent() {
+        function renderDashboardTabContent(daysHtml, selectedDayContent) {
             if (appState.dashboardTab === 'tasks') {
                 return `
-                    <div class="glass-panel p-8 lg:p-10 rounded-[2.5rem] space-y-6">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-extrabold text-cyan-400 uppercase tracking-widest">Active Task • Day 1 of 60</span>
-                            <span class="text-xs ${appState.isSubmitted ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'} border px-4 py-1.5 rounded-full font-bold">
-                                ${appState.isSubmitted ? 'Verified ✓' : 'Pending'}
-                            </span>
+                    <div class="space-y-6">
+                        <!-- Day-Wise Interactive Calendar Grid -->
+                        <div class="glass-panel p-8 rounded-[2.5rem] space-y-6">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                <div>
+                                    <h3 class="text-xl font-extrabold text-white">60-Day Challenge Calendar</h3>
+                                    <p class="text-xs text-slate-400">Click any unlocked day below to inspect completed work and logs.</p>
+                                </div>
+                                <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
+                            </div>
+
+                            <div class="grid grid-cols-5 sm:grid-cols-10 gap-2.5 max-h-72 overflow-y-auto pr-2">
+                                ${daysHtml}
+                            </div>
                         </div>
-                        <h3 class="font-extrabold text-2xl lg:text-3xl text-white">Environment Setup & Hello World</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">Initialize your public GitHub repository, configure your development environment, and deploy your Day 1 task.</p>
-                        <button onclick="router.navigateTo('/day/1')" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold px-8 py-4 rounded-2xl text-sm transition shadow-lg shadow-cyan-500/20">
-                            Open Day 1 Submission Portal →
-                        </button>
+
+                        <!-- Selected Day Inspector Box -->
+                        <div class="glass-panel p-8 rounded-[2.5rem] border border-cyan-500/30">
+                            ${selectedDayContent}
+                        </div>
                     </div>
                 `;
             } else if (appState.dashboardTab === 'leaderboard') {
@@ -348,6 +405,11 @@
             render();
         }
 
+        function selectCalendarDay(day) {
+            appState.selectedCalendarDay = day;
+            render();
+        }
+
         // 3. DAY 1 CHALLENGE
         function renderDayChallenge() {
             return `
@@ -377,7 +439,7 @@
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
                                 <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400">
                             </div>
-                            
+                             
                             <div class="bg-slate-950/90 border border-slate-800 p-5 rounded-2xl space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs uppercase font-extrabold text-slate-300">Security Math Verification</span>
@@ -400,7 +462,7 @@
             `;
         }
 
-        // 4. ABOUT US SECTION (Strictly Isolated Member Information with Diksha as AI Engineer)
+        // 4. ABOUT US SECTION
         function renderAbout() {
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
