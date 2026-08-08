@@ -24,7 +24,7 @@
     <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 px-10 py-4 flex justify-between items-center shadow-lg">
         <div class="flex items-center gap-3 cursor-pointer" onclick="router.navigateTo('/')">
             <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950 text-lg shadow-lg shadow-cyan-500/20 overflow-hidden">
-                <img src="image_d95b75.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                <img src="image_d71db8.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
             </div>
             <div>
                 <span class="font-extrabold tracking-wider text-base bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">ABTALKS</span>
@@ -73,6 +73,12 @@
             captchaNum1: Math.floor(Math.random() * 8) + 2,
             captchaNum2: Math.floor(Math.random() * 8) + 1,
             captchaInput: '',
+            feedbacks: [
+                { name: "Aarav Mehta", role: "Full Stack Engineer", text: "Team Vitality's platform completely changed how I track daily coding progress. The interface is exceptionally clean!" },
+                { name: "Sneha Roy", role: "AI Student Developer", text: "Love the streak mechanism and consistency quotes on the landing page. Keeps me motivated post-college every single day." }
+            ],
+            newFeedbackName: '',
+            newFeedbackText: '',
             toastMessage: null
         };
 
@@ -102,10 +108,11 @@
             render();
         });
 
-        // 1. CLEAN LANDING PAGE (NO team cards on home page)
+        // 1. LANDING PAGE (With Logo Image, Consistency Quotes, and Feedback Section)
         function renderLanding() {
             return `
-                <div class="space-y-12 animate-fadeIn py-6">
+                <div class="space-y-16 animate-fadeIn py-6">
+                    <!-- Hero Section -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         <div class="lg:col-span-7 space-y-6">
                             <div class="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full text-xs font-bold">
@@ -127,12 +134,72 @@
                             </div>
                         </div>
 
+                        <!-- Inserted Logo Image (image_d71db8.jpg) -->
                         <div class="lg:col-span-5 flex justify-center">
-                            <div class="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl p-4 glass-card max-w-sm text-center space-y-3">
-                                <img src="image_d95b75.jpg" alt="Team Vitality Badge" class="w-full h-48 object-cover rounded-2xl border border-cyan-500/30 shadow-md" onerror="this.style.display='none'">
-                                <h3 class="text-sm font-bold text-cyan-400 uppercase tracking-wider">Official Hackathon Entry</h3>
-                                <p class="text-xs text-slate-400">Made by Team : Vitality</p>
+                            <div class="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl p-5 glass-card max-w-sm text-center space-y-4">
+                                <img src="image_d71db8.jpg" alt="Team Vitality Hackathon Logo" class="w-full h-56 object-cover rounded-2xl border border-cyan-500/30 shadow-md" onerror="this.style.display='none'">
+                                <div class="space-y-1">
+                                    <h3 class="text-sm font-extrabold text-cyan-400 uppercase tracking-wider">Vitality Hackathon Edition</h3>
+                                    <p class="text-xs text-slate-400">Official Redesign Entry by Team : Vitality</p>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Consistency Quotes Section -->
+                    <div class="space-y-6 pt-6 border-t border-slate-900">
+                        <div class="text-center space-y-2">
+                            <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1.5 rounded-full uppercase tracking-widest">Daily Motivation</span>
+                            <h2 class="text-2xl font-extrabold text-white">Wisdom on Consistency</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="glass-card p-6 rounded-3xl space-y-3 relative overflow-hidden">
+                                <div class="absolute top-4 right-4 text-cyan-500/20 text-4xl font-serif">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed">"Success isn't always about greatness. It's about consistency. Consistent hard work leads to success."</p>
+                                <span class="block text-xs font-bold text-cyan-400">— Dwayne Johnson</span>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl space-y-3 relative overflow-hidden">
+                                <div class="absolute top-4 right-4 text-indigo-500/20 text-4xl font-serif">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed">"We are what we repeatedly do. Excellence, then, is not an act, but a habit."</p>
+                                <span class="block text-xs font-bold text-indigo-400">— Aristotle</span>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl space-y-3 relative overflow-hidden">
+                                <div class="absolute top-4 right-4 text-emerald-500/20 text-4xl font-serif">“</div>
+                                <p class="text-sm text-slate-300 italic leading-relaxed">"Small disciplines repeated with consistency every day lead to great achievements gained slowly over time."</p>
+                                <span class="block text-xs font-bold text-emerald-400">— John C. Maxwell</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Community Feedback Section -->
+                    <div class="space-y-6 pt-6 border-t border-slate-900">
+                        <div class="text-center space-y-2">
+                            <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1.5 rounded-full uppercase tracking-widest">Testimonials</span>
+                            <h2 class="text-2xl font-extrabold text-white">Student Feedback & Reviews</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            ${appState.feedbacks.map(fb => `
+                                <div class="glass-card p-6 rounded-3xl space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-white text-sm">${fb.name}</h4>
+                                        <span class="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2.5 py-1 rounded-full font-semibold">${fb.role}</span>
+                                    </div>
+                                    <p class="text-slate-300 text-xs leading-relaxed">"${fb.text}"</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Add Feedback Form -->
+                        <div class="glass-card p-6 rounded-3xl space-y-4 max-w-2xl mx-auto">
+                            <h3 class="text-sm font-extrabold text-white uppercase tracking-wider text-center">Leave Your Feedback</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <input type="text" id="fbName" placeholder="Your Name / Role" class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <input type="text" id="fbText" placeholder="Your feedback statement..." class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                            <button onclick="submitFeedback()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition shadow-md">
+                                Post Feedback to Community
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -363,6 +430,20 @@
                     </div>
                 </div>
             `;
+        }
+
+        function submitFeedback() {
+            const name = document.getElementById('fbName').value.trim();
+            const text = document.getElementById('fbText').value.trim();
+            if (!name || !text) {
+                showToast('❌ Please fill in both name and feedback text.');
+                return;
+            }
+            appState.feedbacks.unshift({ name, role: "Community User", text });
+            document.getElementById('fbName').value = '';
+            document.getElementById('fbText').value = '';
+            showToast('✅ Thank you! Your feedback has been posted.');
+            render();
         }
 
         function refreshCaptcha() {
