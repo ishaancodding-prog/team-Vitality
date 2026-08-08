@@ -16,29 +16,29 @@ public class SignInPage extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        // Main Panel with Gradient Background simulation
+        // Main Panel with Dark Background
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(new Color(3, 7, 18)); // Deep Slate #030712
+        mainPanel.setBackground(new Color(3, 7, 18)); // #030712 Deep Slate
         mainPanel.setLayout(null);
 
         // Title Label
         JLabel titleLabel = new JLabel("Welcome Back");
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Plus Jakarta Sans", Font.BOLD, 26));
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 26));
         titleLabel.setBounds(50, 40, 300, 35);
         mainPanel.add(titleLabel);
 
         // Subtitle Label
         JLabel subtitleLabel = new JLabel("Sign in to your ABTalks 60-Day Hub");
         subtitleLabel.setForeground(new Color(148, 163, 184)); // Slate-400
-        subtitleLabel.setFont(new Font("Plus Jakarta Sans", Font.PLAIN, 13));
+        subtitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
         subtitleLabel.setBounds(50, 75, 300, 20);
         mainPanel.add(subtitleLabel);
 
         // Email Label & Field
         JLabel emailLabel = new JLabel("COLLEGE EMAIL");
         emailLabel.setForeground(new Color(34, 211, 238)); // Cyan-400
-        emailLabel.setFont(new Font("Plus Jakarta Sans", Font.BOLD, 11));
+        emailLabel.setFont(new Font("SansSerif", Font.BOLD, 11));
         emailLabel.setBounds(50, 130, 300, 20);
         mainPanel.add(emailLabel);
 
@@ -47,14 +47,14 @@ public class SignInPage extends JFrame {
         emailField.setBackground(new Color(15, 23, 42)); // Slate-900
         emailField.setForeground(Color.WHITE);
         emailField.setCaretColor(Color.WHITE);
-        emailField.setFont(new Font("Plus Jakarta Sans", Font.PLAIN, 14));
+        emailField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         emailField.setBorder(BorderFactory.createLineBorder(new Color(30, 41, 59), 2));
         mainPanel.add(emailField);
 
         // Password Label & Field
         JLabel passwordLabel = new JLabel("PASSWORD");
         passwordLabel.setForeground(new Color(34, 211, 238));
-        passwordLabel.setFont(new Font("Plus Jakarta Sans", Font.BOLD, 11));
+        passwordLabel.setFont(new Font("SansSerif", Font.BOLD, 11));
         passwordLabel.setBounds(50, 220, 300, 20);
         mainPanel.add(passwordLabel);
 
@@ -63,7 +63,7 @@ public class SignInPage extends JFrame {
         passwordField.setBackground(new Color(15, 23, 42));
         passwordField.setForeground(Color.WHITE);
         passwordField.setCaretColor(Color.WHITE);
-        passwordField.setFont(new Font("Plus Jakarta Sans", Font.PLAIN, 14));
+        passwordField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         passwordField.setBorder(BorderFactory.createLineBorder(new Color(30, 41, 59), 2));
         mainPanel.add(passwordField);
 
@@ -72,7 +72,7 @@ public class SignInPage extends JFrame {
         signInButton.setBounds(50, 325, 305, 45);
         signInButton.setBackground(new Color(6, 182, 212)); // Cyan-500
         signInButton.setForeground(new Color(3, 7, 18));
-        signInButton.setFont(new Font("Plus Jakarta Sans", Font.BOLD, 14));
+        signInButton.setFont(new Font("SansSerif", Font.BOLD, 14));
         signInButton.setFocusPainted(false);
         signInButton.setBorder(null);
         signInButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -96,7 +96,7 @@ public class SignInPage extends JFrame {
         // Footer Brand Note
         JLabel footerLabel = new JLabel("Made by Team : Vitality");
         footerLabel.setForeground(new Color(100, 116, 139));
-        footerLabel.setFont(new Font("Plus Jakarta Sans", Font.PLAIN, 11));
+        footerLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
         footerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         footerLabel.setBounds(50, 415, 305, 20);
         mainPanel.add(footerLabel);
@@ -105,7 +105,6 @@ public class SignInPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Run look and feel settings
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception ignored) {}
