@@ -53,6 +53,19 @@
         .animate-slide {
             animation: slideFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        /* Custom About Us Animations */
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.5); }
+        }
+        .animate-float-1 { animation: floatCard 4s ease-in-out infinite, pulseGlow 3s ease-in-out infinite; }
+        .animate-float-2 { animation: floatCard 4.5s ease-in-out infinite 0.5s, pulseGlow 3s ease-in-out infinite 1s; }
+        .animate-float-3 { animation: floatCard 5s ease-in-out infinite 1s, pulseGlow 3s ease-in-out infinite 2s; }
+        
         .star-rating span {
             cursor: pointer;
             transition: color 0.2s ease;
@@ -65,9 +78,9 @@
 </head>
 <body class="bg-[#050102] text-slate-100 antialiased selection:bg-red-600 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Deep Crimson Ambient Lighting -->
-    <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-red-600/20 rounded-full blur-[200px] pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-rose-800/20 rounded-full blur-[200px] pointer-events-none"></div>
+    <!-- Ambient Lighting (Crimson & Red) -->
+    <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-red-600/15 rounded-full blur-[200px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-rose-700/15 rounded-full blur-[200px] pointer-events-none"></div>
 
     <!-- NAVBAR -->
     <header class="border-b border-red-600/25 bg-[#050102]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
@@ -591,7 +604,89 @@
             `;
         }
 
-        // 6. SIGN UP / LOGIN PAGE (/signin)
+        // 6. ANIMATED ABOUT US SECTION (/about) with floating cards and pulsing glow effects
+        function renderAbout() {
+            return `
+                <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
+                    <div class="text-center space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-600/15 border border-red-600/40 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
+                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
+                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
+                    </div>
+
+                    <!-- Animated Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center animate-float-1">
+                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-red-600/30">🎨</div>
+                            <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Designer</p>
+                            <p class="text-slate-400 text-xs font-normal">Crafted intuitive layouts, visual aesthetics, and refined user experiences.</p>
+                        </div>
+
+                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center animate-float-2">
+                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-red-600/30">🤖</div>
+                            <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">AI Specialist</p>
+                            <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
+                        </div>
+
+                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center animate-float-3">
+                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-red-600/30">💻</div>
+                            <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
+                            <p class="text-slate-400 text-xs font-normal">Developed full-stack architecture, routing mechanics, and application logic.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 7. CONTACT US SECTION (/contact)
+        function renderContact() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
+                    <div class="text-center space-y-3">
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-600/15 border border-red-600/40 px-4 py-1.5 rounded-full">Get In Touch</span>
+                        <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
+                        <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
+                    </div>
+
+                    <div class="crimson-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
+                                <input type="text" placeholder="Enter your name" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
+                                <input type="email" placeholder="student@university.ac.in" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Platform Experience Rating</label>
+                            <div class="star-rating flex gap-3 text-3xl text-slate-600" id="starRatingContainer">
+                                <span onclick="setRating(1)" class="${appState.selectedRating >= 1 ? 'active' : ''}">★</span>
+                                <span onclick="setRating(2)" class="${appState.selectedRating >= 2 ? 'active' : ''}">★</span>
+                                <span onclick="setRating(3)" class="${appState.selectedRating >= 3 ? 'active' : ''}">★</span>
+                                <span onclick="setRating(4)" class="${appState.selectedRating >= 4 ? 'active' : ''}">★</span>
+                                <span onclick="setRating(5)" class="${appState.selectedRating >= 5 ? 'active' : ''}">★</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
+                            <textarea rows="4" placeholder="How can we assist you?" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 resize-none"></textarea>
+                        </div>
+                        <button onclick="showToast('⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="crimson-btn w-full py-4 rounded-2xl text-base">
+                            Submit Feedback & Rating ⚡
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 8. SIGN UP / LOGIN PAGE (/signin)
         function renderSignIn() {
             const isLogin = appState.authMode === 'login';
             return `
@@ -675,87 +770,6 @@
             appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
             showToast(isLogin ? `🔑 Login successful! Welcome back, ${nameVal}.` : `⚡ Registration complete! Welcome, ${nameVal}.`);
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
-        }
-
-        // 7. ABOUT US SECTION (/about)
-        function renderAbout() {
-            return `
-                <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
-                    <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-600/15 border border-red-600/40 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
-                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
-                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">🎨</div>
-                            <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
-                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Designer</p>
-                            <p class="text-slate-400 text-xs font-normal">Crafted intuitive layouts, visual aesthetics, and refined user experiences.</p>
-                        </div>
-
-                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">🤖</div>
-                            <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
-                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">AI Specialist</p>
-                            <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
-                        </div>
-
-                        <div class="crimson-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border border-red-600/40 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">💻</div>
-                            <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
-                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
-                            <p class="text-slate-400 text-xs font-normal">Developed full-stack architecture, routing mechanics, and application logic.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 8. CONTACT US SECTION (/contact)
-        function renderContact() {
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
-                    <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-600/15 border border-red-600/40 px-4 py-1.5 rounded-full">Get In Touch</span>
-                        <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
-                        <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
-                    </div>
-
-                    <div class="crimson-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" placeholder="Enter your name" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" placeholder="student@university.ac.in" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Platform Experience Rating</label>
-                            <div class="star-rating flex gap-3 text-3xl text-slate-600" id="starRatingContainer">
-                                <span onclick="setRating(1)" class="${appState.selectedRating >= 1 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(2)" class="${appState.selectedRating >= 2 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(3)" class="${appState.selectedRating >= 3 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(4)" class="${appState.selectedRating >= 4 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(5)" class="${appState.selectedRating >= 5 ? 'active' : ''}">★</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea rows="4" placeholder="How can we assist you?" class="w-full bg-red-950/40 border border-red-600/40 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 resize-none"></textarea>
-                        </div>
-                        <button onclick="showToast('⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="crimson-btn w-full py-4 rounded-2xl text-base">
-                            Submit Feedback & Rating ⚡
-                        </button>
-                    </div>
-                </div>
-            `;
         }
 
         function setRating(stars) {
