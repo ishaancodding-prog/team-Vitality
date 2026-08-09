@@ -90,7 +90,7 @@
             <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-purple-950/40 border border-purple-500/20 px-4 py-2 rounded-xl font-mono text-xs text-purple-300 font-bold">
                 <span>🕒</span> <span id="clockText">00:00:00 AM</span>
             </div>
-            <button onclick="router.navigateTo('/signin')" class="bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 px-4 py-2 rounded-xl text-xs font-bold transition text-purple-300">
+            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 px-4 py-2 rounded-xl text-xs font-bold transition text-purple-300">
                 Sign In ✦
             </button>
         </div>
@@ -98,6 +98,13 @@
 
     <!-- MAIN ROUTER CONTAINER -->
     <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-20 py-12 z-10"></main>
+
+    <!-- TOAST NOTIFICATION POPUP -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <div id="toastMessageContent" class="royal-card px-6 py-3.5 rounded-2xl border border-purple-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
+            <span class="text-purple-400">✦</span> <span id="toastText">Notification message</span>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="border-t border-purple-500/15 bg-[#090514] py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
@@ -129,18 +136,25 @@
             captchaNum1: 4,
             captchaNum2: 3,
             captchaInput: '',
-            currentUser: null,
+            currentUser: null, // Fixed sign-in state tracking
             chatMessages: [
                 { sender: 'ai', text: "Welcome to the Royal Amethyst Hub! I'm your AI Mentor powered by Team Vitality. Ask me for architecture insights, debugging help, or challenge tips." }
             ],
-            chatInput: '',
-            toastMessage: null
+            chatInput: ''
         };
 
         function showToast(msg) {
-            appState.toastMessage = msg;
-            render();
-            setTimeout(() => { appState.toastMessage = null; render(); }, 3500);
+            const container = document.getElementById('toastContainer');
+            const textEl = document.getElementById('toastText');
+            if (container && textEl) {
+                textEl.innerText = msg;
+                container.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+                container.classList.add('translate-y-0', 'opacity-100');
+                setTimeout(() => {
+                    container.classList.remove('translate-y-0', 'opacity-100');
+                    container.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                }, 3500);
+            }
         }
 
         // 12-Hour Clock Implementation
@@ -152,7 +166,7 @@
             const ampm = hours >= 12 ? 'PM' : 'AM';
             
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12; 
             const formattedHours = String(hours).padStart(2, '0');
 
             const timeString = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
@@ -217,7 +231,7 @@
                         <div class="royal-card p-6 rounded-[2.5rem] space-y-3">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-sm">📊</div>
                             <h3 class="text-base font-extrabold text-white">Deep Analytics</h3>
-                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics.</p>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics from zero.</p>
                         </div>
                         <div class="royal-card p-6 rounded-[2.5rem] space-y-3">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-sm">📚</div>
@@ -267,9 +281,9 @@
                         <div class="flex items-center gap-6 text-center sm:text-left">
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}&backgroundColor=7c3aed" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-purple-500/20 border border-purple-400/40 p-1">
                             <div class="space-y-1">
-                                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Verified Scholar</span>
+                                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
                                 <h2 class="text-2xl font-extrabold text-white">${userName}</h2>
-                                <p class="text-xs text-slate-400 font-medium">Govind Ballabh Pant University • AI & Full Stack Track</p>
+                                <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
@@ -371,8 +385,9 @@
             `;
         }
 
-        // 4. ANALYTICS & STATS SCREEN (/analytics)
+        // 4. ANALYTICS & STATS SCREEN (/analytics - Started from ZERO as requested)
         function renderAnalytics() {
+            const hasStarted = appState.isSubmitted;
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
@@ -384,18 +399,18 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="royal-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Commit Velocity</span>
-                            <div class="text-3xl font-extrabold text-white">1.2 / day</div>
-                            <span class="text-[11px] text-purple-400 font-bold">+15% vs cohort average</span>
+                            <div class="text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
+                            <span class="text-[11px] text-purple-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
                         </div>
                         <div class="royal-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Consistency Score</span>
-                            <div class="text-3xl font-extrabold text-purple-300">98.4%</div>
-                            <span class="text-[11px] text-purple-400 font-bold">12 Days Active Streak</span>
+                            <div class="text-3xl font-extrabold text-purple-300">${hasStarted ? '100%' : '0%'}</div>
+                            <span class="text-[11px] text-purple-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
                         </div>
                         <div class="royal-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Recruiter Visibility</span>
-                            <div class="text-3xl font-extrabold text-indigo-300">High Tier</div>
-                            <span class="text-[11px] text-indigo-400 font-bold">Profile viewed 14 times</span>
+                            <div class="text-3xl font-extrabold text-indigo-300">${hasStarted ? 'Active' : 'Unranked'}</div>
+                            <span class="text-[11px] text-indigo-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
                         </div>
                     </div>
 
@@ -403,16 +418,16 @@
                         <h3 class="text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
                         <div class="space-y-3 text-xs">
                             <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>JavaScript / TypeScript</span><span>55%</span></div>
-                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-purple-400 h-full w-[55%] rounded-full"></div></div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>JavaScript / TypeScript</span><span>${hasStarted ? '50%' : '0%'}</span></div>
+                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-purple-400 h-full ${hasStarted ? 'w-[50%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>Python & AI Integration</span><span>30%</span></div>
-                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-indigo-400 h-full w-[30%] rounded-full"></div></div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>Python & AI Integration</span><span>${hasStarted ? '30%' : '0%'}</span></div>
+                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-indigo-400 h-full ${hasStarted ? 'w-[30%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>HTML / CSS / Tailwind</span><span>15%</span></div>
-                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-pink-400 h-full w-[15%] rounded-full"></div></div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>HTML / CSS / Tailwind</span><span>${hasStarted ? '20%' : '0%'}</span></div>
+                                <div class="w-full bg-purple-950/60 h-3 rounded-full overflow-hidden border border-purple-500/20"><div class="bg-pink-400 h-full ${hasStarted ? 'w-[20%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                         </div>
                     </div>
@@ -503,7 +518,7 @@
             }, 800);
         }
 
-        // 7. SIGN IN PAGE (/signin)
+        // 7. SIGN IN PAGE (/signin) - Bug Fixed
         function renderSignIn() {
             return `
                 <div class="space-y-6 animate-fadeIn max-w-md mx-auto py-8">
@@ -677,6 +692,16 @@
             else if (route === '/about') html = renderAbout();
             else if (route === '/contact') html = renderContact();
             document.getElementById('app-router').innerHTML = html;
+
+            // Update Auth button text dynamically based on session status
+            const authBtn = document.getElementById('nav-auth-btn');
+            if (authBtn) {
+                if (appState.currentUser) {
+                    authBtn.innerText = `👤 ${appState.currentUser.name.split(' ')[0]}`;
+                } else {
+                    authBtn.innerText = 'Sign In ✦';
+                }
+            }
 
             ['/', '/dashboard', '/day/1', '/analytics', '/resources', '/aichat', '/signin', '/about', '/contact'].forEach(r => {
                 const btnId = 'nav-' + (r === '/' ? 'home' : (r === '/dashboard' ? 'dashboard' : (r === '/day/1' ? 'day' : (r === '/analytics' ? 'analytics' : (r === '/resources' ? 'resources' : (r === '/aichat' ? 'aichat' : (r === '/about' ? 'about' : 'contact')))))));
