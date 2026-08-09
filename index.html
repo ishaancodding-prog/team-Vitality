@@ -143,6 +143,7 @@
             captchaNum2: 3,
             captchaInput: '',
             currentUser: null, 
+            selectedAvatar: 'Zoe', // Default avatar seed
             chatMessages: [
                 { sender: 'ai', text: "Welcome to the Modern Neon Hub! I'm your AI Mentor powered by Team Vitality. Ask me for architecture insights, debugging help, or challenge tips." }
             ],
@@ -172,6 +173,22 @@
                 stat: "Day 41 to 60",
                 highlight: "LLMs & Production Launch"
             }
+        ];
+
+        // 10 Evenly Distributed Avatars (5 Boys, 5 Girls) with distinct styles
+        const avatarChoices = [
+            // Boys (5)
+            { seed: "Leo", name: "Leo", style: "Casual Guy" },
+            { seed: "Felix", name: "Felix", style: "Cyber Geek" },
+            { seed: "Mason", name: "Mason", style: "Pro Developer" },
+            { seed: "Ethan", name: "Ethan", style: "Startup Founder" },
+            { seed: "Lucas", name: "Lucas", style: "AI Engineer" },
+            // Girls (5)
+            { seed: "Zoe", name: "Zoe", style: "Tech Lead" },
+            { seed: "Maya", name: "Maya", style: "UI/UX Designer" },
+            { seed: "Chloe", name: "Chloe", style: "Full-Stack Dev" },
+            { seed: "Aria", name: "Aria", style: "Data Scientist" },
+            { seed: "Luna", name: "Luna", style: "Security Analyst" }
         ];
 
         function showToast(msg) {
@@ -225,7 +242,7 @@
             render();
         });
 
-        // 1. LANDING PAGE (/) - Interactive Slide Changer placed at the TOP as requested
+        // 1. LANDING PAGE (/) - Interactive Slide Changer placed on top
         function renderLanding() {
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
@@ -280,8 +297,8 @@
                             <button onclick="router.navigateTo('/dashboard')" class="neon-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard ⚡
                             </button>
-                            <button onclick="router.navigateTo('/aichat')" class="cyber-glass text-pink-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-pink-500/10">
-                                Launch AI Tutor ✦
+                            <button onclick="router.navigateTo('/signin')" class="cyber-card text-pink-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-pink-500/10 border border-pink-500/30">
+                                Sign In ✦
                             </button>
                         </div>
                     </div>
@@ -338,22 +355,23 @@
             }
 
             const userName = appState.currentUser ? appState.currentUser.name : "Guest Student";
+            const avatarSeed = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
 
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <!-- Profile Banner -->
                     <div class="cyber-glass p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
                         <div class="flex items-center gap-6 text-center sm:text-left">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}&backgroundColor=ec4899" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-pink-500/20 border border-pink-400/40 p-1">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=ec4899" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-pink-500/20 border border-pink-400/40 p-1">
                             <div class="space-y-1">
-                                <span class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
+                                <span class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in to save avatar)'}</span>
                                 <h2 class="text-2xl font-extrabold text-white">${userName}</h2>
                                 <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="router.navigateTo('/aichat')" class="neon-btn px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-2">
-                                Ask AI Tutor ✦
+                            <button onclick="router.navigateTo('/signin')" class="neon-btn px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-2">
+                                Change Avatar / Sign In ✦
                             </button>
                             <button onclick="router.navigateTo('/analytics')" class="cyber-glass px-5 py-3 rounded-2xl text-xs font-bold text-pink-200 hover:bg-pink-500/10">
                                 View Stats 📊
@@ -450,7 +468,7 @@
             `;
         }
 
-        // 4. ANALYTICS & STATS SCREEN (/analytics - Started from ZERO as requested)
+        // 4. ANALYTICS & STATS SCREEN (/analytics)
         function renderAnalytics() {
             const hasStarted = appState.isSubmitted;
             return `
@@ -583,28 +601,44 @@
             }, 800);
         }
 
-        // 7. SIGN IN PAGE (/signin)
+        // 7. SIGN IN PAGE (/signin) with Avatar Selection Feature (10 Choices: 5 Boys, 5 Girls)
         function renderSignIn() {
             return `
-                <div class="space-y-6 animate-fadeIn max-w-md mx-auto py-8">
+                <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-pink-300 bg-pink-500/10 border border-pink-500/30 px-4 py-1.5 rounded-full">Secure Authentication</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Sign In to ABTalks</h1>
-                        <p class="text-slate-400 text-xs font-medium">Access your 60-day challenge dashboard & AI mentor.</p>
+                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Sign In & Choose Avatar</h1>
+                        <p class="text-slate-400 text-xs font-medium">Select your professional persona and access your 60-day challenge hub.</p>
                     </div>
 
-                    <div class="cyber-glass p-8 rounded-[3rem] space-y-5">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                            <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-pink-950/40 border border-pink-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-pink-400">
+                    <div class="cyber-glass p-8 rounded-[3rem] space-y-6">
+                        <!-- Avatar Picker Section -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Avatar (10 Styles)</label>
+                            <div class="grid grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-pink-950/20 border border-pink-500/20 rounded-2xl">
+                                ${avatarChoices.map(av => `
+                                    <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-pink-500/20 border-pink-400 scale-105 shadow-md shadow-pink-500/20' : 'border-transparent hover:bg-pink-500/10'}">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=ec4899" alt="${av.name}" class="w-12 h-12 rounded-full bg-pink-500/10 p-0.5">
+                                        <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="text-center text-xs text-pink-300 font-semibold">Selected Style: <span class="text-white underline">${appState.selectedAvatar}</span></div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email</label>
-                            <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-pink-950/40 border border-pink-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-pink-400">
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
+                                <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-pink-950/40 border border-pink-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-pink-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email</label>
+                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-pink-950/40 border border-pink-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-pink-400">
+                            </div>
+                            <button onclick="handleSignIn()" class="neon-btn w-full py-4 rounded-2xl text-sm">
+                                Sign In & Start Streak ⚡
+                            </button>
                         </div>
-                        <button onclick="handleSignIn()" class="neon-btn w-full py-4 rounded-2xl text-sm">
-                            Sign In & Start Streak ⚡
-                        </button>
                     </div>
                 </div>
             `;
@@ -627,7 +661,7 @@
                 return;
             }
 
-            appState.currentUser = { name: nameVal, email: emailVal };
+            appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
             showToast(`⚡ Welcome back, ${nameVal}! Session authenticated.`);
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
         }
