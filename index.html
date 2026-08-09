@@ -45,6 +45,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        @keyframes slideFade {
+            0% { opacity: 0; transform: translateY(10px) scale(0.99); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-slide {
+            animation: slideFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         .star-rating span {
             cursor: pointer;
             transition: color 0.2s ease;
@@ -218,37 +225,13 @@
             render();
         });
 
-        // 1. LANDING PAGE (/) - Brand New Interactive Tabbed Card Slider with Rich Info
+        // 1. LANDING PAGE (/) - Interactive Slide Changer placed at the TOP as requested
         function renderLanding() {
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
-                    <!-- Hero Header -->
-                    <div class="cyber-glass p-12 lg:p-20 rounded-[3.5rem] relative overflow-hidden text-center space-y-6">
-                        <div class="inline-flex items-center gap-2.5 bg-pink-500/10 text-pink-300 border border-pink-500/30 px-5 py-2 rounded-full text-xs font-extrabold uppercase tracking-widest">
-                            <span class="w-2.5 h-2.5 rounded-full bg-pink-400 animate-pulse"></span> Team Vitality • Ultimate Coding Hub
-                        </div>
-                        
-                        <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-4xl mx-auto">
-                            Code Without Limits.<br>Own Your <span class="neon-gradient">60-Day Legacy.</span>
-                        </h1>
-                        
-                        <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-                            Transform post-college hours into high-impact GitHub commits with integrated AI mentorship, automated analytics tracking, and professional proof of work.
-                        </p>
-
-                        <div class="pt-2 flex flex-wrap justify-center items-center gap-5">
-                            <button onclick="router.navigateTo('/dashboard')" class="neon-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
-                                Access Dashboard ⚡
-                            </button>
-                            <button onclick="router.navigateTo('/aichat')" class="cyber-glass text-pink-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-pink-500/10">
-                                Launch AI Tutor ✦
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Modern Slide Changer Section -->
-                    <div class="cyber-glass p-8 lg:p-12 rounded-[3.5rem] space-y-8">
+                    <!-- Interactive Modern Slide Changer Section PLACED ON TOP -->
+                    <div class="cyber-glass p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide" key="${appState.activeSlideTab}">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-pink-500/20 pb-6">
                             <div>
                                 <span class="text-xs font-extrabold uppercase tracking-widest text-pink-400">Curriculum & Roadmap Slider</span>
@@ -276,6 +259,30 @@
                                 <div class="text-2xl font-extrabold text-pink-300">${currentSlide.stat}</div>
                                 <div class="text-xs font-bold text-white bg-pink-500/20 py-2 px-4 rounded-xl border border-pink-500/30">${currentSlide.highlight}</div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Header below the slider -->
+                    <div class="cyber-glass p-12 lg:p-20 rounded-[3.5rem] relative overflow-hidden text-center space-y-6">
+                        <div class="inline-flex items-center gap-2.5 bg-pink-500/10 text-pink-300 border border-pink-500/30 px-5 py-2 rounded-full text-xs font-extrabold uppercase tracking-widest">
+                            <span class="w-2.5 h-2.5 rounded-full bg-pink-400 animate-pulse"></span> Team Vitality • Ultimate Coding Hub
+                        </div>
+                        
+                        <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-4xl mx-auto">
+                            Code Without Limits.<br>Own Your <span class="neon-gradient">60-Day Legacy.</span>
+                        </h1>
+                        
+                        <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+                            Transform post-college hours into high-impact GitHub commits with integrated AI mentorship, automated analytics tracking, and professional proof of work.
+                        </p>
+
+                        <div class="pt-2 flex flex-wrap justify-center items-center gap-5">
+                            <button onclick="router.navigateTo('/dashboard')" class="neon-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
+                                Access Dashboard ⚡
+                            </button>
+                            <button onclick="router.navigateTo('/aichat')" class="cyber-glass text-pink-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-pink-500/10">
+                                Launch AI Tutor ✦
+                            </button>
                         </div>
                     </div>
 
@@ -576,7 +583,7 @@
             }, 800);
         }
 
-        // 7. SIGN IN PAGE (/signin) - Updated input placeholder to "Enter your name" as requested
+        // 7. SIGN IN PAGE (/signin)
         function renderSignIn() {
             return `
                 <div class="space-y-6 animate-fadeIn max-w-md mx-auto py-8">
