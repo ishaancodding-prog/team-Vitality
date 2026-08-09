@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABTalks - 60-Day Coding Challenge Hub (Team Vitality Edition)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .brutal-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 6px 6px 0px rgba(34, 211, 238, 0.2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .brutal-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px rgba(34, 211, 238, 0.4);
+            border-color: rgba(34, 211, 238, 0.8);
+        }
+        .brutal-btn {
+            background: #22d3ee;
+            color: #030712;
+            border: 2px solid #030712;
+            box-shadow: 4px 4px 0px #ffffff;
+            font-weight: 800;
+            transition: all 0.15s ease;
+        }
+        .brutal-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #ffffff;
+            background: #67e8f9;
+        }
+        .brutal-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #ffffff;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .star-rating span {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .star-rating span:hover {
+            transform: scale(1.2);
+        }
+        .star-rating span.active {
+            color: #facc15;
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
+
+    <!-- Graphic Grid Background Elements -->
+    <div class="fixed inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none"></div>
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- GRAPHIC NAVBAR -->
+    <header class="border-b-2 border-slate-800 bg-[#030712]/95 backdrop-blur-xl sticky top-0 z-50 px-6 lg:px-16 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="router.navigateTo('/')">
+            <div class="w-12 h-12 rounded-xl bg-cyan-400 border-2 border-slate-900 flex items-center justify-center font-extrabold text-slate-950 text-2xl shadow-[4px_4px_0px_#ffffff] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition">
+                ⚡
+            </div>
+            <div>
+                <span class="font-extrabold tracking-widest text-lg text-white">ABTALKS</span>
+                <span class="block text-[9px] text-cyan-400 font-extrabold tracking-widest uppercase bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/30 w-max">Team Vitality</span>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-2xl border-2 border-slate-800 shadow-xl">
+            <button onclick="router.navigateTo('/')" id="nav-home" class="px-4 py-2 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white">🏠 HOME</button>
+            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-4 py-2 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white">📊 DASHBOARD</button>
+            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-4 py-2 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white">⚡ DAY 1</button>
+            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-4 py-2 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white">✨ ABOUT</button>
+            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-4 py-2 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white">📬 CONTACT</button>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-slate-900 border-2 border-slate-800 px-3.5 py-1.5 rounded-xl font-mono text-xs text-cyan-300 font-extrabold shadow-[3px_3px_0px_#22d3ee]">
+                <span>🕒</span> <span id="clockText">00:00:00</span>
+            </div>
+            <span class="text-xs bg-cyan-400 text-slate-950 border-2 border-slate-900 px-3.5 py-1.5 rounded-xl font-extrabold shadow-[3px_3px_0px_#ffffff]">
+                DAY 1 ACTIVE
+            </span>
+        </div>
+    </header>
+
+    <!-- MAIN ROUTER CONTAINER -->
+    <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-16 py-10 z-10"></main>
+
+    <!-- GRAPHIC FOOTER -->
+    <footer class="border-t-2 border-slate-800 bg-[#030712] py-8 px-6 lg:px-16 z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-4 font-bold">
+            <div>© 2026 ABTalks Ecosystem. Crafted with graphic precision by Team <span class="text-cyan-400">Vitality</span>.</div>
+            <div class="flex gap-6">
+                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-cyan-400 transition">Home</a>
+                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-cyan-400 transition">Dashboard</a>
+                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-cyan-400 transition">Day 1</a>
+                <a href="#/about" onclick="router.navigateTo('/about')" class="hover:text-cyan-400 transition">About Us</a>
+                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-cyan-400 transition">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- APP ENGINE SCRIPT -->
+    <script>
+        const appState = {
+            streakDays: 1,
+            selectedTrack: 'AI & Full Stack',
+            githubLink: '',
+            linkedinLink: '',
+            isSubmitted: false,
+            synergyPoints: 50,
+            selectedCalendarDay: 1,
+            selectedRating: 5,
+            captchaNum1: 3,
+            captchaNum2: 4,
+            captchaInput: '',
+            toastMessage: null
+        };
+
+        function showToast(msg) {
+            appState.toastMessage = msg;
+            render();
+            setTimeout(() => { appState.toastMessage = null; render(); }, 3500);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const clockEl = document.getElementById('clockText');
+            if (clockEl) clockEl.innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+
+        const router = {
+            currentRoute: '/',
+            init() { 
+                const path = window.location.hash.replace('#', '') || '/';
+                this.currentRoute = path;
+                render();
+            },
+            navigateTo(route) { 
+                window.location.hash = route;
+                this.currentRoute = route;
+                render(); 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        window.addEventListener('hashchange', () => {
+            router.currentRoute = window.location.hash.replace('#', '') || '/';
+            render();
+        });
+
+        // 1. LANDING PAGE (/)
+        function renderLanding() {
+            return `
+                <div class="space-y-16 animate-fadeIn py-4">
+                    <div class="brutal-card p-8 lg:p-16 rounded-[2.5rem] relative overflow-hidden text-center space-y-8">
+                        <div class="absolute top-4 left-4 flex gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500 inline-block border border-black"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block border border-black"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500 inline-block border border-black"></span>
+                        </div>
+
+                        <div class="inline-flex items-center gap-2 bg-cyan-400 text-slate-950 border-2 border-slate-900 px-5 py-2 rounded-xl text-xs font-extrabold uppercase tracking-widest shadow-[3px_3px_0px_#ffffff]">
+                            ⚡ Team Vitality • Day 1 Challenge Kickoff
+                        </div>
+                        
+                        <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto">
+                            CODE WITHOUT LIMITS.<br>OWN YOUR <span class="text-gradient underline decoration-cyan-400">60-DAY STREAK.</span>
+                        </h1>
+                        
+                        <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+                            Transform post-college hours into high-impact GitHub commits and LinkedIn proof of work. Built for Indian college students striving for top tech roles.
+                        </p>
+
+                        <div class="pt-4 flex flex-wrap justify-center items-center gap-4">
+                            <button onclick="router.navigateTo('/dashboard')" class="brutal-btn px-9 py-4 rounded-2xl text-sm">
+                                IGNITE DASHBOARD 🚀
+                            </button>
+                            <button onclick="router.navigateTo('/day/1')" class="bg-slate-900 text-cyan-400 border-2 border-cyan-400 font-extrabold px-8 py-4 rounded-2xl text-sm shadow-[4px_4px_0px_#22d3ee] hover:bg-slate-800 transition">
+                                VIEW CHALLENGE DAY 1 ⚡
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                        <div class="brutal-card p-8 rounded-[2rem] space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-400 text-slate-950 border-2 border-slate-900 flex items-center justify-center font-extrabold text-lg shadow-[3px_3px_0px_#ffffff]">01</div>
+                            <h3 class="text-lg font-extrabold text-white">Pick Your Track</h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Select AI & Full Stack development tailored for real-world engineering careers.</p>
+                        </div>
+                        <div class="brutal-card p-8 rounded-[2rem] space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-400 text-slate-950 border-2 border-slate-900 flex items-center justify-center font-extrabold text-lg shadow-[3px_3px_0px_#ffffff]">02</div>
+                            <h3 class="text-lg font-extrabold text-white">Build & Commit Daily</h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Push code updates to your public GitHub repository and share proof on LinkedIn.</p>
+                        </div>
+                        <div class="brutal-card p-8 rounded-[2rem] space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-pink-400 text-slate-950 border-2 border-slate-900 flex items-center justify-center font-extrabold text-lg shadow-[3px_3px_0px_#ffffff]">03</div>
+                            <h3 class="text-lg font-extrabold text-white">Gain Visibility</h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Build compounding consistency and become directly visible to top recruiters.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 2. STUDENT DASHBOARD (/dashboard)
+        function renderDashboard() {
+            let daysHtml = '';
+            for (let i = 1; i <= 60; i++) {
+                const isSelected = appState.selectedCalendarDay === i;
+                const isUnlocked = i === 1;
+                
+                let btnClasses = "p-3 rounded-xl text-xs font-extrabold transition flex flex-col items-center justify-center gap-1 border-2 ";
+                if (isSelected) {
+                    btnClasses += "bg-cyan-400 text-slate-950 border-slate-900 shadow-[3px_3px_0px_#ffffff] scale-105 z-10";
+                } else if (isUnlocked) {
+                    btnClasses += "bg-slate-900 text-cyan-300 border-cyan-500/50 hover:bg-slate-800 shadow-[2px_2px_0px_#22d3ee]";
+                } else {
+                    btnClasses += "bg-slate-950 text-slate-600 border-slate-900 opacity-40 cursor-not-allowed";
+                }
+
+                daysHtml += `
+                    <button onclick="${isUnlocked ? `selectCalendarDay(${i})` : `showToast('🔒 Day ${i} unlocks after Day 1 completion!')`}" class="${btnClasses}">
+                        <span>Day ${i}</span>
+                        <span class="text-[9px] ${isSelected ? 'text-slate-950 font-extrabold' : (isUnlocked ? 'text-emerald-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
+                    </button>
+                `;
+            }
+
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
+                    <div class="bg-amber-500/10 border-2 border-amber-500/40 p-6 rounded-[2rem] flex items-center gap-5 shadow-[6px_6px_0px_rgba(245,158,11,0.2)] backdrop-blur-xl">
+                        <span class="text-4xl">🌱</span>
+                        <div>
+                            <h4 class="text-sm font-extrabold text-amber-400 uppercase tracking-wide">Day 1 - Active Challenge Started</h4>
+                            <p class="text-xs text-slate-300 mt-1 font-medium">Your 60-day journey begins today. Complete your Day 1 submission to ignite your streak!</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="brutal-card p-7 rounded-[2rem]">
+                            <span class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider">Current Streak</span>
+                            <div class="text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-lg font-normal text-slate-400">Day 🔥</span></div>
+                        </div>
+                        <div class="brutal-card p-7 rounded-[2rem]">
+                            <span class="text-xs uppercase font-extrabold text-indigo-400 tracking-wider">Challenge Progress</span>
+                            <div class="text-4xl font-extrabold text-white mt-2">1.6%</div>
+                        </div>
+                        <div class="brutal-card p-7 rounded-[2rem]">
+                            <span class="text-xs uppercase font-extrabold text-emerald-400 tracking-wider">Synergy Points</span>
+                            <div class="text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
+                        </div>
+                    </div>
+
+                    <div class="brutal-card p-8 rounded-[2.5rem] space-y-6">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <div>
+                                <h3 class="text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
+                                <p class="text-xs text-slate-400 font-medium">Click any unlocked day to inspect completed work and logs.</p>
+                            </div>
+                            <span class="text-xs bg-cyan-400 text-slate-950 border-2 border-slate-900 px-3.5 py-1.5 rounded-full font-extrabold shadow-[2px_2px_0px_#ffffff]">Selected: Day ${appState.selectedCalendarDay}</span>
+                        </div>
+
+                        <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
+                            ${daysHtml}
+                        </div>
+                    </div>
+
+                    <div class="brutal-card p-8 rounded-[2.5rem] border-2 border-cyan-400/40 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-3.5 py-1 rounded-full border border-cyan-500/30">Day 1 Focus • Setup & Hello World</span>
+                            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3.5 py-1 rounded-full font-extrabold">In Progress</span>
+                        </div>
+                        <h4 class="text-xl font-extrabold text-white">Environment Setup & Core Architecture Initialization</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed font-medium">
+                            Initialize your public GitHub repository, configure your development environment, and deploy your initial Day 1 proof of work.
+                        </p>
+                        <div class="pt-2">
+                            <button onclick="router.navigateTo('/day/1')" class="brutal-btn px-6 py-3 rounded-xl text-xs">
+                                Open Day 1 Submission Portal →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 3. CHALLENGE DAY VIEW (/day/1)
+        function renderDayChallenge() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+                    <div class="flex items-center justify-between">
+                        <button onclick="router.navigateTo('/dashboard')" class="text-xs text-slate-400 hover:text-white font-extrabold flex items-center gap-2">← Back to Dashboard</button>
+                        <span class="text-xs font-extrabold text-slate-950 bg-cyan-400 border-2 border-slate-900 px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#ffffff]">Day 1 of 60 Challenge</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h1 class="text-3xl lg:text-5xl font-extrabold text-white tracking-tight">Environment Setup & Hello World</h1>
+                        <p class="text-base text-slate-300 leading-relaxed font-medium">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work to kick off your streak.</p>
+                    </div>
+
+                    <div class="brutal-card p-8 lg:p-10 rounded-[2.5rem] space-y-6">
+                        <h3 class="text-lg font-extrabold text-white flex items-center justify-between">
+                            <span>🚀 Submit Day 1 Proof of Work</span>
+                            ${appState.isSubmitted ? '<span class="text-xs text-emerald-400 font-extrabold bg-emerald-500/10 px-3.5 py-1 rounded-full border border-emerald-500/30">Verified ✓</span>' : '<span class="text-xs text-amber-400 font-extrabold bg-amber-500/10 px-3.5 py-1 rounded-full border border-amber-500/30">Pending</span>'}
+                        </h3>
+
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
+                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 shadow-[inset_2px_2px_0px_#000]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
+                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 shadow-[inset_2px_2px_0px_#000]">
+                            </div>
+                            
+                            <div class="bg-slate-950 border-2 border-slate-800 p-5 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs uppercase font-extrabold text-slate-300">Security Math Verification</span>
+                                    <button onclick="refreshCaptcha()" class="text-xs text-cyan-400 hover:underline font-extrabold">Generate New Code 🔄</button>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-slate-900 border-2 border-slate-700 px-5 py-3 rounded-xl text-base font-mono font-extrabold text-cyan-300 shadow-[2px_2px_0px_#22d3ee]">
+                                        ${appState.captchaNum1} + ${appState.captchaNum2} = ?
+                                    </div>
+                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Enter answer" class="w-40 bg-slate-900 border-2 border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="handleSubmission()" class="brutal-btn w-full py-4 rounded-2xl text-base">
+                            VERIFY & SUBMIT DAY 1 PROOF (+50 SP) ⚡
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 4. ABOUT US SECTION (/about)
+        function renderAbout() {
+            return `
+                <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
+                    <div class="text-center space-y-3">
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-cyan-400 border-2 border-slate-900 px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#ffffff]">About Us • Team Vitality</span>
+                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
+                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and intelligence of ABTalks.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                        <div class="brutal-card p-8 rounded-[2.5rem] space-y-4 text-center group">
+                            <div class="w-16 h-16 rounded-2xl bg-pink-400 border-2 border-slate-900 text-slate-950 flex items-center justify-center font-extrabold text-2xl mx-auto shadow-[4px_4px_0px_#ffffff] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition">🎨</div>
+                            <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
+                            <p class="text-xs text-pink-400 font-extrabold uppercase tracking-widest">Designer</p>
+                            <p class="text-slate-400 text-xs font-medium">Crafted intuitive layouts, visual aesthetics, and responsive user experiences.</p>
+                        </div>
+
+                        <div class="brutal-card p-8 rounded-[2.5rem] space-y-4 text-center group">
+                            <div class="w-16 h-16 rounded-2xl bg-indigo-400 border-2 border-slate-900 text-slate-950 flex items-center justify-center font-extrabold text-2xl mx-auto shadow-[4px_4px_0px_#ffffff] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition">🤖</div>
+                            <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
+                            <p class="text-xs text-indigo-400 font-extrabold uppercase tracking-widest">AI Engineer</p>
+                            <p class="text-slate-400 text-xs font-medium">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
+                        </div>
+
+                        <div class="brutal-card p-8 rounded-[2.5rem] space-y-4 text-center group">
+                            <div class="w-16 h-16 rounded-2xl bg-cyan-400 border-2 border-slate-900 text-slate-950 flex items-center justify-center font-extrabold text-2xl mx-auto shadow-[4px_4px_0px_#ffffff] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition">💻</div>
+                            <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
+                            <p class="text-xs text-cyan-400 font-extrabold uppercase tracking-widest">Frontend & Backend Developer</p>
+                            <p class="text-slate-400 text-xs font-medium">Developed full-stack architecture, routing mechanics, and application logic.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 5. CONTACT US SECTION (/contact)
+        function renderContact() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
+                    <div class="text-center space-y-3">
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-cyan-400 border-2 border-slate-900 px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#ffffff]">Get In Touch</span>
+                        <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
+                        <p class="text-slate-400 text-sm font-medium">Have feedback or questions? Drop us a message and rate your experience below.</p>
+                    </div>
+
+                    <div class="brutal-card p-8 lg:p-10 rounded-[2.5rem] space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Your Name</label>
+                                <input type="text" placeholder="Enter your name" class="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 shadow-[inset_2px_2px_0px_#000]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Email Address</label>
+                                <input type="email" placeholder="student@college.edu" class="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 shadow-[inset_2px_2px_0px_#000]">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Platform Experience Rating</label>
+                            <div class="star-rating flex gap-3 text-3xl" id="starRatingContainer">
+                                <span onclick="setRating(1)" class="${appState.selectedRating >= 1 ? 'active' : 'text-slate-600'}">★</span>
+                                <span onclick="setRating(2)" class="${appState.selectedRating >= 2 ? 'active' : 'text-slate-600'}">★</span>
+                                <span onclick="setRating(3)" class="${appState.selectedRating >= 3 ? 'active' : 'text-slate-600'}">★</span>
+                                <span onclick="setRating(4)" class="${appState.selectedRating >= 4 ? 'active' : 'text-slate-600'}">★</span>
+                                <span onclick="setRating(5)" class="${appState.selectedRating >= 5 ? 'active' : 'text-slate-600'}">★</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Message / Feedback</label>
+                            <textarea rows="4" placeholder="How can we help you?" class="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-cyan-400 transition resize-none shadow-[inset_2px_2px_0px_#000]"></textarea>
+                        </div>
+                        <button onclick="showToast('✅ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="brutal-btn w-full py-4 rounded-2xl text-sm">
+                            SUBMIT FEEDBACK & RATING ⭐
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setRating(stars) {
+            appState.selectedRating = stars;
+            render();
+        }
+
+        function selectCalendarDay(day) {
+            appState.selectedCalendarDay = day;
+            render();
+        }
+
+        function refreshCaptcha() {
+            appState.captchaNum1 = Math.floor(Math.random() * 6) + 1;
+            appState.captchaNum2 = Math.floor(Math.random() * 4) + 1;
+            appState.captchaInput = '';
+            render();
+        }
+
+        function handleSubmission() {
+            const gh = document.getElementById('ghInput').value;
+            const li = document.getElementById('liInput').value;
+            const captchaVal = parseInt(document.getElementById('captchaInput').value);
+
+            if (!gh || !li) {
+                showToast('Please provide both GitHub and LinkedIn URLs.');
+                return;
+            }
+
+            const expectedAnswer = appState.captchaNum1 + appState.captchaNum2;
+            if (isNaN(captchaVal) || captchaVal !== expectedAnswer) {
+                showToast('❌ Incorrect CAPTCHA answer. Try again.');
+                refreshCaptcha();
+                return;
+            }
+
+            appState.isSubmitted = true;
+            appState.streakDays = 1;
+            appState.synergyPoints += 50;
+            showToast('🎉 Day 1 Verified! Streak ignited & +50 Synergy Points added.');
+            setTimeout(() => router.navigateTo('/dashboard'), 1500);
+        }
+
+        function render() {
+            const route = router.currentRoute;
+            let html = '';
+            if (route === '/') html = renderLanding();
+            else if (route === '/dashboard') html = renderDashboard();
+            else if (route === '/day/1') html = renderDayChallenge();
+            else if (route === '/about') html = renderAbout();
+            else if (route === '/contact') html = renderContact();
+            document.getElementById('app-router').innerHTML = html;
+
+            ['/', '/dashboard', '/day/1', '/about', '/contact'].forEach(r => {
+                const btnId = 'nav-' + (r === '/' ? 'home' : (r === '/dashboard' ? 'dashboard' : (r === '/day/1' ? 'day' : (r === '/about' ? 'about' : 'contact'))));
+                const btn = document.getElementById(btnId);
+                if(btn) {
+                    if(r === route) {
+                        btn.className = 'px-5 py-2.5 text-xs font-extrabold rounded-xl transition bg-cyan-400 text-slate-950 border-2 border-slate-900 shadow-[3px_3px_0px_#ffffff]';
+                    } else {
+                        btn.className = 'px-5 py-2.5 text-xs font-extrabold rounded-xl transition text-slate-400 hover:text-white';
+                    }
+                }
+            });
+            updateClock();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => { router.init(); });
+    </script>
+</body>
+</html>
