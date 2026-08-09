@@ -74,12 +74,14 @@
         </div>
 
         <nav class="hidden md:flex items-center gap-1 bg-white/[0.03] p-1.5 rounded-2xl border border-white/5">
-            <button onclick="router.navigateTo('/')" id="nav-home" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
-            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
-            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
-            <button onclick="router.navigateTo('/aichat')" id="nav-aichat" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">AI Tutor ✦</button>
-            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">About</button>
-            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Contact</button>
+            <button onclick="router.navigateTo('/')" id="nav-home" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
+            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
+            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
+            <button onclick="router.navigateTo('/aichat')" id="nav-aichat" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">AI Tutor ✦</button>
+            <button onclick="router.navigateTo('/analytics')" id="nav-analytics" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Analytics 📊</button>
+            <button onclick="router.navigateTo('/resources')" id="nav-resources" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Resources 📚</button>
+            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">About</button>
+            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">Contact</button>
         </nav>
 
         <div class="flex items-center gap-4">
@@ -98,12 +100,14 @@
     <!-- FOOTER -->
     <footer class="border-t border-white/5 bg-[#0c0c0e] py-10 px-6 lg:px-20 z-10 text-xs text-slate-500">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-medium">
-            <div>© 2026 ABTalks Ecosystem. Engineered with AI by Team <span class="text-[#e5c158]">Vitality</span>.</div>
-            <div class="flex gap-8">
+            <div>© 2026 ABTalks Ecosystem. Engineered with expanded features by Team <span class="text-[#e5c158]">Vitality</span>.</div>
+            <div class="flex gap-6">
                 <a href="#/" onclick="router.navigateTo('/')" class="hover:text-amber-200 transition">Overview</a>
                 <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-amber-200 transition">Dashboard</a>
                 <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-amber-200 transition">Day One</a>
                 <a href="#/aichat" onclick="router.navigateTo('/aichat')" class="hover:text-amber-200 transition">AI Tutor</a>
+                <a href="#/analytics" onclick="router.navigateTo('/analytics')" class="hover:text-amber-200 transition">Analytics</a>
+                <a href="#/resources" onclick="router.navigateTo('/resources')" class="hover:text-amber-200 transition">Resources</a>
                 <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-amber-200 transition">Contact</a>
             </div>
         </div>
@@ -121,11 +125,11 @@
             selectedCalendarDay: 1,
             selectedRating: 5,
             captchaNum1: 4,
-            captchaNum2: 4,
+            captchaNum2: 5,
             captchaInput: '',
-            currentUser: null, // null or { name, email }
+            currentUser: null,
             chatMessages: [
-                { sender: 'ai', text: "Hello Ishaan! I'm your ABTalks AI Coding Mentor powered by Team Vitality. Ask me anything about today's challenge or debugging!" }
+                { sender: 'ai', text: "Welcome to ABTalks Enhanced Hub! I am your AI Code Mentor powered by Team Vitality. Ask me for debugging tips, architecture patterns, or daily challenge guidance." }
             ],
             chatInput: '',
             toastMessage: null
@@ -171,7 +175,7 @@
                 <div class="space-y-16 animate-fadeIn py-6">
                     <div class="classy-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8">
                         <div class="inline-flex items-center gap-2.5 bg-white/[0.04] text-[#e5c158] border border-amber-500/20 px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-widest">
-                            <span class="w-2 h-2 rounded-full bg-[#e5c158] animate-pulse"></span> Team Vitality • AI-Powered 60-Day Cohort
+                            <span class="w-2 h-2 rounded-full bg-[#e5c158] animate-pulse"></span> Team Vitality • Enhanced 60-Day Cohort
                         </div>
                         
                         <h1 class="text-4xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] max-w-4xl mx-auto">
@@ -179,34 +183,39 @@
                         </h1>
                         
                         <p class="text-slate-400 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-                            Transform post-college hours into high-impact GitHub commits with integrated AI mentorship, automated verification, and professional proof of work.
+                            Transform post-college hours into high-impact GitHub commits with integrated AI mentorship, automated analytics tracking, and professional proof of work.
                         </p>
 
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
                             <button onclick="router.navigateTo('/dashboard')" class="gold-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard ✧
                             </button>
-                            <button onclick="router.navigateTo('/aichat')" class="classy-card text-amber-200 font-semibold px-9 py-4 rounded-2xl text-sm transition hover:bg-white/[0.04]">
-                                Launch AI Mentor Bot ✦
+                            <button onclick="router.navigateTo('/analytics')" class="classy-card text-amber-200 font-semibold px-9 py-4 rounded-2xl text-sm transition hover:bg-white/[0.04]">
+                                View Analytics 📊
                             </button>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="classy-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-base">01</div>
-                            <h3 class="text-lg font-bold text-white">AI-Assisted Learning</h3>
-                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Instant doubt resolution and code reviews directly inside your challenge workspace.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
+                        <div class="classy-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-sm">✦</div>
+                            <h3 class="text-base font-bold text-white">AI Tutor Assistant</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Real-time answers and intelligent code reviews.</p>
                         </div>
-                        <div class="classy-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-base">02</div>
-                            <h3 class="text-lg font-bold text-white">Disciplined Execution</h3>
-                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Commit pristine code daily and publish verified milestones to public networks.</p>
+                        <div class="classy-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-sm">📊</div>
+                            <h3 class="text-base font-bold text-white">Deep Analytics</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics.</p>
                         </div>
-                        <div class="classy-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-base">03</div>
-                            <h3 class="text-lg font-bold text-white">Recruiter Discovery</h3>
-                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Build compounding proof of work that naturally attracts elite technical recruiters.</p>
+                        <div class="classy-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-sm">📚</div>
+                            <h3 class="text-base font-bold text-white">Resource Vault</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Curated guides on algorithms, system design, and AI integration.</p>
+                        </div>
+                        <div class="classy-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-sm">🛡️</div>
+                            <h3 class="text-base font-bold text-white">Secure Verification</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Automated CAPTCHA & GitHub integration checks.</p>
                         </div>
                     </div>
                 </div>
@@ -254,6 +263,9 @@
                         <div class="flex items-center gap-3">
                             <button onclick="router.navigateTo('/aichat')" class="gold-btn px-5 py-3 rounded-2xl text-xs font-semibold flex items-center gap-2">
                                 Ask AI Tutor ✦
+                            </button>
+                            <button onclick="router.navigateTo('/analytics')" class="classy-card px-5 py-3 rounded-2xl text-xs font-semibold text-amber-200 hover:bg-white/[0.04]">
+                                View Stats 📊
                             </button>
                         </div>
                     </div>
@@ -339,7 +351,7 @@
                                 Verify & Submit Day 1 Proof (+50 SP) ✧
                             </button>
                             <button onclick="router.navigateTo('/aichat')" class="classy-card px-6 py-4 rounded-2xl text-xs font-semibold text-amber-200 hover:bg-white/[0.04] transition">
-                                Ask AI Bot for Help ✦
+                                Ask AI Bot ✦
                             </button>
                         </div>
                     </div>
@@ -347,7 +359,84 @@
             `;
         }
 
-        // 4. AI CHAT BOT FEATURE (/aichat)
+        // 4. ANALYTICS & STATS SCREEN (/analytics)
+        function renderAnalytics() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
+                    <div class="text-center space-y-2">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-[#e5c158] bg-amber-500/10 border border-amber-500/20 px-4 py-1.5 rounded-full">Cohort Insights</span>
+                        <h1 class="text-3xl font-bold text-white tracking-tight">Performance Analytics & Velocity</h1>
+                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Real-time metrics tracking your commit frequency, language distribution, and consistency score.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="classy-card p-7 rounded-[2.5rem] space-y-2">
+                            <span class="text-xs uppercase font-semibold text-slate-400">Commit Velocity</span>
+                            <div class="text-3xl font-bold text-white">1.2 / day</div>
+                            <span class="text-[11px] text-emerald-400 font-semibold">+15% vs cohort average</span>
+                        </div>
+                        <div class="classy-card p-7 rounded-[2.5rem] space-y-2">
+                            <span class="text-xs uppercase font-semibold text-slate-400">Consistency Score</span>
+                            <div class="text-3xl font-bold text-amber-200">98.4%</div>
+                            <span class="text-[11px] text-[#e5c158] font-semibold">12 Days Active Streak</span>
+                        </div>
+                        <div class="classy-card p-7 rounded-[2.5rem] space-y-2">
+                            <span class="text-xs uppercase font-semibold text-slate-400">Recruiter Visibility</span>
+                            <div class="text-3xl font-bold text-sky-400">High Tier</div>
+                            <span class="text-[11px] text-sky-300 font-semibold">Profile viewed 14 times</span>
+                        </div>
+                    </div>
+
+                    <div class="classy-card p-8 rounded-[3.5rem] space-y-5">
+                        <h3 class="text-lg font-bold text-white">Language Breakdown (AI & Full Stack Track)</h3>
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-semibold"><span>JavaScript / TypeScript</span><span>55%</span></div>
+                                <div class="w-full bg-white/[0.05] h-3 rounded-full overflow-hidden"><div class="bg-amber-400 h-full w-[55%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-semibold"><span>Python & AI Integration</span><span>30%</span></div>
+                                <div class="w-full bg-white/[0.05] h-3 rounded-full overflow-hidden"><div class="bg-sky-400 h-full w-[30%] rounded-full"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1 text-slate-300 font-semibold"><span>HTML / CSS / Tailwind</span><span>15%</span></div>
+                                <div class="w-full bg-white/[0.05] h-3 rounded-full overflow-hidden"><div class="bg-purple-400 h-full w-[15%] rounded-full"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 5. RESOURCE VAULT SCREEN (/resources)
+        function renderResources() {
+            return `
+                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
+                    <div class="text-center space-y-2">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-[#e5c158] bg-amber-500/10 border border-amber-500/20 px-4 py-1.5 rounded-full">Knowledge Hub</span>
+                        <h1 class="text-3xl font-bold text-white tracking-tight">Curated Engineering Vault</h1>
+                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Essential guides, templates, and architectural references for the 60-day challenge.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="classy-card p-8 rounded-[3rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-lg">⚡</div>
+                            <h3 class="text-xl font-bold text-white">Full-Stack Architecture Best Practices</h3>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Learn how to structure single-file components, manage state effectively, and deploy with zero downtime.</p>
+                            <button onclick="showToast('✧ Resource guide downloaded successfully!')" class="gold-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
+                        </div>
+                        <div class="classy-card p-8 rounded-[3rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-[#e5c158] border border-amber-500/20 flex items-center justify-center font-bold text-lg">🤖</div>
+                            <h3 class="text-xl font-bold text-white">Prompt Engineering & AI Integrations</h3>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Master building responsive UI workflows and leveraging LLMs for rapid full-stack prototyping.</p>
+                            <button onclick="showToast('✧ Resource guide downloaded successfully!')" class="gold-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 6. AI CHAT BOT FEATURE (/aichat)
         function renderAiChat() {
             return `
                 <div class="space-y-6 animate-fadeIn max-w-4xl mx-auto py-2">
@@ -358,7 +447,6 @@
                     </div>
 
                     <div class="classy-card p-6 rounded-[3rem] space-y-4">
-                        <!-- Chat Messages Container -->
                         <div id="chatMessagesBox" class="h-96 overflow-y-auto space-y-4 pr-2">
                             ${appState.chatMessages.map(msg => `
                                 <div class="flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
@@ -370,7 +458,6 @@
                             `).join('')}
                         </div>
 
-                        <!-- Chat Input Box -->
                         <div class="flex gap-3 pt-2 border-t border-white/10">
                             <input type="text" id="aiChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendChatMessage()" placeholder="Ask AI anything about Day 1 setup or debugging..." class="flex-1 bg-white/[0.02] border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-[#e5c158]">
                             <button onclick="sendChatMessage()" class="gold-btn px-7 py-3.5 rounded-2xl text-xs font-bold">
@@ -390,7 +477,6 @@
             appState.chatInput = '';
             render();
 
-            // Simulate AI intelligent response
             setTimeout(() => {
                 let aiReply = "That's a great question! For Day 1, make sure your GitHub repository is public and initialized with a clean README before submitting your link.";
                 if (inputVal.toLowerCase().includes('github') || inputVal.toLowerCase().includes('repo')) {
@@ -405,7 +491,7 @@
             }, 800);
         }
 
-        // 5. SIGN IN PAGE (/signin)
+        // 7. SIGN IN PAGE (/signin)
         function renderSignIn() {
             return `
                 <div class="space-y-6 animate-fadeIn max-w-md mx-auto py-8">
@@ -444,7 +530,7 @@
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
         }
 
-        // 6. ABOUT US SECTION (/about)
+        // 8. ABOUT US SECTION (/about)
         function renderAbout() {
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
@@ -480,7 +566,7 @@
             `;
         }
 
-        // 7. CONTACT US SECTION (/contact)
+        // 9. CONTACT US SECTION (/contact)
         function renderContact() {
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
@@ -572,20 +658,22 @@
             if (route === '/') html = renderLanding();
             else if (route === '/dashboard') html = renderDashboard();
             else if (route === '/day/1') html = renderDayChallenge();
+            else if (route === '/analytics') html = renderAnalytics();
+            else if (route === '/resources') html = renderResources();
             else if (route === '/aichat') html = renderAiChat();
             else if (route === '/signin') html = renderSignIn();
             else if (route === '/about') html = renderAbout();
             else if (route === '/contact') html = renderContact();
             document.getElementById('app-router').innerHTML = html;
 
-            ['/', '/dashboard', '/day/1', '/aichat', '/signin', '/about', '/contact'].forEach(r => {
-                const btnId = 'nav-' + (r === '/' ? 'home' : (r === '/dashboard' ? 'dashboard' : (r === '/day/1' ? 'day' : (r === '/aichat' ? 'aichat' : (r === '/about' ? 'about' : 'contact')))));
+            ['/', '/dashboard', '/day/1', '/analytics', '/resources', '/aichat', '/signin', '/about', '/contact'].forEach(r => {
+                const btnId = 'nav-' + (r === '/' ? 'home' : (r === '/dashboard' ? 'dashboard' : (r === '/day/1' ? 'day' : (r === '/analytics' ? 'analytics' : (r === '/resources' ? 'resources' : (r === '/aichat' ? 'aichat' : (r === '/about' ? 'about' : 'contact')))))));
                 const btn = document.getElementById(btnId);
                 if(btn) {
                     if(r === route) {
-                        btn.className = 'px-5 py-2 text-xs font-semibold rounded-xl transition bg-gradient-to-r from-[#e5c158] to-[#c59b27] text-slate-950 shadow-lg shadow-amber-500/20';
+                        btn.className = 'px-4 py-2 text-xs font-semibold rounded-xl transition bg-gradient-to-r from-[#e5c158] to-[#c59b27] text-slate-950 shadow-lg shadow-amber-500/20';
                     } else {
-                        btn.className = 'px-5 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white';
+                        btn.className = 'px-4 py-2 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white';
                     }
                 }
             });
