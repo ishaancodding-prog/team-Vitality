@@ -68,7 +68,7 @@
     <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-yellow-600/15 rounded-full blur-[200px] pointer-events-none"></div>
     <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-amber-700/15 rounded-full blur-[200px] pointer-events-none"></div>
 
-    <!-- NAVBAR (AI Tutor option removed) -->
+    <!-- NAVBAR (AI Tutor option fully removed) -->
     <header class="border-b border-yellow-500/20 bg-[#0c0a09]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
         <div class="flex items-center gap-4 cursor-pointer group" onclick="router.navigateTo('/')">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-yellow-500 to-amber-700 flex items-center justify-center font-extrabold text-slate-950 text-2xl shadow-xl shadow-yellow-500/30 group-hover:scale-105 transition">
@@ -122,13 +122,8 @@
                 <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 flex items-center justify-center font-bold hover:bg-yellow-500/20">✕</button>
             </div>
             <p class="text-xs text-slate-300">Choose from 10 Indian professional student avatars (5 boys, 5 girls):</p>
-            <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-yellow-950/20 border border-yellow-500/20 rounded-2xl">
-                ` + avatarChoices.map(av => `
-                    <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-yellow-500/10'}">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-12 h-12 rounded-full bg-yellow-500/10 p-0.5">
-                        <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
-                    </div>
-                `).join('') + `
+            <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-yellow-950/20 border border-yellow-500/20 rounded-2xl" id="modalAvatarGrid">
+                <!-- Populated via script -->
             </div>
             <div class="pt-2 flex gap-3">
                 <button onclick="saveModalAvatar()" class="gold-btn flex-1 py-3.5 rounded-2xl text-xs">Save Avatar 👑</button>
@@ -167,7 +162,6 @@
             captchaInput: '',
             currentUser: null, 
             selectedAvatar: 'Aarav',
-            chatInput: '',
             activeSlideTab: 0
         };
 
@@ -187,31 +181,37 @@
                 highlight: "Full-Stack Scaling"
             },
             {
-                tag: "PHASE 03 • AI INTEGRATION",
-                title: "Leverage Cutting-Edge Intelligence",
-                desc: "Integrate intelligent workflows, intelligent debugging assistants, and secure authentication pipelines to stand out to elite recruiters.",
+                tag: "PHASE 03 • DEPLOYMENT & LAUNCH",
+                title: "Production & Professional Proof",
+                desc: "Integrate robust testing suites, secure authentication pipelines, and automated deployments to stand out to elite tech recruiters.",
                 stat: "Day 41 to 60",
-                highlight: "LLMs & Production Launch"
+                highlight: "Production Launch"
             }
         ];
 
-        // 10 Indian Avatar Choices (5 Boys, 5 Girls)
         const avatarChoices = [
-            // Boys (5)
             { seed: "Aarav", name: "Aarav", style: "Software Engineer" },
             { seed: "Rohan", name: "Rohan", style: "Full Stack Dev" },
-            { seed: "Kabir", name: "Kabir", style: "AI Architect" },
+            { seed: "Kabir", name: "Kabir", style: "Backend Architect" },
             { seed: "Aditya", name: "Aditya", style: "Tech Lead" },
             { seed: "Ishaan", name: "Ishaan", style: "Cloud Specialist" },
-            // Girls (5)
             { seed: "Ananya", name: "Ananya", style: "UI/UX Designer" },
             { seed: "Diya", name: "Diya", style: "Frontend Dev" },
             { seed: "Priya", name: "Priya", style: "Data Scientist" },
             { seed: "Neha", name: "Neha", style: "Security Analyst" },
-            { seed: "Kavya", name: "Kavya", style: "AI Researcher" }
+            { seed: "Kavya", name: "Kavya", style: "Systems Researcher" }
         ];
 
         function openAvatarModal() {
+            const grid = document.getElementById('modalAvatarGrid');
+            if (grid) {
+                grid.innerHTML = avatarChoices.map(av => `
+                    <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-yellow-500/10'}">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-12 h-12 rounded-full bg-yellow-500/10 p-0.5">
+                        <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
+                    </div>
+                `).join('');
+            }
             document.getElementById('avatarModal').classList.remove('hidden');
         }
 
@@ -292,12 +292,12 @@
             render();
         });
 
-        // 1. HOMEPAGE (Overview) - Curriculum / Interactive Slide placed BELOW the Sign In option section
+        // 1. HOMEPAGE (Overview) - Sign In section first, Curriculum / Slider placed BELOW it as requested
         function renderLanding() {
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
-                    <!-- Hero Header featuring Sign In / Action Options -->
+                    <!-- Hero Header / Sign In Section on Top -->
                     <div class="obsidian-gold-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-yellow-500/40 shadow-[0_0_50px_rgba(234,179,8,0.15)]">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-700/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -307,14 +307,14 @@
                         </div>
                         
                         <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-5xl mx-auto">
-                            Master Code. Build AI.<br>Own Your <span class="gold-gradient">60-Day Legacy.</span>
+                            Master Code & Build Your <span class="gold-gradient">60-Day Legacy.</span>
                         </h1>
                         
                         <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
-                            Designed specifically for ambitious Indian engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
+                            Designed specifically for ambitious engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
                         </p>
 
-                        <!-- Sign In option section directly integrated in hero -->
+                        <!-- Sign In option section prominently in hero -->
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
                             <button onclick="router.navigateTo('/dashboard')" class="gold-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard 👑
@@ -325,7 +325,7 @@
                         </div>
                     </div>
 
-                    <!-- Curriculum / Interactive Slide placed BELOW the sign-in / hero section -->
+                    <!-- Curriculum / Interactive Slide placed BELOW the Sign In section -->
                     <div class="obsidian-gold-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-yellow-500/30" key="${appState.activeSlideTab}">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-yellow-500/20 pb-6">
                             <div>
@@ -657,7 +657,7 @@
                     <div class="text-center space-y-3">
                         <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-yellow-500/10 border border-yellow-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
                         <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
-                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and intelligence of ABTalks.</p>
+                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
@@ -671,7 +671,7 @@
                         <div class="obsidian-gold-card p-8 rounded-[3rem] space-y-4 text-center">
                             <div class="w-16 h-16 rounded-2xl bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto">🤖</div>
                             <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
-                            <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">AI Engineer</p>
+                            <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">AI Specialist</p>
                             <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
                         </div>
 
