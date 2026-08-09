@@ -272,17 +272,17 @@
                 `;
             }
 
-            const userName = appState.currentUser ? appState.currentUser.name : "Guest Student";
+            const displayName = appState.currentUser ? appState.currentUser.name : "Guest Student";
 
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <!-- Profile Banner -->
                     <div class="royal-card p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
                         <div class="flex items-center gap-6 text-center sm:text-left">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}&backgroundColor=7c3aed" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-purple-500/20 border border-purple-400/40 p-1">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${displayName}&backgroundColor=7c3aed" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-purple-500/20 border border-purple-400/40 p-1">
                             <div class="space-y-1">
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
-                                <h2 class="text-2xl font-extrabold text-white">${userName}</h2>
+                                <h2 class="text-2xl font-extrabold text-white">${displayName}</h2>
                                 <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
                             </div>
                         </div>
@@ -518,7 +518,7 @@
             }, 800);
         }
 
-        // 7. SIGN IN PAGE (/signin) - Updated input placeholder to "Enter your name" as requested
+        // 7. SIGN IN PAGE (/signin) - Fully fixed with clean inputs and proper handler
         function renderSignIn() {
             return `
                 <div class="space-y-6 animate-fadeIn max-w-md mx-auto py-8">
@@ -546,12 +546,22 @@
         }
 
         function handleSignIn() {
-            const nameVal = document.getElementById('signInName').value.trim();
-            const emailVal = document.getElementById('signInEmail').value.trim();
+            const nameEl = document.getElementById('signInName');
+            const emailEl = document.getElementById('signInEmail');
+            
+            if (!nameEl || !emailEl) {
+                showToast('❌ Form element error. Please try again.');
+                return;
+            }
+
+            const nameVal = nameEl.value.trim();
+            const emailVal = emailEl.value.trim();
+
             if (!nameVal || !emailVal) {
                 showToast('Please provide both your name and college email.');
                 return;
             }
+
             appState.currentUser = { name: nameVal, email: emailVal };
             showToast(`⚡ Welcome back, ${nameVal}! Session authenticated.`);
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
