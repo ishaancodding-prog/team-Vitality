@@ -3,45 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABTalks - 60-Day Coding Challenge Hub (Team Vitality Edition)</title>
+    <title>ABTalks - 60-Day Challenge (Team Vitality Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
                 }
             }
         }
     </script>
     <style>
-        .sunset-card {
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.8) 100%);
-            border: 1px solid rgba(244, 63, 94, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(244, 63, 94, 0.2);
+        .aurora-card {
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
-        .sunset-card:hover {
-            border-color: rgba(244, 63, 94, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px -10px rgba(244, 63, 94, 0.35);
+        .aurora-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 25px 60px rgba(168, 85, 247, 0.15);
         }
-        .sunset-btn {
-            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+        .aurora-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
             color: #ffffff;
-            font-weight: 800;
-            box-shadow: 0 10px 20px -5px rgba(244, 63, 94, 0.5);
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
             transition: all 0.2s ease;
         }
-        .sunset-btn:hover {
-            background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+        .aurora-btn:hover {
+            opacity: 0.95;
             transform: translateY(-2px);
-            box-shadow: 0 15px 25px -5px rgba(244, 63, 94, 0.7);
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.6);
         }
-        .sunset-gradient {
-            background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #818cf8 100%);
+        .aurora-text {
+            background: linear-gradient(135deg, #c084fc 0%, #f43f5e 50%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -50,43 +50,43 @@
             transition: color 0.2s ease;
         }
         .star-rating span.active {
-            color: #fb7185;
-            text-shadow: 0 0 10px rgba(251, 113, 133, 0.6);
+            color: #ec4899;
+            text-shadow: 0 0 12px rgba(236, 72, 153, 0.7);
         }
     </style>
 </head>
-<body class="bg-[#0f172a] text-slate-100 antialiased selection:bg-rose-500 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-[#07090e] text-slate-100 antialiased selection:bg-purple-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Sunset Vibrant Gradients -->
-    <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-rose-500/10 rounded-full blur-[150px] pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <!-- Aurora Glowing Background Effects -->
+    <div class="fixed top-0 left-1/3 w-[700px] h-[700px] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/3 w-[700px] h-[700px] bg-pink-600/10 rounded-full blur-[160px] pointer-events-none"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-rose-500/20 bg-[#0f172a]/90 backdrop-blur-xl sticky top-0 z-50 px-6 lg:px-16 py-4 flex justify-between items-center shadow-2xl">
-        <div class="flex items-center gap-3 cursor-pointer group" onclick="router.navigateTo('/')">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-500 flex items-center justify-center font-extrabold text-white text-xl shadow-lg shadow-rose-500/30 group-hover:scale-105 transition">
+    <header class="border-b border-purple-500/15 bg-[#07090e]/80 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-16 py-4 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center gap-3.5 cursor-pointer group" onclick="router.navigateTo('/')">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-purple-500/25 group-hover:scale-105 transition">
                 ⚡
             </div>
             <div>
                 <span class="font-extrabold tracking-widest text-base text-white">ABTALKS</span>
-                <span class="block text-[9px] text-rose-400 font-bold tracking-widest uppercase">Team Vitality</span>
+                <span class="block text-[9px] text-purple-400 font-bold tracking-widest uppercase">Team Vitality</span>
             </div>
         </div>
 
-        <nav class="hidden md:flex items-center gap-1.5 bg-indigo-950/60 p-1.5 rounded-2xl border border-rose-500/20">
-            <button onclick="router.navigateTo('/')" id="nav-home" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">HOME</button>
-            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">DASHBOARD</button>
-            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">DAY 1</button>
-            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">ABOUT</button>
-            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">CONTACT</button>
+        <nav class="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-2xl border border-purple-500/20">
+            <button onclick="router.navigateTo('/')" id="nav-home" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Home</button>
+            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
+            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Day 1</button>
+            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">About</button>
+            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Contact</button>
         </nav>
 
         <div class="flex items-center gap-3">
-            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-indigo-950/80 border border-rose-500/20 px-3.5 py-1.5 rounded-xl font-mono text-xs text-rose-300 font-bold">
+            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-slate-900/80 border border-purple-500/20 px-3.5 py-1.5 rounded-xl font-mono text-xs text-purple-300 font-bold">
                 <span>🕒</span> <span id="clockText">00:00:00</span>
             </div>
-            <span class="text-xs bg-rose-500/10 text-rose-400 border border-rose-500/30 px-3.5 py-1.5 rounded-full font-bold flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span> DAY 1 ACTIVE
+            <span class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30 px-3.5 py-1.5 rounded-full font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> Day 1 Active
             </span>
         </div>
     </header>
@@ -95,15 +95,15 @@
     <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-16 py-10 z-10"></main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-rose-500/20 bg-[#0f172a] py-8 px-6 lg:px-16 z-10 text-xs text-slate-400">
+    <footer class="border-t border-purple-500/15 bg-[#07090e] py-8 px-6 lg:px-16 z-10 text-xs text-slate-400">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold">
-            <div>© 2026 ABTalks Ecosystem. Designed in Sunset Theme by Team <span class="text-rose-400">Vitality</span>.</div>
+            <div>© 2026 ABTalks Ecosystem. Crafted in Aurora Theme by Team <span class="text-purple-400">Vitality</span>.</div>
             <div class="flex gap-6">
-                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-rose-400 transition">Home</a>
-                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-rose-400 transition">Dashboard</a>
-                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-rose-400 transition">Day 1</a>
-                <a href="#/about" onclick="router.navigateTo('/about')" class="hover:text-rose-400 transition">About Us</a>
-                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-rose-400 transition">Contact</a>
+                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-purple-400 transition">Home</a>
+                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-purple-400 transition">Dashboard</a>
+                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-purple-400 transition">Day 1</a>
+                <a href="#/about" onclick="router.navigateTo('/about')" class="hover:text-purple-400 transition">About Us</a>
+                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-purple-400 transition">Contact</a>
             </div>
         </div>
     </footer>
@@ -119,8 +119,8 @@
             synergyPoints: 50,
             selectedCalendarDay: 1,
             selectedRating: 5,
-            captchaNum1: 5,
-            captchaNum2: 2,
+            captchaNum1: 3,
+            captchaNum2: 5,
             captchaInput: '',
             toastMessage: null
         };
@@ -163,13 +163,13 @@
         function renderLanding() {
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
-                    <div class="sunset-card p-10 lg:p-20 rounded-[3rem] relative overflow-hidden text-center space-y-8">
-                        <div class="inline-flex items-center gap-2 bg-rose-500/10 text-rose-300 border border-rose-500/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                    <div class="aurora-card p-10 lg:p-20 rounded-[3rem] relative overflow-hidden text-center space-y-8">
+                        <div class="inline-flex items-center gap-2 bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
                             ⚡ Team Vitality • Day 1 Challenge Kickoff
                         </div>
                         
                         <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto">
-                            CODE WITHOUT LIMITS.<br>OWN YOUR <span class="sunset-gradient">60-DAY STREAK.</span>
+                            Code Without Limits.<br>Own Your <span class="aurora-text">60-Day Streak.</span>
                         </h1>
                         
                         <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
@@ -177,28 +177,28 @@
                         </p>
 
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-4">
-                            <button onclick="router.navigateTo('/dashboard')" class="sunset-btn px-9 py-4 rounded-2xl text-sm">
-                                IGNITE DASHBOARD 🚀
+                            <button onclick="router.navigateTo('/dashboard')" class="aurora-btn px-9 py-4 rounded-2xl text-sm">
+                                Ignite Dashboard 🚀
                             </button>
-                            <button onclick="router.navigateTo('/day/1')" class="bg-indigo-950/80 border border-rose-500/30 text-rose-300 font-bold px-8 py-4 rounded-2xl text-sm hover:bg-indigo-900 transition">
-                                VIEW CHALLENGE DAY 1 ⚡
+                            <button onclick="router.navigateTo('/day/1')" class="bg-slate-900 border border-purple-500/30 text-purple-300 font-bold px-8 py-4 rounded-2xl text-sm hover:bg-slate-800 transition">
+                                View Challenge Day 1 ⚡
                             </button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                        <div class="sunset-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center justify-center font-bold text-lg">01</div>
+                        <div class="aurora-card p-8 rounded-[2.5rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-lg">01</div>
                             <h3 class="text-lg font-bold text-white">Pick Your Track</h3>
                             <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Select AI & Full Stack development tailored for real-world engineering careers.</p>
                         </div>
-                        <div class="sunset-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center justify-center font-bold text-lg">02</div>
+                        <div class="aurora-card p-8 rounded-[2.5rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-300 border border-pink-500/30 flex items-center justify-center font-bold text-lg">02</div>
                             <h3 class="text-lg font-bold text-white">Build & Commit Daily</h3>
                             <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Push code updates to your public GitHub repository and share proof on LinkedIn.</p>
                         </div>
-                        <div class="sunset-card p-8 rounded-[2.5rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-lg">03</div>
+                        <div class="aurora-card p-8 rounded-[2.5rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-sky-500/20 text-sky-300 border border-sky-500/30 flex items-center justify-center font-bold text-lg">03</div>
                             <h3 class="text-lg font-bold text-white">Gain Visibility</h3>
                             <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Build compounding consistency and become directly visible to top recruiters.</p>
                         </div>
@@ -216,53 +216,53 @@
                 
                 let btnClasses = "p-3 rounded-2xl text-xs font-bold transition flex flex-col items-center justify-center gap-1 border ";
                 if (isSelected) {
-                    btnClasses += "bg-gradient-to-br from-rose-500 to-pink-600 text-white border-rose-400 shadow-lg scale-105 z-10 font-extrabold";
+                    btnClasses += "bg-gradient-to-br from-purple-500 to-pink-600 text-white border-purple-400 shadow-lg scale-105 z-10 font-extrabold";
                 } else if (isUnlocked) {
-                    btnClasses += "bg-indigo-950/80 text-rose-300 border-rose-500/30 hover:bg-indigo-900";
+                    btnClasses += "bg-slate-900/80 text-purple-300 border-purple-500/30 hover:bg-slate-800";
                 } else {
-                    btnClasses += "bg-slate-900/40 text-slate-600 border-slate-800 opacity-40 cursor-not-allowed";
+                    btnClasses += "bg-slate-950/40 text-slate-600 border-slate-900 opacity-40 cursor-not-allowed";
                 }
 
                 daysHtml += `
                     <button onclick="${isUnlocked ? `selectCalendarDay(${i})` : `showToast('🔒 Day ${i} unlocks after Day 1 completion!')`}" class="${btnClasses}">
                         <span>Day ${i}</span>
-                        <span class="text-[9px] ${isSelected ? 'text-rose-100 font-bold' : (isUnlocked ? 'text-emerald-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
+                        <span class="text-[9px] ${isSelected ? 'text-purple-100 font-bold' : (isUnlocked ? 'text-emerald-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
                     </button>
                 `;
             }
 
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
-                    <div class="bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-transparent border border-rose-500/30 p-6 rounded-[2.5rem] flex items-center gap-5 backdrop-blur-xl">
+                    <div class="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-transparent border border-purple-500/30 p-6 rounded-[2.5rem] flex items-center gap-5 backdrop-blur-xl">
                         <span class="text-4xl">🌱</span>
                         <div>
-                            <h4 class="text-sm font-bold text-rose-300 uppercase tracking-wide">Day 1 - Active Challenge Started</h4>
+                            <h4 class="text-sm font-bold text-purple-300 uppercase tracking-wide">Day 1 - Active Challenge Started</h4>
                             <p class="text-xs text-slate-300 mt-1 font-medium">Your 60-day journey begins today. Complete your Day 1 submission to ignite your streak!</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="sunset-card p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-rose-400 tracking-wider">Current Streak</span>
+                        <div class="aurora-card p-7 rounded-[2.5rem]">
+                            <span class="text-xs uppercase font-bold text-purple-400 tracking-wider">Current Streak</span>
                             <div class="text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-lg font-normal text-slate-400">Day 🔥</span></div>
                         </div>
-                        <div class="sunset-card p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-indigo-300 tracking-wider">Challenge Progress</span>
+                        <div class="aurora-card p-7 rounded-[2.5rem]">
+                            <span class="text-xs uppercase font-bold text-pink-400 tracking-wider">Challenge Progress</span>
                             <div class="text-4xl font-extrabold text-white mt-2">1.6%</div>
                         </div>
-                        <div class="sunset-card p-7 rounded-[2.5rem]">
+                        <div class="aurora-card p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Synergy Points</span>
                             <div class="text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
                         </div>
                     </div>
 
-                    <div class="sunset-card p-8 rounded-[3rem] space-y-6">
+                    <div class="aurora-card p-8 rounded-[3rem] space-y-6">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <div>
                                 <h3 class="text-xl font-bold text-white tracking-tight">60-Day Challenge Calendar</h3>
                                 <p class="text-xs text-slate-400 font-medium">Click any unlocked day to inspect completed work and logs.</p>
                             </div>
-                            <span class="text-xs bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3.5 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
+                            <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3.5 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
                         </div>
 
                         <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
@@ -270,9 +270,9 @@
                         </div>
                     </div>
 
-                    <div class="sunset-card p-8 rounded-[3rem] border border-rose-500/40 space-y-4">
+                    <div class="aurora-card p-8 rounded-[3rem] border border-purple-500/40 space-y-4">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-rose-300 uppercase tracking-widest bg-rose-500/10 px-3.5 py-1 rounded-full border border-rose-500/20">Day 1 Focus • Setup & Hello World</span>
+                            <span class="text-xs font-bold text-purple-300 uppercase tracking-widest bg-purple-500/10 px-3.5 py-1 rounded-full border border-purple-500/20">Day 1 Focus • Setup & Hello World</span>
                             <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3.5 py-1 rounded-full font-bold">In Progress</span>
                         </div>
                         <h4 class="text-xl font-bold text-white">Environment Setup & Core Architecture Initialization</h4>
@@ -280,7 +280,7 @@
                             Initialize your public GitHub repository, configure your development environment, and deploy your initial Day 1 proof of work.
                         </p>
                         <div class="pt-2">
-                            <button onclick="router.navigateTo('/day/1')" class="sunset-btn px-6 py-3 rounded-2xl text-xs">
+                            <button onclick="router.navigateTo('/day/1')" class="aurora-btn px-6 py-3 rounded-2xl text-xs">
                                 Open Day 1 Submission Portal →
                             </button>
                         </div>
@@ -295,7 +295,7 @@
                 <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
                     <div class="flex items-center justify-between">
                         <button onclick="router.navigateTo('/dashboard')" class="text-sm text-slate-400 hover:text-white font-bold flex items-center gap-2">← Back to Dashboard</button>
-                        <span class="text-xs font-bold text-rose-300 bg-rose-500/10 border border-rose-500/30 px-4 py-1.5 rounded-full">Day 1 of 60 Challenge</span>
+                        <span class="text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Day 1 of 60 Challenge</span>
                     </div>
 
                     <div class="space-y-3">
@@ -303,7 +303,7 @@
                         <p class="text-base text-slate-300 leading-relaxed font-medium">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work to kick off your streak.</p>
                     </div>
 
-                    <div class="sunset-card p-8 lg:p-10 rounded-[3rem] space-y-6">
+                    <div class="aurora-card p-8 lg:p-10 rounded-[3rem] space-y-6">
                         <h3 class="text-lg font-bold text-white flex items-center justify-between">
                             <span>🚀 Submit Day 1 Proof of Work</span>
                             ${appState.isSubmitted ? '<span class="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3.5 py-1 rounded-full border border-emerald-500/30">Verified ✓</span>' : '<span class="text-xs text-amber-400 font-bold bg-amber-500/10 px-3.5 py-1 rounded-full border border-amber-500/30">Pending</span>'}
@@ -312,29 +312,29 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
-                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-slate-950/60 border border-rose-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-rose-400">
+                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-slate-950/60 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
-                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-950/60 border border-rose-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-rose-400">
+                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-950/60 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             
-                            <div class="bg-slate-950/60 border border-rose-500/30 p-5 rounded-2xl space-y-3">
+                            <div class="bg-slate-950/60 border border-purple-500/30 p-5 rounded-2xl space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs uppercase font-bold text-slate-300">Security Math Verification</span>
-                                    <button onclick="refreshCaptcha()" class="text-xs text-rose-400 hover:underline font-bold">Generate New Code 🔄</button>
+                                    <button onclick="refreshCaptcha()" class="text-xs text-purple-400 hover:underline font-bold">Generate New Code 🔄</button>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="bg-indigo-950 border border-rose-500/30 px-5 py-3 rounded-2xl text-base font-mono font-bold text-rose-300">
+                                    <div class="bg-slate-900 border border-purple-500/30 px-5 py-3 rounded-2xl text-base font-mono font-bold text-purple-300">
                                         ${appState.captchaNum1} + ${appState.captchaNum2} = ?
                                     </div>
-                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Enter answer" class="w-40 bg-slate-950/60 border border-rose-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-rose-400">
+                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Enter answer" class="w-40 bg-slate-950/60 border border-purple-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-400">
                                 </div>
                             </div>
                         </div>
 
-                        <button onclick="handleSubmission()" class="sunset-btn w-full py-4 rounded-2xl text-base">
-                            VERIFY & SUBMIT DAY 1 PROOF (+50 SP) ⚡
+                        <button onclick="handleSubmission()" class="aurora-btn w-full py-4 rounded-2xl text-base">
+                            Verify & Submit Day 1 Proof (+50 Synergy Points) ⚡
                         </button>
                     </div>
                 </div>
@@ -346,30 +346,30 @@
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-rose-300 bg-rose-500/10 border border-rose-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
                         <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
                         <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and intelligence of ABTalks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="sunset-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-rose-500/20 border border-rose-500/30 text-rose-300 flex items-center justify-center font-bold text-2xl mx-auto">🎨</div>
+                        <div class="aurora-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-pink-500/20 border border-pink-500/30 text-pink-300 flex items-center justify-center font-bold text-2xl mx-auto">🎨</div>
                             <h3 class="text-2xl font-bold text-white">Mahima</h3>
-                            <p class="text-xs text-rose-400 font-bold uppercase tracking-widest">Designer</p>
+                            <p class="text-xs text-pink-400 font-bold uppercase tracking-widest">Designer</p>
                             <p class="text-slate-300 text-xs font-medium">Crafted intuitive layouts, visual aesthetics, and responsive user experiences.</p>
                         </div>
 
-                        <div class="sunset-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 flex items-center justify-center font-bold text-2xl mx-auto">🤖</div>
+                        <div class="aurora-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/30 text-purple-300 flex items-center justify-center font-bold text-2xl mx-auto">🤖</div>
                             <h3 class="text-2xl font-bold text-white">Diksha</h3>
-                            <p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">AI Engineer</p>
+                            <p class="text-xs text-purple-400 font-bold uppercase tracking-widest">AI Engineer</p>
                             <p class="text-slate-300 text-xs font-medium">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
                         </div>
 
-                        <div class="sunset-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/30 text-purple-300 flex items-center justify-center font-bold text-2xl mx-auto">💻</div>
+                        <div class="aurora-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-sky-500/20 border border-sky-500/30 text-sky-300 flex items-center justify-center font-bold text-2xl mx-auto">💻</div>
                             <h3 class="text-2xl font-bold text-white">Ishaan</h3>
-                            <p class="text-xs text-purple-300 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
+                            <p class="text-xs text-sky-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
                             <p class="text-slate-300 text-xs font-medium">Developed full-stack architecture, routing mechanics, and application logic.</p>
                         </div>
                     </div>
@@ -382,20 +382,20 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-rose-300 bg-rose-500/10 border border-rose-500/30 px-4 py-1.5 rounded-full">Get In Touch</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Get In Touch</span>
                         <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
                         <p class="text-slate-400 text-sm font-medium">Have feedback or questions? Drop us a message and rate your experience below.</p>
                     </div>
 
-                    <div class="sunset-card p-8 lg:p-10 rounded-[3rem] space-y-6">
+                    <div class="aurora-card p-8 lg:p-10 rounded-[3rem] space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" placeholder="Enter your name" class="w-full bg-slate-950/60 border border-rose-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-rose-400">
+                                <input type="text" placeholder="Enter your name" class="w-full bg-slate-950/60 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" placeholder="student@college.edu" class="w-full bg-slate-950/60 border border-rose-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-rose-400">
+                                <input type="email" placeholder="student@college.edu" class="w-full bg-slate-950/60 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                         </div>
 
@@ -412,10 +412,10 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea rows="4" placeholder="How can we help you?" class="w-full bg-slate-950/60 border border-rose-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-rose-400 resize-none"></textarea>
+                            <textarea rows="4" placeholder="How can we help you?" class="w-full bg-slate-950/60 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400 resize-none"></textarea>
                         </div>
-                        <button onclick="showToast('✅ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="sunset-btn w-full py-4 rounded-2xl text-base">
-                            SUBMIT FEEDBACK & RATING ⭐
+                        <button onclick="showToast('✅ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="aurora-btn w-full py-4 rounded-2xl text-base">
+                            Submit Feedback & Rating ⭐
                         </button>
                     </div>
                 </div>
@@ -478,7 +478,7 @@
                 const btn = document.getElementById(btnId);
                 if(btn) {
                     if(r === route) {
-                        btn.className = 'px-4 py-2 text-xs font-bold rounded-xl transition bg-gradient-to-r from-rose-500 to-pink-600 text-white shadow-lg shadow-rose-500/30';
+                        btn.className = 'px-4 py-2 text-xs font-bold rounded-xl transition bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/30';
                     } else {
                         btn.className = 'px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white';
                     }
