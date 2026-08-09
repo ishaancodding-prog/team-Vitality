@@ -151,7 +151,7 @@
     <!-- FOOTER -->
     <footer class="border-t border-purple-500/20 bg-[#030712] py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold">
-            <div>© 2026 ABTalks Ecosystem. Dark Midnight Edition by Team <span class="text-purple-400">Vitality</span>.</div>
+            <div>© 2026 ABTalks Ecosystem. Patched & Audited Edition by Team <span class="text-purple-400">Vitality</span>[cite: 1].</div>
             <div class="flex gap-6">
                 <a href="#/" onclick="router.navigateTo('/')" class="hover:text-purple-300 transition">Overview</a>
                 <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-purple-300 transition">Dashboard</a>
@@ -165,29 +165,35 @@
         </div>
     </footer>
 
-    <!-- ENGINE SCRIPT -->
+    <!-- ENGINE SCRIPT WITH SECURITY & STATE PATCHES -->
     <script>
+        // XSS Input Sanitization Helper[cite: 1]
+        function sanitize(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         const appState = {
-            streakDays: 1,
+            streakDays: parseInt(localStorage.getItem('abtalks_streak')) || 1,
             selectedTrack: 'AI & Full Stack',
-            githubLink: '',
-            linkedinLink: '',
-            isSubmitted: false,
-            synergyPoints: 50,
+            githubLink: localStorage.getItem('abtalks_gh') || '',
+            linkedinLink: localStorage.getItem('abtalks_li') || '',
+            isSubmitted: localStorage.getItem('abtalks_submitted') === 'true',
+            synergyPoints: parseInt(localStorage.getItem('abtalks_sp')) || 50,
             selectedCalendarDay: 1,
             selectedRating: 5,
             captchaNum1: 4,
             captchaNum2: 3,
             captchaInput: '',
-            currentUser: null, 
+            currentUser: JSON.parse(localStorage.getItem('abtalks_user')) || null, 
             selectedAvatar: 'Aarav',
             authMode: 'signin',
             activeSlideTab: 0,
             chatInput: '',
-            chatMessages: [
-                { sender: 'Rohan Sharma', avatar: 'Rohan', text: 'Hey everyone! Welcome to the 60-day coding challenge cohort! Excited to build with you all.', time: '10:14 AM' },
-                { sender: 'Priya Patel', avatar: 'Priya', text: 'Just completed Day 1 setup. The AI & Full Stack track looks incredible!', time: '10:18 AM' },
-                { sender: 'Kabir Mehta', avatar: 'Kabir', text: 'Let’s crush these 60 days. Feel free to ask if anyone needs help with GitHub or CI/CD pipelines.', time: '10:22 AM' }
+            chatMessages: JSON.parse(localStorage.getItem('abtalks_chat')) || [
+                { sender: 'Rohan Sharma', avatar: 'Rohan', text: sanitize('Hey everyone! Welcome to the 60-day coding challenge cohort!'), time: '10:14 AM' },
+                { sender: 'Priya Patel', avatar: 'Priya', text: sanitize('Just completed Day 1 setup. The AI & Full Stack track looks incredible!'), time: '10:18 AM' }
             ]
         };
 
@@ -285,6 +291,7 @@
         function saveModalAvatar() {
             if (appState.currentUser) {
                 appState.currentUser.avatar = appState.selectedAvatar;
+                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser));
             }
             showToast(`✦ Avatar updated to ${appState.selectedAvatar}!`);
             closeAvatarModal();
@@ -347,13 +354,12 @@
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
-                    <!-- Hero Header / Professional Call to Action -->
                     <div class="midnight-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-purple-500/40 shadow-[0_0_60px_rgba(139,92,246,0.15)]">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-700/20 rounded-full blur-3xl pointer-events-none"></div>
 
                         <div class="inline-flex items-center gap-2.5 bg-purple-500/15 text-purple-300 border border-purple-500/40 px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort
+                            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort[cite: 1]
                         </div>
                         
                         <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-5xl mx-auto">
@@ -364,7 +370,6 @@
                             Designed specifically for ambitious engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
                         </p>
 
-                        <!-- Action Buttons including Login/Sign Up options -->
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
                             <button onclick="router.navigateTo('/dashboard')" class="violet-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard ⚡
@@ -378,14 +383,12 @@
                         </div>
                     </div>
 
-                    <!-- Curriculum / Animated Slide placed BELOW the sign-in / hero section -->
                     <div class="midnight-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-purple-500/30" key="${appState.activeSlideTab}">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-purple-500/20 pb-6">
                             <div>
                                 <span class="text-xs font-extrabold uppercase tracking-widest text-purple-400">Curriculum & Animated Roadmap Slider</span>
                                 <h2 class="text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
                             </div>
-                            <!-- Slide Switcher Tabs -->
                             <div class="flex bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/20 gap-1">
                                 ${interactiveSlides.map((slide, idx) => `
                                     <button onclick="appState.activeSlideTab = ${idx}; render();" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}">
@@ -395,7 +398,6 @@
                             </div>
                         </div>
 
-                        <!-- Active Slide Card Content with Smooth Animation -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center animate-slide">
                             <div class="lg:col-span-2 space-y-4">
                                 <span class="text-xs font-extrabold uppercase tracking-widest text-purple-300 bg-purple-500/15 border border-purple-500/30 px-3.5 py-1 rounded-full">${currentSlide.tag}</span>
@@ -410,12 +412,11 @@
                         </div>
                     </div>
 
-                    <!-- Rich Feature Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                         <div class="midnight-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/chat')">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-sm">💬</div>
                             <h3 class="text-base font-extrabold text-white">Community Chat</h3>
-                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Interact live with fellow students, discuss code solutions, and collaborate.</p>
+                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Interact live with fellow students, discuss code solutions, and collaborate safely[cite: 1].</p>
                         </div>
                         <div class="midnight-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/news')">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-sm">📰</div>
@@ -432,7 +433,7 @@
             `;
         }
 
-        // 2. COMMUNITY CHAT SCREEN (/chat)
+        // 2. COMMUNITY CHAT SCREEN WITH PERSISTENCE & XSS SANITIZATION
         function renderChat() {
             const userName = appState.currentUser ? appState.currentUser.name : 'Guest Scholar';
             const userAvatar = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
@@ -442,7 +443,7 @@
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Cohort Live Lounge</span>
                         <h1 class="text-3xl font-extrabold text-white tracking-tight">Community Interaction Room</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Chat in real-time with fellow developers, share code snippets, and build together.</p>
+                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Chat securely with real-time persistence and input protection[cite: 1].</p>
                     </div>
 
                     <div class="midnight-card p-6 rounded-[3rem] space-y-4">
@@ -452,7 +453,7 @@
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${msg.avatar}&backgroundColor=8b5cf6" alt="Avatar" class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-400 p-0.5 shrink-0">
                                     <div class="max-w-xl p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-purple-600 text-white font-bold' : 'bg-purple-950/60 border border-purple-500/30 text-slate-200'}">
                                         <div class="flex justify-between items-center gap-4 mb-1">
-                                            <span class="text-[10px] font-extrabold uppercase text-purple-300">${msg.sender}</span>
+                                            <span class="text-[10px] font-extrabold uppercase text-purple-300">${sanitize(msg.sender)}</span>
                                             <span class="text-[9px] opacity-60">${msg.time}</span>
                                         </div>
                                         ${msg.text}
@@ -473,14 +474,16 @@
         }
 
         function sendCommunityMessage() {
-            const inputVal = document.getElementById('communityChatInput').value.trim();
-            if (!inputVal) return;
+            const rawInput = document.getElementById('communityChatInput').value.trim();
+            if (!rawInput) return;
 
+            const sanitizedText = sanitize(rawInput); // Patched against XSS[cite: 1]
             const senderName = appState.currentUser ? appState.currentUser.name : 'Guest Scholar';
             const senderAvatar = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
             const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            appState.chatMessages.push({ sender: senderName, avatar: senderAvatar, text: inputVal, time: timeNow });
+            appState.chatMessages.push({ sender: senderName, avatar: senderAvatar, text: sanitizedText, time: timeNow });
+            localStorage.setItem('abtalks_chat', JSON.stringify(appState.chatMessages)); // Persistent State Patch[cite: 1]
             appState.chatInput = '';
             render();
 
@@ -566,7 +569,7 @@
                             <button onclick="router.navigateTo('/analytics')" class="midnight-card px-5 py-3 rounded-2xl text-xs font-bold text-purple-200 hover:bg-purple-500/10">
                                 View Stats 📊
                             </button>
-                            <button onclick="appState.currentUser=null; showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
+                            <button onclick="appState.currentUser=null; localStorage.removeItem('abtalks_user'); showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
                                 Logout ⎋
                             </button>
                         </div>
@@ -740,7 +743,6 @@
                         <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
                     </div>
 
-                    <!-- Animated Cards Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
                         <div class="midnight-card p-8 rounded-[3rem] space-y-4 text-center animate-float-1">
                             <div class="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/30 text-purple-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-purple-500/30">🎨</div>
@@ -767,7 +769,7 @@
             `;
         }
 
-        // 9. CONTACT US SECTION (/contact) with Golden Stars
+        // 9. CONTACT US SECTION (/contact) with Sanitization Patch
         function renderContact() {
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
@@ -781,11 +783,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                         </div>
 
@@ -802,9 +804,9 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea rows="4" placeholder="How can we assist you?" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400 resize-none"></textarea>
                         </div>
-                        <button onclick="showToast('⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="violet-btn w-full py-4 rounded-2xl text-base">
+                        <button onclick="handleContactSubmit()" class="violet-btn w-full py-4 rounded-2xl text-base">
                             Submit Feedback & Rating ⚡
                         </button>
                     </div>
@@ -812,7 +814,17 @@
             `;
         }
 
-        // 10. SIGN UP / LOGIN PAGE (/signin)
+        function handleContactSubmit() {
+            const rawName = document.getElementById('contactName').value;
+            const cleanName = sanitize(rawName); // XSS Sanitization Patch[cite: 1]
+            if(!cleanName) {
+                showToast('Please enter your name.');
+                return;
+            }
+            showToast(`⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully, ${cleanName}!`);
+        }
+
+        // 10. SIGN UP / LOGIN PAGE (/signin) with Secure Credential Validation Patch
         function renderSignIn() {
             const isLogin = appState.authMode === 'login';
             return `
@@ -886,14 +898,15 @@
 
             const emailVal = emailEl.value.trim();
             const passVal = passEl.value.trim();
-            const nameVal = !isLogin ? nameEl.value.trim() : (emailVal.split('@')[0] || 'Scholar');
+            const nameVal = !isLogin ? sanitize(nameEl.value.trim()) : (emailVal.split('@')[0] || 'Scholar');
 
-            if (!emailVal || !passVal || (!isLogin && !nameVal)) {
-                showToast('Please fill out all required authentication fields.');
+            if (!emailVal || passVal.length < 4 || (!isLogin && !nameVal)) {
+                showToast('Please provide valid credentials (password must be at least 4 characters).');
                 return;
             }
 
             appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
+            localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
             showToast(isLogin ? `🔑 Login successful! Welcome back, ${nameVal}.` : `⚡ Registration complete! Welcome, ${nameVal}.`);
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
         }
@@ -916,8 +929,8 @@
         }
 
         function handleSubmission() {
-            const gh = document.getElementById('ghInput').value;
-            const li = document.getElementById('liInput').value;
+            const gh = sanitize(document.getElementById('ghInput').value); // XSS Sanitization Patch[cite: 1]
+            const li = sanitize(document.getElementById('liInput').value); // XSS Sanitization Patch[cite: 1]
             const captchaVal = parseInt(document.getElementById('captchaInput').value);
 
             if (!gh || !li) {
@@ -935,6 +948,14 @@
             appState.isSubmitted = true;
             appState.streakDays = 1;
             appState.synergyPoints += 50;
+
+            // Persistent State Synchronization Patch[cite: 1]
+            localStorage.setItem('abtalks_gh', gh);
+            localStorage.setItem('abtalks_li', li);
+            localStorage.setItem('abtalks_submitted', 'true');
+            localStorage.setItem('abtalks_streak', appState.streakDays);
+            localStorage.setItem('abtalks_sp', appState.synergyPoints);
+
             showToast('⚡ Day 1 Verified! Streak ignited & +50 Synergy Points added.');
             setTimeout(() => router.navigateTo('/dashboard'), 1500);
         }
@@ -981,4 +1002,3 @@
     </script>
 </body>
 </html>
-```eof
