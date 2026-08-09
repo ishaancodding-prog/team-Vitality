@@ -17,32 +17,32 @@
         }
     </script>
     <style>
-        .velvet-card {
-            background: linear-gradient(145deg, rgba(20, 10, 26, 0.95) 0%, rgba(10, 4, 14, 0.98) 100%);
+        .ruby-card {
+            background: linear-gradient(145deg, rgba(26, 10, 12, 0.95) 0%, rgba(14, 4, 6, 0.98) 100%);
             backdrop-filter: blur(40px);
-            border: 1px solid rgba(217, 70, 239, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.35);
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .velvet-card:hover {
-            border-color: rgba(217, 70, 239, 0.65);
-            box-shadow: 0 45px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(217, 70, 239, 0.25);
+        .ruby-card:hover {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 45px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(239, 68, 68, 0.3);
             transform: translateY(-2px);
         }
-        .velvet-btn {
-            background: linear-gradient(135deg, #e879f9 0%, #c084fc 50%, #9333ea 100%);
+        .ruby-btn {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #b91c1c 100%);
             color: #ffffff;
             font-weight: 800;
-            box-shadow: 0 12px 35px rgba(192, 132, 252, 0.45);
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.45);
             transition: all 0.3s ease;
         }
-        .velvet-btn:hover {
+        .ruby-btn:hover {
             opacity: 0.95;
             transform: translateY(-2px);
-            box-shadow: 0 18px 40px rgba(192, 132, 252, 0.65);
+            box-shadow: 0 18px 40px rgba(239, 68, 68, 0.65);
         }
-        .velvet-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #f5d0fe 40%, #e879f9 100%);
+        .ruby-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #fee2e2 40%, #f87171 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -58,30 +58,30 @@
             transition: color 0.2s ease;
         }
         .star-rating span.active {
-            color: #e879f9;
-            text-shadow: 0 0 15px rgba(232, 121, 249, 0.8);
+            color: #f87171;
+            text-shadow: 0 0 15px rgba(248, 113, 113, 0.8);
         }
     </style>
 </head>
-<body class="bg-[#050208] text-slate-100 antialiased selection:bg-fuchsia-500 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-[#070203] text-slate-100 antialiased selection:bg-red-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Ambient Lighting -->
-    <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-fuchsia-600/15 rounded-full blur-[200px] pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-purple-700/15 rounded-full blur-[200px] pointer-events-none"></div>
+    <!-- Ambient Lighting (Crimson & Red) -->
+    <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-red-600/15 rounded-full blur-[200px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-rose-700/15 rounded-full blur-[200px] pointer-events-none"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-fuchsia-500/20 bg-[#050208]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
+    <header class="border-b border-red-500/20 bg-[#070203]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
         <div class="flex items-center gap-4 cursor-pointer group" onclick="router.navigateTo('/')">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-fuchsia-500 to-purple-700 flex items-center justify-center font-extrabold text-white text-2xl shadow-xl shadow-fuchsia-500/30 group-hover:scale-105 transition">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-red-500 to-rose-700 flex items-center justify-center font-extrabold text-white text-2xl shadow-xl shadow-red-500/30 group-hover:scale-105 transition">
                 ⚡
             </div>
             <div>
                 <span class="font-extrabold tracking-widest text-sm text-white uppercase">ABTALKS</span>
-                <span class="block text-[10px] text-fuchsia-400 font-bold tracking-widest uppercase">Team Vitality</span>
+                <span class="block text-[10px] text-red-400 font-bold tracking-widest uppercase">Team Vitality</span>
             </div>
         </div>
 
-        <nav class="hidden md:flex items-center gap-1 bg-fuchsia-950/40 p-1.5 rounded-2xl border border-fuchsia-500/20">
+        <nav class="hidden md:flex items-center gap-1 bg-red-950/40 p-1.5 rounded-2xl border border-red-500/20">
             <button onclick="router.navigateTo('/')" id="nav-home" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
             <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
             <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
@@ -92,10 +92,10 @@
         </nav>
 
         <div class="flex items-center gap-4">
-            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-fuchsia-950/50 border border-fuchsia-500/20 px-4 py-2 rounded-xl font-mono text-xs text-fuchsia-300 font-bold">
+            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-red-950/50 border border-red-500/20 px-4 py-2 rounded-xl font-mono text-xs text-red-300 font-bold">
                 <span>🕒</span> <span id="clockText">00:00:00 AM</span>
             </div>
-            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-fuchsia-500/15 border border-fuchsia-500/30 hover:border-fuchsia-400 px-4 py-2 rounded-xl text-xs font-bold transition text-fuchsia-300">
+            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-red-500/15 border border-red-500/30 hover:border-red-400 px-4 py-2 rounded-xl text-xs font-bold transition text-red-300">
                 Sign In / Login ✦
             </button>
         </div>
@@ -106,40 +106,40 @@
 
     <!-- TOAST NOTIFICATION POPUP -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-        <div id="toastMessageContent" class="velvet-card px-6 py-3.5 rounded-2xl border border-fuchsia-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
-            <span class="text-fuchsia-400">✦</span> <span id="toastText">Notification message</span>
+        <div id="toastMessageContent" class="ruby-card px-6 py-3.5 rounded-2xl border border-red-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
+            <span class="text-red-400">✦</span> <span id="toastText">Notification message</span>
         </div>
     </div>
 
     <!-- AVATAR EDITOR MODAL OVERLAY -->
     <div id="avatarModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="velvet-card p-8 rounded-[3rem] max-w-lg w-full space-y-6 border border-fuchsia-500/40">
+        <div class="ruby-card p-8 rounded-[3rem] max-w-lg w-full space-y-6 border border-red-500/40">
             <div class="flex justify-between items-center">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-400">Persona Customizer</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-red-400">Persona Customizer</span>
                     <h3 class="text-xl font-extrabold text-white mt-1">Select Your Indian Avatar</h3>
                 </div>
-                <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/30 text-fuchsia-300 flex items-center justify-center font-bold hover:bg-fuchsia-500/20">✕</button>
+                <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 flex items-center justify-center font-bold hover:bg-red-500/20">✕</button>
             </div>
             <p class="text-xs text-slate-300">Choose from 10 professional student avatars:</p>
-            <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-fuchsia-950/20 border border-fuchsia-500/20 rounded-2xl" id="modalAvatarGrid"></div>
+            <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-red-950/20 border border-red-500/20 rounded-2xl" id="modalAvatarGrid"></div>
             <div class="pt-2 flex gap-3">
-                <button onclick="saveModalAvatar()" class="velvet-btn flex-1 py-3.5 rounded-2xl text-xs">Save Avatar ⚡</button>
+                <button onclick="saveModalAvatar()" class="ruby-btn flex-1 py-3.5 rounded-2xl text-xs">Save Avatar ⚡</button>
             </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-fuchsia-500/20 bg-[#050208] py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
+    <footer class="border-t border-red-500/20 bg-[#070203] py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold">
-            <div>© 2026 ABTalks Ecosystem. Velvet Amethyst Edition by Team <span class="text-fuchsia-400">Vitality</span>.</div>
+            <div>© 2026 ABTalks Ecosystem. Ruby Red Edition by Team <span class="text-red-400">Vitality</span>.</div>
             <div class="flex gap-6">
-                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-fuchsia-300 transition">Overview</a>
-                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-fuchsia-300 transition">Dashboard</a>
-                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-fuchsia-300 transition">Day One</a>
-                <a href="#/analytics" onclick="router.navigateTo('/analytics')" class="hover:text-fuchsia-300 transition">Analytics</a>
-                <a href="#/resources" onclick="router.navigateTo('/resources')" class="hover:text-fuchsia-300 transition">Resources</a>
-                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-fuchsia-300 transition">Contact</a>
+                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-red-300 transition">Overview</a>
+                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-red-300 transition">Dashboard</a>
+                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-red-300 transition">Day One</a>
+                <a href="#/analytics" onclick="router.navigateTo('/analytics')" class="hover:text-red-300 transition">Analytics</a>
+                <a href="#/resources" onclick="router.navigateTo('/resources')" class="hover:text-red-300 transition">Resources</a>
+                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-red-300 transition">Contact</a>
             </div>
         </div>
     </footer>
@@ -205,8 +205,8 @@
             const grid = document.getElementById('modalAvatarGrid');
             if (grid) {
                 grid.innerHTML = avatarChoices.map(av => `
-                    <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-fuchsia-500/30 border-fuchsia-400 scale-105 shadow-md shadow-fuchsia-500/30' : 'border-transparent hover:bg-fuchsia-500/10'}">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=c084fc" alt="${av.name}" class="w-12 h-12 rounded-full bg-fuchsia-500/10 p-0.5">
+                    <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-red-500/30 border-red-400 scale-105 shadow-md shadow-red-500/30' : 'border-transparent hover:bg-red-500/10'}">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=ef4444" alt="${av.name}" class="w-12 h-12 rounded-full bg-red-500/10 p-0.5">
                         <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
                     </div>
                 `).join('');
@@ -223,9 +223,9 @@
                 const el = document.querySelector(`.modal-av-item-${av.seed}`);
                 if (el) {
                     if (appState.selectedAvatar === av.seed) {
-                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border bg-fuchsia-500/30 border-fuchsia-400 scale-105 shadow-md shadow-fuchsia-500/30 modal-av-item-${av.seed}`;
+                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border bg-red-500/30 border-red-400 scale-105 shadow-md shadow-red-500/30 modal-av-item-${av.seed}`;
                     } else {
-                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border border-transparent hover:bg-fuchsia-500/10 modal-av-item-${av.seed}`;
+                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border border-transparent hover:bg-red-500/10 modal-av-item-${av.seed}`;
                     }
                 }
             });
@@ -297,16 +297,16 @@
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
                     <!-- Hero Header / Professional Call to Action -->
-                    <div class="velvet-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-fuchsia-500/40 shadow-[0_0_50px_rgba(217,70,239,0.15)]">
-                        <div class="absolute -top-32 -right-32 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="ruby-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-red-500/40 shadow-[0_0_50px_rgba(239,68,68,0.15)]">
+                        <div class="absolute -top-32 -right-32 w-96 h-96 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-rose-700/20 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div class="inline-flex items-center gap-2.5 bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-500/40 px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner">
-                            <span class="w-2.5 h-2.5 rounded-full bg-fuchsia-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort
+                        <div class="inline-flex items-center gap-2.5 bg-red-500/15 text-red-300 border border-red-500/40 px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort
                         </div>
                         
                         <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-5xl mx-auto">
-                            Master Code & Build Your <span class="velvet-gradient">60-Day Legacy.</span>
+                            Master Code & Build Your <span class="ruby-gradient">60-Day Legacy.</span>
                         </h1>
                         
                         <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
@@ -315,29 +315,29 @@
 
                         <!-- Action Buttons including Login/Sign Up options -->
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
-                            <button onclick="router.navigateTo('/dashboard')" class="velvet-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
+                            <button onclick="router.navigateTo('/dashboard')" class="ruby-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard ⚡
                             </button>
-                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="velvet-card text-fuchsia-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-fuchsia-500/10 border border-fuchsia-500/40">
+                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="ruby-card text-red-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-red-500/10 border border-red-500/40">
                                 Register / Sign Up ✦
                             </button>
-                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-fuchsia-500/10 text-fuchsia-300 font-bold px-8 py-4 rounded-2xl text-sm transition hover:bg-fuchsia-500/20 border border-fuchsia-500/20">
+                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-red-500/10 text-red-300 font-bold px-8 py-4 rounded-2xl text-sm transition hover:bg-red-500/20 border border-red-500/20">
                                 Existing User Login 🔑
                             </button>
                         </div>
                     </div>
 
                     <!-- Curriculum / Interactive Slide placed BELOW the sign-in / hero section -->
-                    <div class="velvet-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-fuchsia-500/30" key="${appState.activeSlideTab}">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-fuchsia-500/20 pb-6">
+                    <div class="ruby-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-red-500/30" key="${appState.activeSlideTab}">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-red-500/20 pb-6">
                             <div>
-                                <span class="text-xs font-extrabold uppercase tracking-widest text-fuchsia-400">Curriculum & Roadmap Slider</span>
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-red-400">Curriculum & Roadmap Slider</span>
                                 <h2 class="text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
                             </div>
                             <!-- Slide Switcher Tabs -->
-                            <div class="flex bg-fuchsia-950/40 p-1.5 rounded-2xl border border-fuchsia-500/30 gap-1">
+                            <div class="flex bg-red-950/40 p-1.5 rounded-2xl border border-red-500/30 gap-1">
                                 ${interactiveSlides.map((slide, idx) => `
-                                    <button onclick="appState.activeSlideTab = ${idx}; render();" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}">
+                                    <button onclick="appState.activeSlideTab = ${idx}; render();" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}">
                                         Phase 0${idx + 1}
                                     </button>
                                 `).join('')}
@@ -347,32 +347,32 @@
                         <!-- Active Slide Card Content -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
                             <div class="lg:col-span-2 space-y-4">
-                                <span class="text-xs font-extrabold uppercase tracking-widest text-fuchsia-400 bg-fuchsia-500/10 border border-fuchsia-500/30 px-3.5 py-1 rounded-full">${currentSlide.tag}</span>
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-3.5 py-1 rounded-full">${currentSlide.tag}</span>
                                 <h3 class="text-2xl lg:text-3xl font-extrabold text-white">${currentSlide.title}</h3>
                                 <p class="text-slate-300 text-sm sm:text-base leading-relaxed">${currentSlide.desc}</p>
                             </div>
-                            <div class="bg-fuchsia-950/40 border border-fuchsia-500/30 p-6 rounded-3xl space-y-4 text-center">
+                            <div class="bg-red-950/40 border border-red-500/30 p-6 rounded-3xl space-y-4 text-center">
                                 <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Timeline Window</div>
-                                <div class="text-2xl font-extrabold text-fuchsia-300">${currentSlide.stat}</div>
-                                <div class="text-xs font-bold text-white bg-fuchsia-500/20 py-2 px-4 rounded-xl border border-fuchsia-500/30">${currentSlide.highlight}</div>
+                                <div class="text-2xl font-extrabold text-red-300">${currentSlide.stat}</div>
+                                <div class="text-xs font-bold text-white bg-red-500/20 py-2 px-4 rounded-xl border border-red-500/30">${currentSlide.highlight}</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Rich Feature Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                        <div class="velvet-card p-6 rounded-[2.5rem] space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 flex items-center justify-center font-bold text-sm">📊</div>
+                        <div class="ruby-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-300 border border-red-500/30 flex items-center justify-center font-bold text-sm">📊</div>
                             <h3 class="text-base font-extrabold text-white">Deep Analytics</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics from zero.</p>
                         </div>
-                        <div class="velvet-card p-6 rounded-[2.5rem] space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 flex items-center justify-center font-bold text-sm">📚</div>
+                        <div class="ruby-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-300 border border-red-500/30 flex items-center justify-center font-bold text-sm">📚</div>
                             <h3 class="text-base font-extrabold text-white">Resource Vault</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Curated guides on algorithms, system design, and deployment workflows.</p>
                         </div>
-                        <div class="velvet-card p-6 rounded-[2.5rem] space-y-3">
-                            <div class="w-10 h-10 rounded-xl bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 flex items-center justify-center font-bold text-sm">🛡️</div>
+                        <div class="ruby-card p-6 rounded-[2.5rem] space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-300 border border-red-500/30 flex items-center justify-center font-bold text-sm">🛡️</div>
                             <h3 class="text-base font-extrabold text-white">Secure Verification</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Automated CAPTCHA & GitHub integration checks.</p>
                         </div>
@@ -390,17 +390,17 @@
                 
                 let btnClasses = "p-3 rounded-2xl text-xs font-bold transition flex flex-col items-center justify-center gap-1 border ";
                 if (isSelected) {
-                    btnClasses += "bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white border-fuchsia-300 shadow-lg scale-105 z-10 font-extrabold";
+                    btnClasses += "bg-gradient-to-br from-red-500 to-rose-600 text-white border-red-300 shadow-lg scale-105 z-10 font-extrabold";
                 } else if (isUnlocked) {
-                    btnClasses += "bg-fuchsia-950/60 text-fuchsia-300 border-fuchsia-500/30 hover:bg-fuchsia-900/60";
+                    btnClasses += "bg-red-950/60 text-red-300 border-red-500/30 hover:bg-red-900/60";
                 } else {
-                    btnClasses += "bg-fuchsia-950/20 text-slate-600 border-fuchsia-900/40 opacity-40 cursor-not-allowed";
+                    btnClasses += "bg-red-950/20 text-slate-600 border-red-900/40 opacity-40 cursor-not-allowed";
                 }
 
                 daysHtml += `
                     <button onclick="${isUnlocked ? `selectCalendarDay(${i})` : `showToast('🔒 Day ${i} unlocks after Day 1 completion.')`}" class="${btnClasses}">
                         <span>Day ${i}</span>
-                        <span class="text-[9px] ${isSelected ? 'text-white font-extrabold' : (isUnlocked ? 'text-fuchsia-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
+                        <span class="text-[9px] ${isSelected ? 'text-white font-extrabold' : (isUnlocked ? 'text-red-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
                     </button>
                 `;
             }
@@ -411,20 +411,20 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <!-- Profile Banner with Clickable Avatar -->
-                    <div class="velvet-card p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="ruby-card p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
                         <div class="flex items-center gap-6 text-center sm:text-left">
                             <div onclick="openAvatarModal()" class="relative group cursor-pointer" title="Click to edit avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=c084fc" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-fuchsia-500/20 border-2 border-fuchsia-400 p-1 group-hover:scale-105 transition shadow-lg shadow-fuchsia-500/30">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=ef4444" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-red-500/20 border-2 border-red-400 p-1 group-hover:scale-105 transition shadow-lg shadow-red-500/30">
                                 <div class="absolute inset-0 bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-[10px] font-extrabold text-white">Edit ✎</div>
                             </div>
                             <div class="space-y-1">
-                                <span class="text-[10px] font-bold text-fuchsia-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
+                                <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
                                 <h2 class="text-2xl font-extrabold text-white">${userName}</h2>
                                 <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="router.navigateTo('/analytics')" class="velvet-card px-5 py-3 rounded-2xl text-xs font-bold text-fuchsia-200 hover:bg-fuchsia-500/10">
+                            <button onclick="router.navigateTo('/analytics')" class="ruby-card px-5 py-3 rounded-2xl text-xs font-bold text-red-200 hover:bg-red-500/10">
                                 View Stats 📊
                             </button>
                             <button onclick="appState.currentUser=null; showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
@@ -434,27 +434,27 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="velvet-card p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-fuchsia-400 tracking-wider">Active Streak</span>
+                        <div class="ruby-card p-7 rounded-[2.5rem]">
+                            <span class="text-xs uppercase font-bold text-red-400 tracking-wider">Active Streak</span>
                             <div class="text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-lg font-normal text-slate-400">Day 🔥</span></div>
                         </div>
-                        <div class="velvet-card p-7 rounded-[2.5rem]">
+                        <div class="ruby-card p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-slate-300 tracking-wider">Milestone Progress</span>
                             <div class="text-4xl font-extrabold text-white mt-2">1.6%</div>
                         </div>
-                        <div class="velvet-card p-7 rounded-[2.5rem]">
+                        <div class="ruby-card p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Synergy Points</span>
                             <div class="text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
                         </div>
                     </div>
 
-                    <div class="velvet-card p-8 rounded-[3.5rem] space-y-6">
+                    <div class="ruby-card p-8 rounded-[3.5rem] space-y-6">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <div>
                                 <h3 class="text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
                                 <p class="text-xs text-slate-400 font-medium">Select any unlocked day to inspect requirements and verification logs.</p>
                             </div>
-                            <span class="text-xs bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/30 px-4 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
+                            <span class="text-xs bg-red-500/10 text-red-300 border border-red-500/30 px-4 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
                         </div>
 
                         <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
@@ -471,7 +471,7 @@
                 <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
                     <div class="flex items-center justify-between">
                         <button onclick="router.navigateTo('/dashboard')" class="text-sm text-slate-400 hover:text-white font-bold flex items-center gap-2">← Back to Dashboard</button>
-                        <span class="text-xs font-bold text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">Day 1 of 60</span>
+                        <span class="text-xs font-bold text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">Day 1 of 60</span>
                     </div>
 
                     <div class="space-y-3">
@@ -479,7 +479,7 @@
                         <p class="text-base text-slate-300 leading-relaxed font-normal">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work.</p>
                     </div>
 
-                    <div class="velvet-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
+                    <div class="ruby-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
                         <h3 class="text-lg font-bold text-white flex items-center justify-between">
                             <span>⚡ Submit Day One Proof of Work</span>
                             ${appState.isSubmitted ? '<span class="text-xs text-emerald-300 font-bold bg-emerald-500/20 px-4 py-1 rounded-full border border-emerald-500/40">Verified ✓</span>' : '<span class="text-xs text-amber-300 font-bold bg-amber-500/20 px-4 py-1 rounded-full border border-amber-500/40">Pending</span>'}
@@ -488,29 +488,29 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
-                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
-                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
                             
-                            <div class="bg-fuchsia-950/40 border border-fuchsia-500/30 p-5 rounded-2xl space-y-3">
+                            <div class="bg-red-950/40 border border-red-500/30 p-5 rounded-2xl space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs uppercase font-bold text-slate-300">Security Math Verification</span>
-                                    <button onclick="refreshCaptcha()" class="text-xs text-fuchsia-400 hover:underline font-bold">Generate New Code ↺</button>
+                                    <button onclick="refreshCaptcha()" class="text-xs text-red-400 hover:underline font-bold">Generate New Code ↺</button>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <div class="bg-fuchsia-900/60 border border-fuchsia-500/30 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-fuchsia-300">
+                                    <div class="bg-red-900/60 border border-red-500/30 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-red-300">
                                         ${appState.captchaNum1} + ${appState.captchaNum2} = ?
                                     </div>
-                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-40 bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-40 bg-red-950/40 border border-red-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-red-400">
                                 </div>
                             </div>
                         </div>
 
                         <div class="flex gap-4">
-                            <button onclick="handleSubmission()" class="velvet-btn flex-1 py-4 rounded-2xl text-base">
+                            <button onclick="handleSubmission()" class="ruby-btn flex-1 py-4 rounded-2xl text-base">
                                 Verify & Submit Day 1 Proof (+50 SP) ⚡
                             </button>
                         </div>
@@ -525,43 +525,43 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">Cohort Insights</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">Cohort Insights</span>
                         <h1 class="text-3xl font-extrabold text-white tracking-tight">Performance Analytics & Velocity</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Real-time metrics tracking your commit frequency, language distribution, and consistency score.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="velvet-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="ruby-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Commit Velocity</span>
                             <div class="text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
-                            <span class="text-[11px] text-fuchsia-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
+                            <span class="text-[11px] text-red-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
                         </div>
-                        <div class="velvet-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="ruby-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Consistency Score</span>
-                            <div class="text-3xl font-extrabold text-fuchsia-300">${hasStarted ? '100%' : '0%'}</div>
-                            <span class="text-[11px] text-fuchsia-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
+                            <div class="text-3xl font-extrabold text-red-300">${hasStarted ? '100%' : '0%'}</div>
+                            <span class="text-[11px] text-red-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
                         </div>
-                        <div class="velvet-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="ruby-card p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Recruiter Visibility</span>
-                            <div class="text-3xl font-extrabold text-purple-300">${hasStarted ? 'Active' : 'Unranked'}</div>
-                            <span class="text-[11px] text-purple-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
+                            <div class="text-3xl font-extrabold text-rose-300">${hasStarted ? 'Active' : 'Unranked'}</div>
+                            <span class="text-[11px] text-rose-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
                         </div>
                     </div>
 
-                    <div class="velvet-card p-8 rounded-[3.5rem] space-y-5">
+                    <div class="ruby-card p-8 rounded-[3.5rem] space-y-5">
                         <h3 class="text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
                         <div class="space-y-3 text-xs">
                             <div>
                                 <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>JavaScript / TypeScript</span><span>${hasStarted ? '50%' : '0%'}</span></div>
-                                <div class="w-full bg-fuchsia-950/60 h-3 rounded-full overflow-hidden border border-fuchsia-500/20"><div class="bg-fuchsia-400 h-full ${hasStarted ? 'w-[50%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
+                                <div class="w-full bg-red-950/60 h-3 rounded-full overflow-hidden border border-red-500/20"><div class="bg-red-400 h-full ${hasStarted ? 'w-[50%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>Python & AI Integration</span><span>${hasStarted ? '30%' : '0%'}</span></div>
-                                <div class="w-full bg-fuchsia-950/60 h-3 rounded-full overflow-hidden border border-fuchsia-500/20"><div class="bg-purple-400 h-full ${hasStarted ? 'w-[30%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
+                                <div class="w-full bg-red-950/60 h-3 rounded-full overflow-hidden border border-red-500/20"><div class="bg-rose-400 h-full ${hasStarted ? 'w-[30%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>HTML / CSS / Tailwind</span><span>${hasStarted ? '20%' : '0%'}</span></div>
-                                <div class="w-full bg-fuchsia-950/60 h-3 rounded-full overflow-hidden border border-fuchsia-500/20"><div class="bg-pink-400 h-full ${hasStarted ? 'w-[20%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
+                                <div class="w-full bg-red-950/60 h-3 rounded-full overflow-hidden border border-red-500/20"><div class="bg-orange-400 h-full ${hasStarted ? 'w-[20%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
                             </div>
                         </div>
                     </div>
@@ -574,17 +574,17 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">Knowledge Hub</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">Knowledge Hub</span>
                         <h1 class="text-3xl font-extrabold text-white tracking-tight">Curated Engineering Vault</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Essential guides, templates, and architectural references for the 60-day challenge.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="velvet-card p-8 rounded-[3rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30 flex items-center justify-center font-bold text-lg">⚡</div>
+                        <div class="ruby-card p-8 rounded-[3rem] space-y-4">
+                            <div class="w-12 h-12 rounded-2xl bg-red-500/20 text-red-300 border border-red-500/30 flex items-center justify-center font-bold text-lg">⚡</div>
                             <h3 class="text-xl font-extrabold text-white">Full-Stack Architecture Best Practices</h3>
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Learn how to structure single-file components, manage state effectively, and deploy with zero downtime.</p>
-                            <button onclick="showToast('⚡ Resource guide downloaded successfully!')" class="velvet-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
+                            <button onclick="showToast('⚡ Resource guide downloaded successfully!')" class="ruby-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
                         </div>
                     </div>
                 </div>
@@ -597,18 +597,18 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">Secure Authentication</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">Secure Authentication</span>
                         <h1 class="text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
                         <p class="text-slate-400 text-xs font-medium">${isLogin ? 'Enter your credentials to access your active 60-day challenge.' : 'Select your professional persona and initialize your cohort streak.'}</p>
                     </div>
 
-                    <div class="velvet-card p-8 rounded-[3rem] space-y-6">
+                    <div class="ruby-card p-8 rounded-[3rem] space-y-6">
                         <!-- Mode Switcher Tabs -->
-                        <div class="flex bg-fuchsia-950/40 p-1.5 rounded-2xl border border-fuchsia-500/30">
-                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                        <div class="flex bg-red-950/40 p-1.5 rounded-2xl border border-red-500/30">
+                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
                                 New Registration (Sign Up)
                             </button>
-                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
                                 Existing User Login
                             </button>
                         </div>
@@ -616,15 +616,15 @@
                         ${!isLogin ? `
                             <div class="space-y-3">
                                 <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Indian Avatar (10 Choices)</label>
-                                <div class="grid grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-fuchsia-950/20 border border-fuchsia-500/20 rounded-2xl">
+                                <div class="grid grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-red-950/20 border border-red-500/20 rounded-2xl">
                                     ${avatarChoices.map(av => `
-                                        <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-fuchsia-500/30 border-fuchsia-400 scale-105 shadow-md shadow-fuchsia-500/30' : 'border-transparent hover:bg-fuchsia-500/10'}">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=c084fc" alt="${av.name}" class="w-10 h-10 rounded-full bg-fuchsia-500/10 p-0.5">
+                                        <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-red-500/30 border-red-400 scale-105 shadow-md shadow-red-500/30' : 'border-transparent hover:bg-red-500/10'}">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=ef4444" alt="${av.name}" class="w-10 h-10 rounded-full bg-red-500/10 p-0.5">
                                             <span class="text-[9px] font-bold text-white mt-1 text-center">${av.name}</span>
                                         </div>
                                     `).join('')}
                                 </div>
-                                <div class="text-center text-xs text-fuchsia-300 font-semibold">Selected Persona: <span class="text-white underline">${appState.selectedAvatar}</span></div>
+                                <div class="text-center text-xs text-red-300 font-semibold">Selected Persona: <span class="text-white underline">${appState.selectedAvatar}</span></div>
                             </div>
                         ` : ''}
 
@@ -632,18 +632,18 @@
                             ${!isLogin ? `
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                                 </div>
                             ` : ''}
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email / Username</label>
-                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Password / Security Pin</label>
-                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
-                            <button onclick="handleAuthSubmit()" class="velvet-btn w-full py-4 rounded-2xl text-sm">
+                            <button onclick="handleAuthSubmit()" class="ruby-btn w-full py-4 rounded-2xl text-sm">
                                 ${isLogin ? 'Login to Dashboard 🔑' : 'Complete Registration & Start ⚡'}
                             </button>
                         </div>
@@ -682,30 +682,30 @@
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
                         <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
                         <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="velvet-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-300 flex items-center justify-center font-bold text-xl mx-auto">🎨</div>
+                        <div class="ruby-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-red-500/20 border border-red-500/30 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">🎨</div>
                             <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
-                            <p class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest">Designer</p>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Designer</p>
                             <p class="text-slate-400 text-xs font-normal">Crafted intuitive layouts, visual aesthetics, and refined user experiences.</p>
                         </div>
 
-                        <div class="velvet-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-300 flex items-center justify-center font-bold text-xl mx-auto">🤖</div>
+                        <div class="ruby-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-red-500/20 border border-red-500/30 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">🤖</div>
                             <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
-                            <p class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest">AI Specialist</p>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">AI Specialist</p>
                             <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
                         </div>
 
-                        <div class="velvet-card p-8 rounded-[3rem] space-y-4 text-center">
-                            <div class="w-16 h-16 rounded-2xl bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-300 flex items-center justify-center font-bold text-xl mx-auto">💻</div>
+                        <div class="ruby-card p-8 rounded-[3rem] space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-red-500/20 border border-red-500/30 text-red-300 flex items-center justify-center font-bold text-xl mx-auto">💻</div>
                             <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
-                            <p class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
+                            <p class="text-xs text-red-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
                             <p class="text-slate-400 text-xs font-normal">Developed full-stack architecture, routing mechanics, and application logic.</p>
                         </div>
                     </div>
@@ -718,20 +718,20 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 px-4 py-1.5 rounded-full">Get In Touch</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-red-300 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-full">Get In Touch</span>
                         <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
                         <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
                     </div>
 
-                    <div class="velvet-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
+                    <div class="ruby-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" placeholder="Enter your name" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="text" placeholder="Enter your name" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" placeholder="student@university.ac.in" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400">
+                                <input type="email" placeholder="student@university.ac.in" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400">
                             </div>
                         </div>
 
@@ -748,9 +748,9 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea rows="4" placeholder="How can we assist you?" class="w-full bg-fuchsia-950/40 border border-fuchsia-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-fuchsia-400 resize-none"></textarea>
+                            <textarea rows="4" placeholder="How can we assist you?" class="w-full bg-red-950/40 border border-red-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-red-400 resize-none"></textarea>
                         </div>
-                        <button onclick="showToast('⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="velvet-btn w-full py-4 rounded-2xl text-base">
+                        <button onclick="showToast('⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully!')" class="ruby-btn w-full py-4 rounded-2xl text-base">
                             Submit Feedback & Rating ⚡
                         </button>
                     </div>
@@ -826,7 +826,7 @@
                 const btn = document.getElementById(btnId);
                 if(btn) {
                     if(r === route) {
-                        btn.className = 'px-4 py-2 text-xs font-extrabold rounded-xl transition bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/30';
+                        btn.className = 'px-4 py-2 text-xs font-extrabold rounded-xl transition bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-lg shadow-red-500/30';
                     } else {
                         btn.className = 'px-4 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white';
                     }
