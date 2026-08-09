@@ -18,15 +18,15 @@
     </script>
     <style>
         .obsidian-gold-card {
-            background: linear-gradient(135deg, rgba(24, 18, 12, 0.9) 0%, rgba(12, 9, 6, 0.95) 100%);
-            backdrop-filter: blur(35px);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(24, 18, 12, 0.92) 0%, rgba(12, 9, 6, 0.97) 100%);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(234, 179, 8, 0.35);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.15);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .obsidian-gold-card:hover {
             border-color: rgba(234, 179, 8, 0.7);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(234, 179, 8, 0.25);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(234, 179, 8, 0.25);
         }
         .gold-btn {
             background: linear-gradient(135deg, #facc15 0%, #eab308 50%, #ca8a04 100%);
@@ -64,11 +64,11 @@
 </head>
 <body class="bg-[#0c0a09] text-slate-100 antialiased selection:bg-yellow-500 selection:text-slate-950 min-h-screen flex flex-col justify-between">
 
-    <!-- Premium Obsidian Black & Rich Gold Ambient Lighting -->
+    <!-- Ambient Lighting -->
     <div class="fixed top-0 left-1/4 w-[800px] h-[800px] bg-yellow-600/15 rounded-full blur-[200px] pointer-events-none"></div>
     <div class="fixed bottom-0 right-1/4 w-[800px] h-[800px] bg-amber-700/15 rounded-full blur-[200px] pointer-events-none"></div>
 
-    <!-- NAVBAR (AI Tutor option fully removed) -->
+    <!-- NAVBAR -->
     <header class="border-b border-yellow-500/20 bg-[#0c0a09]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
         <div class="flex items-center gap-4 cursor-pointer group" onclick="router.navigateTo('/')">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-yellow-500 to-amber-700 flex items-center justify-center font-extrabold text-slate-950 text-2xl shadow-xl shadow-yellow-500/30 group-hover:scale-105 transition">
@@ -91,12 +91,11 @@
         </nav>
 
         <div class="flex items-center gap-4">
-            <!-- 12-Hour Clock Widget -->
             <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-yellow-950/50 border border-yellow-500/20 px-4 py-2 rounded-xl font-mono text-xs text-yellow-300 font-bold">
                 <span>🕒</span> <span id="clockText">00:00:00 AM</span>
             </div>
             <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-yellow-500/15 border border-yellow-500/30 hover:border-yellow-400 px-4 py-2 rounded-xl text-xs font-bold transition text-yellow-300">
-                Sign In ✦
+                Sign In / Login ✦
             </button>
         </div>
     </header>
@@ -121,7 +120,7 @@
                 </div>
                 <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 flex items-center justify-center font-bold hover:bg-yellow-500/20">✕</button>
             </div>
-            <p class="text-xs text-slate-300">Choose from 10 Indian professional student avatars (5 boys, 5 girls):</p>
+            <p class="text-xs text-slate-300">Choose from 10 professional student avatars:</p>
             <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-yellow-950/20 border border-yellow-500/20 rounded-2xl" id="modalAvatarGrid">
                 <!-- Populated via script -->
             </div>
@@ -162,6 +161,7 @@
             captchaInput: '',
             currentUser: null, 
             selectedAvatar: 'Aarav',
+            authMode: 'signin', // 'signin' or 'login'
             activeSlideTab: 0
         };
 
@@ -292,12 +292,12 @@
             render();
         });
 
-        // 1. HOMEPAGE (Overview) - Sign In section first, Curriculum / Slider placed BELOW it as requested
+        // 1. HOMEPAGE (Overview)
         function renderLanding() {
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
                 <div class="space-y-16 animate-fadeIn py-6">
-                    <!-- Hero Header / Sign In Section on Top -->
+                    <!-- Hero Header / Professional Call to Action -->
                     <div class="obsidian-gold-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-yellow-500/40 shadow-[0_0_50px_rgba(234,179,8,0.15)]">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-700/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -314,18 +314,21 @@
                             Designed specifically for ambitious engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
                         </p>
 
-                        <!-- Sign In option section prominently in hero -->
+                        <!-- Action Buttons including Login/Sign Up options -->
                         <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
                             <button onclick="router.navigateTo('/dashboard')" class="gold-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard 👑
                             </button>
-                            <button onclick="router.navigateTo('/signin')" class="obsidian-gold-card text-yellow-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-yellow-500/10 border border-yellow-500/40">
-                                Sign In / Choose Avatar ✦
+                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="obsidian-gold-card text-yellow-200 font-bold px-8 py-4 rounded-2xl text-sm transition hover:bg-yellow-500/10 border border-yellow-500/40">
+                                Register / Sign Up ✦
+                            </button>
+                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-yellow-500/10 text-yellow-300 font-bold px-8 py-4 rounded-2xl text-sm transition hover:bg-yellow-500/20 border border-yellow-500/20">
+                                Existing User Login 🔑
                             </button>
                         </div>
                     </div>
 
-                    <!-- Curriculum / Interactive Slide placed BELOW the Sign In section -->
+                    <!-- Curriculum / Interactive Slide placed BELOW the sign-in / hero section -->
                     <div class="obsidian-gold-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-yellow-500/30" key="${appState.activeSlideTab}">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-yellow-500/20 pb-6">
                             <div>
@@ -424,6 +427,9 @@
                         <div class="flex items-center gap-3">
                             <button onclick="router.navigateTo('/analytics')" class="obsidian-gold-card px-5 py-3 rounded-2xl text-xs font-bold text-yellow-200 hover:bg-yellow-500/10">
                                 View Stats 📊
+                            </button>
+                            <button onclick="appState.currentUser=null; showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
+                                Logout ⎋
                             </button>
                         </div>
                     </div>
@@ -586,41 +592,60 @@
             `;
         }
 
-        // 6. SIGN IN PAGE (/signin) with Indian Avatar Names Selection
+        // 6. SIGN UP / LOGIN PAGE (/signin) with Mode Switcher (Sign Up vs Existing Login)
         function renderSignIn() {
+            const isLogin = appState.authMode === 'login';
             return `
                 <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-yellow-500/10 border border-yellow-500/30 px-4 py-1.5 rounded-full">Secure Authentication</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Sign In & Choose Indian Avatar</h1>
-                        <p class="text-slate-400 text-xs font-medium">Select your professional persona and access your 60-day challenge hub.</p>
+                        <h1 class="text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
+                        <p class="text-slate-400 text-xs font-medium">${isLogin ? 'Enter your credentials to access your active 60-day challenge.' : 'Select your professional persona and initialize your cohort streak.'}</p>
                     </div>
 
                     <div class="obsidian-gold-card p-8 rounded-[3rem] space-y-6">
-                        <div class="space-y-3">
-                            <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Avatar (10 Indian Names)</label>
-                            <div class="grid grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-yellow-950/20 border border-yellow-500/20 rounded-2xl">
-                                ${avatarChoices.map(av => `
-                                    <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-yellow-500/10'}">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-12 h-12 rounded-full bg-yellow-500/10 p-0.5">
-                                        <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="text-center text-xs text-yellow-300 font-semibold">Selected Persona: <span class="text-white underline">${appState.selectedAvatar}</span></div>
+                        <!-- Mode Switcher Tabs -->
+                        <div class="flex bg-yellow-950/40 p-1.5 rounded-2xl border border-yellow-500/30">
+                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
+                                New Registration (Sign Up)
+                            </button>
+                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
+                                Existing User Login
+                            </button>
                         </div>
 
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                                <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-yellow-950/40 border border-yellow-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-yellow-400">
+                        ${!isLogin ? `
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Indian Avatar (10 Choices)</label>
+                                <div class="grid grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-yellow-950/20 border border-yellow-500/20 rounded-2xl">
+                                    ${avatarChoices.map(av => `
+                                        <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-yellow-500/10'}">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-10 h-10 rounded-full bg-yellow-500/10 p-0.5">
+                                            <span class="text-[9px] font-bold text-white mt-1 text-center">${av.name}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="text-center text-xs text-yellow-300 font-semibold">Selected Persona: <span class="text-white underline">${appState.selectedAvatar}</span></div>
                             </div>
+                        ` : ''}
+
+                        <div class="space-y-4">
+                            ${!isLogin ? `
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
+                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-yellow-950/40 border border-yellow-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-yellow-400">
+                                </div>
+                            ` : ''}
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email</label>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email / Username</label>
                                 <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-yellow-950/40 border border-yellow-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-yellow-400">
                             </div>
-                            <button onclick="handleSignIn()" class="gold-btn w-full py-4 rounded-2xl text-sm">
-                                Sign In & Start Streak 👑
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Password / Security Pin</label>
+                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-yellow-950/40 border border-yellow-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-yellow-400">
+                            </div>
+                            <button onclick="handleAuthSubmit()" class="gold-btn w-full py-4 rounded-2xl text-sm">
+                                ${isLogin ? 'Login to Dashboard 🔑' : 'Complete Registration & Start 👑'}
                             </button>
                         </div>
                     </div>
@@ -628,25 +653,28 @@
             `;
         }
 
-        function handleSignIn() {
-            const nameEl = document.getElementById('signInName');
+        function handleAuthSubmit() {
+            const isLogin = appState.authMode === 'login';
             const emailEl = document.getElementById('signInEmail');
-            
-            if (!nameEl || !emailEl) {
-                showToast('❌ Form element error. Please try again.');
+            const passEl = document.getElementById('signInPass');
+            const nameEl = document.getElementById('signInName');
+
+            if (!emailEl || !passEl || (!isLogin && !nameEl)) {
+                showToast('❌ Form validation error.');
                 return;
             }
 
-            const nameVal = nameEl.value.trim();
             const emailVal = emailEl.value.trim();
+            const passVal = passEl.value.trim();
+            const nameVal = !isLogin ? nameEl.value.trim() : (emailVal.split('@')[0] || 'Scholar');
 
-            if (!nameVal || !emailVal) {
-                showToast('Please provide both your name and college email.');
+            if (!emailVal || !passVal || (!isLogin && !nameVal)) {
+                showToast('Please fill out all required authentication fields.');
                 return;
             }
 
             appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
-            showToast(`👑 Welcome back, ${nameVal}! Session authenticated.`);
+            showToast(isLogin ? `🔑 Login successful! Welcome back, ${nameVal}.` : `👑 Registration complete! Welcome, ${nameVal}.`);
             setTimeout(() => router.navigateTo('/dashboard'), 1200);
         }
 
@@ -790,7 +818,7 @@
                 if (appState.currentUser) {
                     authBtn.innerText = `👤 ${appState.currentUser.name.split(' ')[0]}`;
                 } else {
-                    authBtn.innerText = 'Sign In ✦';
+                    authBtn.innerText = 'Sign In / Login ✦';
                 }
             }
 
