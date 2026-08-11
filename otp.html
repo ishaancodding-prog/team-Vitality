@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email OTP Verification Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-md w-full bg-slate-900 border border-purple-500/30 p-8 rounded-3xl shadow-2xl space-y-6">
+        <div class="text-center space-y-2">
+            <span class="bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">Secure Auth</span>
+            <h2 class="text-2xl font-extrabold text-white">Email Verification</h2>
+            <p id="instructionText" class="text-xs text-slate-400">Enter your email address to receive a one-time verification password.</p>
+        </div>
+
+        <!-- Step 1: Email Input Form -->
+        <div id="emailStep" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
+                <input type="email" id="userEmail" placeholder="student@university.ac.in" class="w-full bg-slate-950 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+            </div>
+            <button onclick="sendOtp()" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:opacity-95 text-white font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-purple-500/30">
+                Send OTP Code ✉️
+            </button>
+        </div>
+
+        <!-- Step 2: OTP Verification Form (Hidden Initially) -->
+        <div id="otpStep" class="space-y-4 hidden">
+            <div class="bg-purple-950/40 border border-purple-500/30 p-4 rounded-2xl text-xs text-purple-300 font-mono text-center">
+                💡 <strong>Sandbox Notice:</strong> Your simulated email OTP is <span id="displayOtp" class="text-white font-extrabold underline text-sm"></span>
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Enter 6-Digit OTP</label>
+                <input type="text" id="otpInput" maxlength="6" placeholder="123456" class="w-full bg-slate-950 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-center font-mono tracking-widest text-lg text-white focus:outline-none focus:border-purple-400">
+            </div>
+            <button onclick="verifyOtp()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-slate-950 font-extrabold py-3.5 rounded-2xl text-sm transition shadow-lg shadow-emerald-500/30">
+                Verify OTP Code ⚡
+            </button>
+            <button onclick="resetFlow()" class="w-full text-xs text-slate-400 hover:text-white font-bold underline text-center block pt-2">
+                ← Change Email Address
+            </button>
+        </div>
+        
+        <div id="statusMessage" class="text-center text-xs font-bold"></div>
+    </div>
+
+    <script>
+        let generatedOtp = '';
+        let targetEmail = '';
+
+        function sendOtp() {
+            const emailInput = document.getElementById('userEmail').value.trim();
+            const statusMsg = document.getElementById('statusMessage');
+
+            if (!emailInput || !emailInput.includes('@')) {
+                statusMsg.className = 'text-center text-xs font-bold text-red-400';
+                statusMsg.innerText = 'Please enter a valid email address.';
+                return;
+            }
+
+            targetEmail = emailInput;
+            // Generate a secure 6-digit random code simulation
+            generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+            
+            // Display OTP in sandbox notice for testing convenience
+            document.getElementById('displayOtp').innerText = generatedOtp;
+
+            // Switch layout views
+            document.getElementById('emailStep').classList.add('hidden');
+            document.getElementById('otpStep').classList.remove('hidden');
+            document.getElementById('instructionText').innerText = `Verification code successfully dispatched to ${targetEmail}.`;
+            
+            statusMsg.className = 'text-center text-xs font-bold text-purple-300';
+            statusMsg.innerText = 'OTP sent to mail successfully!';
+        }
+
+        function verifyOtp() {
+            const enteredOtp = document.getElementById('otpInput').value.trim();
+            const statusMsg = document.getElementById('statusMessage');
+
+            if (enteredOtp === generatedOtp) {
+                statusMsg.className = 'text-center text-xs font-bold text-emerald-400';
+                statusMsg.innerText = '✅ Email verification successful! Access granted.';
+            } else {
+                statusMsg.className = 'text-center text-xs font-bold text-red-400';
+                statusMsg.innerText = '❌ Invalid OTP code. Please check the sandbox code.';
+            }
+        }
+
+        function resetFlow() {
+            document.getElementById('otpStep').classList.add('hidden');
+            document.getElementById('emailStep').classList.remove('hidden');
+            document.getElementById('instructionText').innerText = 'Enter your email address to receive a one-time verification password.';
+            document.getElementById('statusMessage').innerText = '';
+            document.getElementById('otpInput').value = '';
+        }
+    </script>
+</body>
+</html>
