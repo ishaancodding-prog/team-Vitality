@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ABTalks - 60-Day Coding Challenge Hub (Team Vitality Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -78,27 +78,31 @@
             color: #fbbf24;
             text-shadow: 0 0 18px rgba(251, 191, 36, 0.9);
         }
+
+        @media (max-width: 768px) {
+            .mobile-padding { padding-left: 1rem !important; padding-right: 1rem !important; }
+        }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-100 antialiased selection:bg-purple-500 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-[#030712] text-slate-100 antialiased selection:bg-purple-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden">
 
     <!-- Ambient Lighting -->
     <div class="fixed top-0 left-1/4 w-[900px] h-[900px] bg-purple-600/10 rounded-full blur-[220px] pointer-events-none"></div>
     <div class="fixed bottom-0 right-1/4 w-[900px] h-[900px] bg-indigo-700/10 rounded-full blur-[220px] pointer-events-none"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-purple-500/20 bg-[#030712]/90 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-5 flex justify-between items-center shadow-2xl">
-        <div class="flex items-center gap-4 cursor-pointer group" onclick="router.navigateTo('/')">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-700 flex items-center justify-center font-extrabold text-white text-2xl shadow-xl shadow-purple-500/30 group-hover:scale-105 transition">
+    <header class="border-b border-purple-500/20 bg-[#030712]/95 backdrop-blur-2xl sticky top-0 z-50 px-4 sm:px-6 lg:px-20 py-4 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="router.navigateTo('/')">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-700 flex items-center justify-center font-extrabold text-white text-xl sm:text-2xl shadow-xl shadow-purple-500/30 group-hover:scale-105 transition">
                 ⚡
             </div>
             <div>
-                <span class="font-extrabold tracking-widest text-sm text-white uppercase">ABTALKS</span>
-                <span class="block text-[10px] text-purple-400 font-bold tracking-widest uppercase">Team Vitality</span>
+                <span class="font-extrabold tracking-widest text-xs sm:text-sm text-white uppercase">ABTALKS</span>
+                <span class="block text-[9px] sm:text-[10px] text-purple-400 font-bold tracking-widest uppercase">Team Vitality</span>
             </div>
         </div>
 
-        <nav class="hidden lg:flex items-center gap-1 bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/20">
+        <nav class="hidden lg:flex items-center gap-1 bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/25">
             <button onclick="router.navigateTo('/')" id="nav-home" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
             <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
             <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
@@ -110,38 +114,60 @@
             <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Contact</button>
         </nav>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3">
             <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-purple-950/50 border border-purple-500/20 px-4 py-2 rounded-xl font-mono text-xs text-purple-300 font-bold">
                 <span>🕒</span> <span id="clockText">00:00:00 AM</span>
             </div>
-            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-purple-500/15 border border-purple-500/30 hover:border-purple-400 px-4 py-2 rounded-xl text-xs font-bold transition text-purple-300">
+            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-purple-500/15 border border-purple-500/30 hover:border-purple-400 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition text-purple-300">
                 Sign In / Login ✦
+            </button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
     </header>
 
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex flex-col p-6 space-y-4 hidden lg:hidden">
+        <div class="flex justify-between items-center border-b border-purple-500/20 pb-4">
+            <span class="font-extrabold tracking-widest text-sm text-white uppercase">Menu Navigation</span>
+            <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold">✕</button>
+        </div>
+        <div class="flex flex-col space-y-2 overflow-y-auto flex-grow py-2">
+            <button onclick="toggleMobileMenu(); router.navigateTo('/');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Overview</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/dashboard');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Dashboard</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/day/1');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Day One Challenge</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/chat');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Community Chat 💬</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/news');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Tech News 📰</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/analytics');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Analytics 📊</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/resources');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Resources 📚</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/about');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">About Us</button>
+            <button onclick="toggleMobileMenu(); router.navigateTo('/contact');" class="text-left px-4 py-3 rounded-xl bg-purple-950/40 text-xs font-bold text-white">Contact Us</button>
+        </div>
+    </div>
+
     <!-- MAIN ROUTER CONTAINER -->
-    <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-20 py-12 z-10"></main>
+    <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full mobile-padding py-8 sm:py-12 z-10 overflow-x-hidden"></main>
 
     <!-- TOAST NOTIFICATION POPUP -->
-    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-        <div id="toastMessageContent" class="midnight-card px-6 py-3.5 rounded-2xl border border-purple-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
+    <div id="toastContainer" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <div id="toastMessageContent" class="midnight-card px-5 py-3.5 rounded-2xl border border-purple-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
             <span class="text-purple-400">✦</span> <span id="toastText">Notification message</span>
         </div>
     </div>
 
     <!-- AVATAR EDITOR MODAL OVERLAY -->
     <div id="avatarModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="midnight-card p-8 rounded-[3rem] max-w-lg w-full space-y-6 border border-purple-500/40">
+        <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] max-w-lg w-full space-y-6 border border-purple-500/40">
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-xs font-bold uppercase tracking-widest text-purple-400">Persona Customizer</span>
-                    <h3 class="text-xl font-extrabold text-white mt-1">Select Your Indian Avatar</h3>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">Select Your Indian Avatar</h3>
                 </div>
                 <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-300 flex items-center justify-center font-bold hover:bg-purple-500/20">✕</button>
             </div>
             <p class="text-xs text-slate-300">Choose from 10 professional student avatars:</p>
-            <div class="grid grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-purple-950/20 border border-purple-500/20 rounded-2xl" id="modalAvatarGrid"></div>
+            <div class="grid grid-cols-4 sm:grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-purple-950/20 border border-purple-500/20 rounded-2xl" id="modalAvatarGrid"></div>
             <div class="pt-2 flex gap-3">
                 <button onclick="saveModalAvatar()" class="violet-btn flex-1 py-3.5 rounded-2xl text-xs">Save Avatar ⚡</button>
             </div>
@@ -149,24 +175,26 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-purple-500/20 bg-[#030712] py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold">
+    <footer class="border-t border-purple-500/20 bg-[#030712] py-8 sm:py-10 px-6 lg:px-20 z-10 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold text-center md:text-left">
             <div>© 2026 ABTalks Ecosystem. Patched & Audited Edition by Team <span class="text-purple-400">Vitality</span>[cite: 1].</div>
-            <div class="flex gap-6">
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                 <a href="#/" onclick="router.navigateTo('/')" class="hover:text-purple-300 transition">Overview</a>
                 <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-purple-300 transition">Dashboard</a>
-                <a href="#/day/1" onclick="router.navigateTo('/day/1')" class="hover:text-purple-300 transition">Day One</a>
                 <a href="#/chat" onclick="router.navigateTo('/chat')" class="hover:text-purple-300 transition">Chat 💬</a>
                 <a href="#/news" onclick="router.navigateTo('/news')" class="hover:text-purple-300 transition">News 📰</a>
-                <a href="#/analytics" onclick="router.navigateTo('/analytics')" class="hover:text-purple-300 transition">Analytics</a>
-                <a href="#/resources" onclick="router.navigateTo('/resources')" class="hover:text-purple-300 transition">Resources</a>
                 <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-purple-300 transition">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- ENGINE SCRIPT WITH SECURITY & STATE PATCHES -->
+    <!-- ENGINE SCRIPT WITH EMAIL VERIFICATION & AUDITED PATCHES -->
     <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
         // XSS Input Sanitization Helper[cite: 1]
         function sanitize(str) {
             const div = document.createElement('div');
@@ -188,7 +216,12 @@
             captchaInput: '',
             currentUser: JSON.parse(localStorage.getItem('abtalks_user')) || null, 
             selectedAvatar: 'Aarav',
-            authMode: 'signin',
+            authMode: 'signin', // 'signin', 'verify', 'login'
+            pendingEmail: '',
+            pendingName: '',
+            pendingPass: '',
+            generatedOtp: '',
+            enteredOtp: '',
             activeSlideTab: 0,
             chatInput: '',
             chatMessages: JSON.parse(localStorage.getItem('abtalks_chat')) || [
@@ -263,8 +296,8 @@
             if (grid) {
                 grid.innerHTML = avatarChoices.map(av => `
                     <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-purple-500/30 border-purple-400 scale-105 shadow-md shadow-purple-500/30' : 'border-transparent hover:bg-purple-500/10'}">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=8b5cf6" alt="${av.name}" class="w-12 h-12 rounded-full bg-purple-500/10 p-0.5">
-                        <span class="text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=8b5cf6" alt="${av.name}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/10 p-0.5">
+                        <span class="text-[9px] sm:text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
                     </div>
                 `).join('');
             }
@@ -353,66 +386,66 @@
         function renderLanding() {
             const currentSlide = interactiveSlides[appState.activeSlideTab];
             return `
-                <div class="space-y-16 animate-fadeIn py-6">
-                    <div class="midnight-card p-12 lg:p-24 rounded-[3.5rem] relative overflow-hidden text-center space-y-8 border border-purple-500/40 shadow-[0_0_60px_rgba(139,92,246,0.15)]">
+                <div class="space-y-12 sm:space-y-16 animate-fadeIn py-4 sm:py-6">
+                    <div class="midnight-card hero-card p-6 sm:p-12 lg:p-24 rounded-[2.5rem] sm:rounded-[3.5rem] relative overflow-hidden text-center space-y-6 sm:space-y-8 border border-purple-500/40 shadow-[0_0_60px_rgba(139,92,246,0.15)]">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-700/20 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div class="inline-flex items-center gap-2.5 bg-purple-500/15 text-purple-300 border border-purple-500/40 px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-inner">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort[cite: 1]
+                        <div class="inline-flex items-center gap-2 bg-purple-500/15 text-purple-300 border border-purple-500/40 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-widest shadow-inner">
+                            <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-purple-400 animate-pulse"></span> Team Vitality • 60-Day Elite Cohort[cite: 1]
                         </div>
                         
-                        <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-5xl mx-auto">
+                        <h1 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.15] max-w-5xl mx-auto">
                             Master Code & Build Your <span class="violet-gradient">60-Day Legacy.</span>
                         </h1>
                         
-                        <p class="text-slate-300 text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
+                        <p class="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
                             Designed specifically for ambitious engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
                         </p>
 
-                        <div class="pt-4 flex flex-wrap justify-center items-center gap-5">
-                            <button onclick="router.navigateTo('/dashboard')" class="violet-btn px-10 py-4 rounded-2xl text-sm tracking-wide">
+                        <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-5 w-full">
+                            <button onclick="router.navigateTo('/dashboard')" class="violet-btn w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard ⚡
                             </button>
-                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="midnight-card text-purple-200 font-bold px-9 py-4 rounded-2xl text-sm transition hover:bg-purple-500/10 border border-purple-500/40">
+                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="midnight-card w-full sm:w-auto text-purple-200 font-bold px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-purple-500/10 border border-purple-500/40">
                                 Register / Sign Up ✦
                             </button>
-                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-purple-500/10 text-purple-300 font-bold px-8 py-4 rounded-2xl text-sm transition hover:bg-purple-500/20 border border-purple-500/20">
+                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-purple-500/10 w-full sm:w-auto text-purple-300 font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-purple-500/20 border border-purple-500/20">
                                 Existing User Login 🔑
                             </button>
                         </div>
                     </div>
 
-                    <div class="midnight-card p-8 lg:p-12 rounded-[3.5rem] space-y-8 animate-slide border border-purple-500/30" key="${appState.activeSlideTab}">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-purple-500/20 pb-6">
+                    <div class="midnight-card roadmap-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 sm:space-y-8 animate-slide border border-purple-500/30" key="${appState.activeSlideTab}">
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-purple-500/20 pb-6">
                             <div>
-                                <span class="text-xs font-extrabold uppercase tracking-widest text-purple-400">Curriculum & Animated Roadmap Slider</span>
-                                <h2 class="text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
+                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-purple-400">Curriculum & Animated Roadmap Slider</span>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
                             </div>
-                            <div class="flex bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/20 gap-1">
+                            <div class="flex flex-wrap bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/20 gap-1 w-full lg:w-auto justify-center">
                                 ${interactiveSlides.map((slide, idx) => `
-                                    <button onclick="appState.activeSlideTab = ${idx}; render();" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}">
+                                    <button onclick="appState.activeSlideTab = ${idx}; render();" class="flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}">
                                         Phase 0${idx + 1}
                                     </button>
                                 `).join('')}
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center animate-slide">
-                            <div class="lg:col-span-2 space-y-4">
-                                <span class="text-xs font-extrabold uppercase tracking-widest text-purple-300 bg-purple-500/15 border border-purple-500/30 px-3.5 py-1 rounded-full">${currentSlide.tag}</span>
-                                <h3 class="text-2xl lg:text-3xl font-extrabold text-white">${currentSlide.title}</h3>
-                                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">${currentSlide.desc}</p>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center animate-slide">
+                            <div class="lg:col-span-2 space-y-3 sm:space-y-4">
+                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-purple-300 bg-purple-500/15 border border-purple-500/30 px-3.5 py-1 rounded-full">${currentSlide.tag}</span>
+                                <h3 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white">${currentSlide.title}</h3>
+                                <p class="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed">${currentSlide.desc}</p>
                             </div>
-                            <div class="bg-purple-950/40 border border-purple-500/30 p-6 rounded-3xl space-y-4 text-center shadow-inner">
+                            <div class="bg-purple-950/40 border border-purple-500/30 p-5 sm:p-6 rounded-3xl space-y-3 sm:space-y-4 text-center shadow-inner">
                                 <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Timeline Window</div>
-                                <div class="text-2xl font-extrabold text-purple-300">${currentSlide.stat}</div>
+                                <div class="text-xl sm:text-2xl font-extrabold text-purple-300">${currentSlide.stat}</div>
                                 <div class="text-xs font-bold text-white bg-purple-500/20 py-2 px-4 rounded-xl border border-purple-500/30 shadow-sm">${currentSlide.highlight}</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
                         <div class="midnight-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/chat')">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-sm">💬</div>
                             <h3 class="text-base font-extrabold text-white">Community Chat</h3>
@@ -442,16 +475,16 @@
                 <div class="space-y-6 animate-fadeIn max-w-4xl mx-auto py-2">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Cohort Live Lounge</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Community Interaction Room</h1>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Community Interaction Room</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Chat securely with real-time persistence and input protection[cite: 1].</p>
                     </div>
 
-                    <div class="midnight-card p-6 rounded-[3rem] space-y-4">
-                        <div id="chatMessagesBox" class="h-96 overflow-y-auto space-y-4 pr-2">
+                    <div class="midnight-card p-4 sm:p-6 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
+                        <div id="chatMessagesBox" class="h-80 sm:h-96 overflow-y-auto space-y-4 pr-2">
                             ${appState.chatMessages.map(msg => `
                                 <div class="flex items-start gap-3 ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'flex-row-reverse' : ''}">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${msg.avatar}&backgroundColor=8b5cf6" alt="Avatar" class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-400 p-0.5 shrink-0">
-                                    <div class="max-w-xl p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-purple-600 text-white font-bold' : 'bg-purple-950/60 border border-purple-500/30 text-slate-200'}">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${msg.avatar}&backgroundColor=8b5cf6" alt="Avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-purple-500/20 border border-purple-400 p-0.5 shrink-0">
+                                    <div class="max-w-[80%] sm:max-w-xl p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-purple-600 text-white font-bold' : 'bg-purple-950/60 border border-purple-500/30 text-slate-200'}">
                                         <div class="flex justify-between items-center gap-4 mb-1">
                                             <span class="text-[10px] font-extrabold uppercase text-purple-300">${sanitize(msg.sender)}</span>
                                             <span class="text-[9px] opacity-60">${msg.time}</span>
@@ -462,9 +495,9 @@
                             `).join('')}
                         </div>
 
-                        <div class="flex gap-3 pt-3 border-t border-purple-500/20">
-                            <input type="text" id="communityChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendCommunityMessage()" placeholder="Type a message to the cohort..." class="flex-1 bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
-                            <button onclick="sendCommunityMessage()" class="violet-btn px-7 py-3.5 rounded-2xl text-xs font-extrabold">
+                        <div class="flex gap-2 sm:gap-3 pt-3 border-t border-purple-500/20">
+                            <input type="text" id="communityChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendCommunityMessage()" placeholder="Type a message..." class="flex-1 bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
+                            <button onclick="sendCommunityMessage()" class="violet-btn px-5 sm:px-7 py-3.5 rounded-2xl text-xs font-extrabold shrink-0">
                                 Send 💬
                             </button>
                         </div>
@@ -497,19 +530,19 @@
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Industry Wire</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Latest Tech & Engineering News</h1>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Latest Tech & Engineering News</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Curated daily updates on AI breakthroughs, full-stack tools, and developer frameworks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         ${techNewsData.map(news => `
-                            <div class="midnight-card p-7 rounded-[3rem] space-y-4 flex flex-col justify-between">
+                            <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 flex flex-col justify-between">
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
                                         <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/15 border border-purple-500/30 px-3 py-1 rounded-full">${news.tag}</span>
                                         <span class="text-[10px] text-slate-400 font-mono">${news.date}</span>
                                     </div>
-                                    <h3 class="text-lg font-extrabold text-white leading-snug">${news.title}</h3>
+                                    <h3 class="text-base sm:text-lg font-extrabold text-white leading-snug">${news.title}</h3>
                                     <p class="text-slate-300 text-xs leading-relaxed font-normal">${news.desc}</p>
                                 </div>
                                 <div class="pt-4 border-t border-purple-500/20 flex justify-between items-center text-xs">
@@ -553,20 +586,20 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <!-- Profile Banner with Clickable Avatar -->
-                    <div class="midnight-card p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div class="flex items-center gap-6 text-center sm:text-left">
+                    <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center gap-5 sm:gap-6 text-center sm:text-left flex-col sm:flex-row">
                             <div onclick="openAvatarModal()" class="relative group cursor-pointer" title="Click to edit avatar">
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=8b5cf6" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-purple-500/20 border-2 border-purple-400 p-1 group-hover:scale-105 transition shadow-lg shadow-purple-500/30">
                                 <div class="absolute inset-0 bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-[10px] font-extrabold text-white">Edit ✎</div>
                             </div>
                             <div class="space-y-1">
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
-                                <h2 class="text-2xl font-extrabold text-white">${userName}</h2>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-white">${userName}</h2>
                                 <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="router.navigateTo('/analytics')" class="midnight-card px-5 py-3 rounded-2xl text-xs font-bold text-purple-200 hover:bg-purple-500/10">
+                        <div class="flex items-center gap-3 w-full sm:w-auto justify-center">
+                            <button onclick="router.navigateTo('/analytics')" class="midnight-card px-4 sm:px-5 py-3 rounded-2xl text-xs font-bold text-purple-200 hover:bg-purple-500/10">
                                 View Stats 📊
                             </button>
                             <button onclick="appState.currentUser=null; localStorage.removeItem('abtalks_user'); showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
@@ -576,24 +609,24 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="midnight-card p-7 rounded-[2.5rem]">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-purple-400 tracking-wider">Active Streak</span>
-                            <div class="text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-lg font-normal text-slate-400">Day 🔥</span></div>
+                            <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-base sm:text-lg font-normal text-slate-400">Day 🔥</span></div>
                         </div>
-                        <div class="midnight-card p-7 rounded-[2.5rem]">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-slate-300 tracking-wider">Milestone Progress</span>
-                            <div class="text-4xl font-extrabold text-white mt-2">1.6%</div>
+                            <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">1.6%</div>
                         </div>
-                        <div class="midnight-card p-7 rounded-[2.5rem]">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem]">
                             <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Synergy Points</span>
-                            <div class="text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
+                            <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
                         </div>
                     </div>
 
-                    <div class="midnight-card p-8 rounded-[3.5rem] space-y-6">
+                    <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <div>
-                                <h3 class="text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
                                 <p class="text-xs text-slate-400 font-medium">Select any unlocked day to inspect requirements and verification logs.</p>
                             </div>
                             <span class="text-xs bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full font-bold">Selected: Day ${appState.selectedCalendarDay}</span>
@@ -617,12 +650,12 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h1 class="text-3xl lg:text-5xl font-extrabold text-white tracking-tight">Environment Setup & Hello World</h1>
-                        <p class="text-base text-slate-300 leading-relaxed font-normal">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work.</p>
+                        <h1 class="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white tracking-tight">Environment Setup & Hello World</h1>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work.</p>
                     </div>
 
-                    <div class="midnight-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
-                        <h3 class="text-lg font-bold text-white flex items-center justify-between">
+                    <div class="midnight-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
+                        <h3 class="text-base sm:text-lg font-bold text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <span>⚡ Submit Day One Proof of Work</span>
                             ${appState.isSubmitted ? '<span class="text-xs text-emerald-300 font-bold bg-emerald-500/20 px-4 py-1 rounded-full border border-emerald-500/40">Verified ✓</span>' : '<span class="text-xs text-amber-300 font-bold bg-amber-500/20 px-4 py-1 rounded-full border border-amber-500/40">Pending</span>'}
                         </h3>
@@ -630,29 +663,29 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
-                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
-                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             
-                            <div class="bg-purple-950/40 border border-purple-500/30 p-5 rounded-2xl space-y-3">
+                            <div class="bg-purple-950/40 border border-purple-500/30 p-4 sm:p-5 rounded-2xl space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs uppercase font-bold text-slate-300">Security Math Verification</span>
                                     <button onclick="refreshCaptcha()" class="text-xs text-purple-400 hover:underline font-bold">Generate New Code ↺</button>
                                 </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="bg-purple-900/60 border border-purple-500/30 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-purple-300">
+                                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                                    <div class="bg-purple-900/60 border border-purple-500/30 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-purple-300 text-center">
                                         ${appState.captchaNum1} + ${appState.captchaNum2} = ?
                                     </div>
-                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-40 bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-400">
+                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-full sm:w-40 bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-400">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex gap-4">
-                            <button onclick="handleSubmission()" class="violet-btn flex-1 py-4 rounded-2xl text-base">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="handleSubmission()" class="violet-btn flex-1 py-4 rounded-2xl text-sm sm:text-base">
                                 Verify & Submit Day 1 Proof (+50 SP) ⚡
                             </button>
                         </div>
@@ -668,30 +701,30 @@
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Cohort Insights</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Performance Analytics & Velocity</h1>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Performance Analytics & Velocity</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Real-time metrics tracking your commit frequency, language distribution, and consistency score.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="midnight-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Commit Velocity</span>
-                            <div class="text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
                             <span class="text-[11px] text-purple-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
                         </div>
-                        <div class="midnight-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Consistency Score</span>
-                            <div class="text-3xl font-extrabold text-purple-300">${hasStarted ? '100%' : '0%'}</div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-purple-300">${hasStarted ? '100%' : '0%'}</div>
                             <span class="text-[11px] text-purple-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
                         </div>
-                        <div class="midnight-card p-7 rounded-[2.5rem] space-y-2">
+                        <div class="midnight-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
                             <span class="text-xs uppercase font-bold text-slate-400">Recruiter Visibility</span>
-                            <div class="text-3xl font-extrabold text-indigo-300">${hasStarted ? 'Active' : 'Unranked'}</div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-indigo-300">${hasStarted ? 'Active' : 'Unranked'}</div>
                             <span class="text-[11px] text-indigo-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
                         </div>
                     </div>
 
-                    <div class="midnight-card p-8 rounded-[3.5rem] space-y-5">
-                        <h3 class="text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
+                    <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-5">
+                        <h3 class="text-base sm:text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
                         <div class="space-y-3 text-xs">
                             <div>
                                 <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>JavaScript / TypeScript</span><span>${hasStarted ? '50%' : '0%'}</span></div>
@@ -717,14 +750,14 @@
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Knowledge Hub</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">Curated Engineering Vault</h1>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Curated Engineering Vault</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Essential guides, templates, and architectural references for the 60-day challenge.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="midnight-card p-8 rounded-[3rem] space-y-4">
+                        <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
                             <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-lg">⚡</div>
-                            <h3 class="text-xl font-extrabold text-white">Full-Stack Architecture Best Practices</h3>
+                            <h3 class="text-lg sm:text-xl font-extrabold text-white">Full-Stack Architecture Best Practices</h3>
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Learn how to structure single-file components, manage state effectively, and deploy with zero downtime.</p>
                             <button onclick="showToast('⚡ Resource guide downloaded successfully!')" class="violet-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
                         </div>
@@ -739,8 +772,8 @@
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
                     <div class="text-center space-y-3">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">About Us • Team Vitality</span>
-                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
-                        <p class="text-slate-400 text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
+                        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
+                        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
@@ -769,25 +802,25 @@
             `;
         }
 
-        // 9. CONTACT US SECTION (/contact) with Sanitization Patch
+        // 9. CONTACT US SECTION (/contact)
         function renderContact() {
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
                     <div class="text-center space-y-3">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Get In Touch</span>
-                        <h1 class="text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
+                        <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
                         <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
                     </div>
 
-                    <div class="midnight-card p-8 lg:p-12 rounded-[3.5rem] space-y-6">
+                    <div class="midnight-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                         </div>
 
@@ -804,7 +837,7 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400 resize-none"></textarea>
                         </div>
                         <button onclick="handleContactSubmit()" class="violet-btn w-full py-4 rounded-2xl text-base">
                             Submit Feedback & Rating ⚡
@@ -824,24 +857,57 @@
             showToast(`⚡ Feedback & ${appState.selectedRating}-Star Rating sent successfully, ${cleanName}!`);
         }
 
-        // 10. SIGN UP / LOGIN PAGE (/signin) with Secure Credential Validation Patch
+        // 10. SIGN UP / LOGIN PAGE (/signin) WITH EMAIL VERIFICATION WORKFLOW
         function renderSignIn() {
             const isLogin = appState.authMode === 'login';
+            const isVerify = appState.authMode === 'verify';
+
+            if (isVerify) {
+                return `
+                    <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
+                        <div class="text-center space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Email Verification</span>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Verify Your College Email</h1>
+                            <p class="text-slate-400 text-xs sm:text-sm font-medium">We have sent a verification code to <span class="text-purple-300 underline">${appState.pendingEmail}</span>.</p>
+                        </div>
+
+                        <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 text-center">
+                            <div class="bg-purple-950/40 border border-purple-500/30 p-4 rounded-2xl text-xs text-purple-300 font-mono">
+                                💡 <strong>Developer Sandbox Notice:</strong> Your simulated verification code is <span class="text-white font-extrabold text-sm underline">${appState.generatedOtp}</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Enter 6-Digit OTP Code</label>
+                                    <input type="text" id="otpInput" maxlength="6" placeholder="123456" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-center font-mono tracking-widest text-lg text-white focus:outline-none focus:border-purple-400">
+                                </div>
+                                <button onclick="handleVerifyOtp()" class="violet-btn w-full py-4 rounded-2xl text-sm">
+                                    Verify Email & Complete Registration ⚡
+                                </button>
+                                <button onclick="appState.authMode='signin'; render();" class="text-xs text-slate-400 hover:text-white font-bold underline">
+                                    ← Back to Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             return `
                 <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                     <div class="text-center space-y-2">
                         <span class="text-xs font-bold uppercase tracking-widest text-purple-300 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full">Secure Authentication</span>
-                        <h1 class="text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
                         <p class="text-slate-400 text-xs font-medium">${isLogin ? 'Enter your credentials to access your active 60-day challenge.' : 'Select your professional persona and initialize your cohort streak.'}</p>
                     </div>
 
-                    <div class="midnight-card p-8 rounded-[3rem] space-y-6">
+                    <div class="midnight-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6">
                         <!-- Mode Switcher Tabs -->
                         <div class="flex bg-purple-950/40 p-1.5 rounded-2xl border border-purple-500/30">
-                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
-                                New Registration (Sign Up)
+                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                                New Registration
                             </button>
-                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
                                 Existing User Login
                             </button>
                         </div>
@@ -849,11 +915,11 @@
                         ${!isLogin ? `
                             <div class="space-y-3">
                                 <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Indian Avatar (10 Choices)</label>
-                                <div class="grid grid-cols-5 gap-3 max-h-48 overflow-y-auto p-2 bg-purple-950/20 border border-purple-500/20 rounded-2xl">
+                                <div class="grid grid-cols-5 gap-2.5 sm:gap-3 max-h-48 overflow-y-auto p-2 bg-purple-950/20 border border-purple-500/20 rounded-2xl">
                                     ${avatarChoices.map(av => `
                                         <div onclick="appState.selectedAvatar='${av.seed}'; render();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border ${appState.selectedAvatar === av.seed ? 'bg-purple-500/30 border-purple-400 scale-105 shadow-md shadow-purple-500/30' : 'border-transparent hover:bg-purple-500/10'}">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=8b5cf6" alt="${av.name}" class="w-10 h-10 rounded-full bg-purple-500/10 p-0.5">
-                                            <span class="text-[9px] font-bold text-white mt-1 text-center">${av.name}</span>
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=8b5cf6" alt="${av.name}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-purple-500/10 p-0.5">
+                                            <span class="text-[8px] sm:text-[9px] font-bold text-white mt-1 text-center">${av.name}</span>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -865,19 +931,19 @@
                             ${!isLogin ? `
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                                 </div>
                             ` : ''}
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email / Username</label>
-                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Password / Security Pin</label>
-                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-purple-400">
+                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-purple-950/40 border border-purple-500/30 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-400">
                             </div>
                             <button onclick="handleAuthSubmit()" class="violet-btn w-full py-4 rounded-2xl text-sm">
-                                ${isLogin ? 'Login to Dashboard 🔑' : 'Complete Registration & Start ⚡'}
+                                ${isLogin ? 'Login to Dashboard 🔑' : 'Proceed to Email Verification ✉️'}
                             </button>
                         </div>
                     </div>
@@ -905,10 +971,34 @@
                 return;
             }
 
-            appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
-            localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
-            showToast(isLogin ? `🔑 Login successful! Welcome back, ${nameVal}.` : `⚡ Registration complete! Welcome, ${nameVal}.`);
-            setTimeout(() => router.navigateTo('/dashboard'), 1200);
+            if (isLogin) {
+                appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
+                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
+                showToast(`🔑 Login successful! Welcome back, ${nameVal}.`);
+                setTimeout(() => router.navigateTo('/dashboard'), 1200);
+            } else {
+                // Trigger Email Verification Step
+                appState.pendingEmail = emailVal;
+                appState.pendingName = nameVal;
+                appState.pendingPass = passVal;
+                appState.generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+                appState.authMode = 'verify';
+                showToast(`✉️ Verification code sent to ${emailVal}!`);
+                render();
+            }
+        }
+
+        function handleVerifyOtp() {
+            const otpInput = document.getElementById('otpInput').value.trim();
+            if (otpInput === appState.generatedOtp) {
+                appState.currentUser = { name: appState.pendingName, email: appState.pendingEmail, avatar: appState.selectedAvatar };
+                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
+                showToast(`⚡ Email verified! Welcome, ${appState.pendingName}.`);
+                appState.authMode = 'signin';
+                setTimeout(() => router.navigateTo('/dashboard'), 1200);
+            } else {
+                showToast('❌ Invalid verification code. Please check sandbox notice.');
+            }
         }
 
         function setRating(stars) {
