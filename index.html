@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ABTalks - 60-Day Coding Challenge Hub (Glassmorphism Team Vitality Edition)</title>
+    <title>ABTalks - 60-Day Coding Challenge Hub (Ultra-Transparent Glassmorphism Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
@@ -17,31 +17,32 @@
         }
     </script>
     <style>
-        /* Advanced Glassmorphism UI Core */
+        /* Ultra-Transparent Glassmorphism Design System */
         .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glass-card:hover {
-            border-color: rgba(234, 179, 8, 0.5);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(234, 179, 8, 0.25);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(234, 179, 8, 0.6);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(234, 179, 8, 0.3);
             transform: translateY(-3px);
         }
         .gold-btn {
             background: linear-gradient(135deg, #facc15 0%, #eab308 50%, #ca8a04 100%);
             color: #0c0a09;
             font-weight: 800;
-            box-shadow: 0 12px 35px rgba(234, 179, 8, 0.35);
+            box-shadow: 0 12px 35px rgba(234, 179, 8, 0.4);
             transition: all 0.3s ease;
         }
         .gold-btn:hover {
             opacity: 0.95;
             transform: translateY(-2px);
-            box-shadow: 0 18px 40px rgba(234, 179, 8, 0.55);
+            box-shadow: 0 18px 45px rgba(234, 179, 8, 0.6);
         }
         .gold-gradient {
             background: linear-gradient(135deg, #ffffff 0%, #fef08a 40%, #eab308 100%);
@@ -78,10 +79,10 @@
 
         @keyframes morphBlob {
             0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0px, 0px) scale(1); }
-            50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; transform: translate(20px, -30px) scale(1.05); }
+            50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; transform: translate(30px, -40px) scale(1.1); }
         }
         .animate-morph-blob {
-            animation: morphBlob 14s ease-in-out infinite;
+            animation: morphBlob 15s ease-in-out infinite;
         }
 
         .star-rating span {
@@ -99,14 +100,14 @@
         }
     </style>
 </head>
-<body class="bg-[#050402] text-slate-100 antialiased selection:bg-yellow-500 selection:text-slate-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="bg-black text-slate-100 antialiased selection:bg-yellow-500 selection:text-slate-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
 
-    <!-- Glowing Background Orbs with Glassmorphism Morphing Contrast -->
-    <div class="fixed top-[-10%] left-[-10%] w-[700px] h-[700px] bg-yellow-600/20 rounded-full blur-[180px] pointer-events-none animate-morph-blob"></div>
-    <div class="fixed bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-amber-700/20 rounded-full blur-[180px] pointer-events-none animate-morph-blob" style="animation-delay: -7s;"></div>
+    <!-- Glowing Background Orbs for Ultra-Transparent Glass Contrast -->
+    <div class="fixed top-[-15%] left-[-10%] w-[800px] h-[800px] bg-yellow-500/15 rounded-full blur-[200px] pointer-events-none animate-morph-blob"></div>
+    <div class="fixed bottom-[-15%] right-[-10%] w-[800px] h-[800px] bg-amber-600/15 rounded-full blur-[200px] pointer-events-none animate-morph-blob" style="animation-delay: -7s;"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-white/10 bg-black/40 backdrop-blur-2xl sticky top-0 z-50 px-4 sm:px-6 lg:px-20 py-4 flex justify-between items-center shadow-2xl">
+    <header class="border-b border-white/10 bg-black/20 backdrop-blur-3xl sticky top-0 z-50 px-4 sm:px-6 lg:px-20 py-4 flex justify-between items-center shadow-2xl">
         <div class="flex items-center gap-3 cursor-pointer group" onclick="router.navigateTo('/')">
             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-yellow-400 to-amber-700 flex items-center justify-center font-extrabold text-slate-950 text-xl sm:text-2xl shadow-xl shadow-yellow-500/30 group-hover:scale-105 transition">
                 👑
@@ -117,7 +118,7 @@
             </div>
         </div>
 
-        <nav class="hidden lg:flex items-center gap-1 bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
+        <nav class="hidden lg:flex items-center gap-1 bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-2xl">
             <button onclick="router.navigateTo('/')" id="nav-home" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
             <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
             <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
@@ -130,20 +131,20 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl font-mono text-xs text-yellow-300 font-bold backdrop-blur-md">
+            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl font-mono text-xs text-yellow-300 font-bold backdrop-blur-2xl">
                 <span>🕒</span> <span id="clockText">00:00:00 AM</span>
             </div>
-            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-white/10 border border-white/20 hover:border-yellow-400 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition text-yellow-300 shadow-md backdrop-blur-md">
+            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-white/10 border border-white/20 hover:border-yellow-400 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition text-yellow-300 shadow-md backdrop-blur-2xl">
                 Sign In / Login ✦
             </button>
-            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-white/10 border border-white/20 text-yellow-300 backdrop-blur-md">
+            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-white/10 border border-white/20 text-yellow-300 backdrop-blur-2xl">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
     </header>
 
     <!-- MOBILE NAVIGATION DRAWER -->
-    <div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-50 flex flex-col p-6 space-y-4 hidden lg:hidden">
+    <div id="mobileMenu" class="fixed inset-0 bg-black/90 backdrop-blur-3xl z-50 flex flex-col p-6 space-y-4 hidden lg:hidden">
         <div class="flex justify-between items-center border-b border-white/10 pb-4">
             <span class="font-extrabold tracking-widest text-sm text-white uppercase">Menu Navigation</span>
             <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 flex items-center justify-center font-bold">✕</button>
@@ -166,14 +167,14 @@
 
     <!-- TOAST NOTIFICATION POPUP -->
     <div id="toastContainer" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-        <div id="toastMessageContent" class="glass-card px-5 py-3.5 rounded-2xl border border-white/20 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
+        <div id="toastMessageContent" class="glass-card px-5 py-3.5 rounded-2xl border border-white/20 text-xs font-bold text-white shadow-2xl flex items-center gap-3 backdrop-blur-3xl">
             <span class="text-yellow-400">✦</span> <span id="toastText">Notification message</span>
         </div>
     </div>
 
     <!-- AVATAR EDITOR MODAL OVERLAY -->
-    <div id="avatarModal" class="fixed inset-0 bg-black/85 backdrop-blur-xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] max-w-lg w-full space-y-6 border border-white/20">
+    <div id="avatarModal" class="fixed inset-0 bg-black/80 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] max-w-lg w-full space-y-6 border border-white/20 backdrop-blur-3xl">
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-xs font-bold uppercase tracking-widest text-yellow-400">Persona Customizer</span>
@@ -190,9 +191,9 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-black/40 py-8 sm:py-10 px-6 lg:px-20 z-10 text-xs text-slate-400 backdrop-blur-2xl">
+    <footer class="border-t border-white/10 bg-black/20 py-8 sm:py-10 px-6 lg:px-20 z-10 text-xs text-slate-400 backdrop-blur-3xl">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold text-center md:text-left">
-            <div>© 2026 ABTalks Ecosystem. Glassmorphic Edition by Team <span class="text-yellow-400">Vitality</span>[cite: 1].</div>
+            <div>© 2026 ABTalks Ecosystem. Ultra-Transparent Edition by Team <span class="text-yellow-400">Vitality</span>[cite: 1].</div>
             <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                 <a href="#/" onclick="router.navigateTo('/')" class="hover:text-yellow-300 transition">Overview</a>
                 <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-yellow-300 transition">Dashboard</a>
@@ -403,12 +404,12 @@
 
             return `
                 <div class="space-y-12 sm:space-y-16 animate-fadeIn py-4 sm:py-6">
-                    <!-- Hero Header / Glassmorphism Call to Action -->
-                    <div class="glass-card p-6 sm:p-12 lg:p-20 rounded-[2.5rem] sm:rounded-[3.5rem] relative overflow-hidden text-center space-y-6 sm:space-y-8 shadow-2xl">
+                    <!-- Hero Header / Ultra-Transparent Call to Action -->
+                    <div class="glass-card p-6 sm:p-12 lg:p-20 rounded-[2.5rem] sm:rounded-[3.5rem] relative overflow-hidden text-center space-y-6 sm:space-y-8 shadow-2xl backdrop-blur-3xl">
                         <div class="absolute -top-32 -right-32 w-96 h-96 bg-yellow-500/15 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-700/15 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div class="inline-flex items-center gap-2 bg-white/10 text-yellow-300 border border-white/20 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-widest shadow-inner backdrop-blur-md">
+                        <div class="inline-flex items-center gap-2 bg-white/10 text-yellow-300 border border-white/20 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-widest shadow-inner backdrop-blur-2xl">
                             <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-yellow-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort[cite: 1]
                         </div>
                         
@@ -425,28 +426,28 @@
                             <button onclick="router.navigateTo('/dashboard')" class="gold-btn w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-sm tracking-wide">
                                 Access Dashboard 👑
                             </button>
-                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="glass-card w-full sm:w-auto text-yellow-200 font-bold px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/20">
+                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="glass-card w-full sm:w-auto text-yellow-200 font-bold px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/20 backdrop-blur-2xl">
                                 Register / Sign Up ✦
                             </button>
-                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-white/5 w-full sm:w-auto text-yellow-300 font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/10 backdrop-blur-md">
+                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-white/5 w-full sm:w-auto text-yellow-300 font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/10 backdrop-blur-2xl">
                                 Existing User Login 🔑
                             </button>
                         </div>
                     </div>
 
                     <!-- Interactive Sliding Avatars Marquee Section -->
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] space-y-4 overflow-hidden">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] space-y-4 overflow-hidden backdrop-blur-3xl">
                         <div class="text-center space-y-1">
                             <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-400">Professional Cohort Network</span>
                             <h3 class="text-lg sm:text-xl font-extrabold text-white">Meet Active Engineering Scholars</h3>
                         </div>
                         <div class="relative w-full overflow-hidden py-4">
-                            <div class="absolute left-0 inset-y-0 w-20 bg-gradient-to-r from-[#050402] to-transparent z-10 pointer-events-none"></div>
-                            <div class="absolute right-0 inset-y-0 w-20 bg-gradient-to-l from-[#050402] to-transparent z-10 pointer-events-none"></div>
+                            <div class="absolute left-0 inset-y-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+                            <div class="absolute right-0 inset-y-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
                             
                             <div class="animate-marquee flex gap-6 items-center">
                                 ${marqueeAvatars.map(av => `
-                                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl shrink-0 shadow-lg backdrop-blur-md">
+                                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl shrink-0 shadow-lg backdrop-blur-2xl">
                                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-12 h-12 rounded-full bg-white/10 p-0.5 border border-yellow-400">
                                         <div>
                                             <div class="text-sm font-extrabold text-white">${av.name}</div>
@@ -459,13 +460,13 @@
                     </div>
 
                     <!-- Curriculum / Animated Slide -->
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 sm:space-y-8 animate-slide" key="${appState.activeSlideTab}">
+                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 sm:space-y-8 animate-slide backdrop-blur-3xl" key="${appState.activeSlideTab}">
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-white/10 pb-6">
                             <div>
                                 <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-400">Curriculum & Animated Roadmap Slider</span>
                                 <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
                             </div>
-                            <div class="flex flex-wrap bg-white/5 p-1.5 rounded-2xl border border-white/10 gap-1 w-full lg:w-auto justify-center backdrop-blur-md">
+                            <div class="flex flex-wrap bg-white/5 p-1.5 rounded-2xl border border-white/10 gap-1 w-full lg:w-auto justify-center backdrop-blur-2xl">
                                 ${interactiveSlides.map((slide, idx) => `
                                     <button onclick="appState.activeSlideTab = ${idx}; render();" class="flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">
                                         Phase 0${idx + 1}
@@ -476,11 +477,11 @@
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center animate-slide">
                             <div class="lg:col-span-2 space-y-3 sm:space-y-4">
-                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-3.5 py-1 rounded-full backdrop-blur-md">${currentSlide.tag}</span>
+                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-3.5 py-1 rounded-full backdrop-blur-2xl">${currentSlide.tag}</span>
                                 <h3 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white">${currentSlide.title}</h3>
                                 <p class="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed">${currentSlide.desc}</p>
                             </div>
-                            <div class="bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl space-y-3 sm:space-y-4 text-center shadow-inner backdrop-blur-md">
+                            <div class="bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl space-y-3 sm:space-y-4 text-center shadow-inner backdrop-blur-2xl">
                                 <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Timeline Window</div>
                                 <div class="text-xl sm:text-2xl font-extrabold text-yellow-300">${currentSlide.stat}</div>
                                 <div class="text-xs font-bold text-white bg-white/10 py-2 px-4 rounded-xl border border-white/20 shadow-sm">${currentSlide.highlight}</div>
@@ -490,18 +491,18 @@
 
                     <!-- Rich Feature Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/chat')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">💬</div>
+                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer backdrop-blur-3xl" onclick="router.navigateTo('/chat')">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-2xl">💬</div>
                             <h3 class="text-base font-extrabold text-white">Community Chat</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Interact live with fellow students, discuss code solutions, and collaborate safely[cite: 1].</p>
                         </div>
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/news')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">📰</div>
+                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer backdrop-blur-3xl" onclick="router.navigateTo('/news')">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-2xl">📰</div>
                             <h3 class="text-base font-extrabold text-white">Latest Tech News</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Stay updated with breaking industry news, AI developments, and cloud updates.</p>
                         </div>
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/analytics')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">📊</div>
+                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer backdrop-blur-3xl" onclick="router.navigateTo('/analytics')">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-2xl">📊</div>
                             <h3 class="text-base font-extrabold text-white">Deep Analytics</h3>
                             <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics.</p>
                         </div>
@@ -518,17 +519,17 @@
             return `
                 <div class="space-y-6 animate-fadeIn max-w-4xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Cohort Live Lounge</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Cohort Live Lounge</span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Community Interaction Room</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Chat securely with real-time persistence and input protection[cite: 1].</p>
                     </div>
 
-                    <div class="glass-card p-4 sm:p-6 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
+                    <div class="glass-card p-4 sm:p-6 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 backdrop-blur-3xl">
                         <div id="chatMessagesBox" class="h-80 sm:h-96 overflow-y-auto space-y-4 pr-2">
                             ${appState.chatMessages.map(msg => `
                                 <div class="flex items-start gap-3 ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'flex-row-reverse' : ''}">
                                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${msg.avatar}&backgroundColor=eab308" alt="Avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-yellow-400 p-0.5 shrink-0">
-                                    <div class="max-w-[80%] sm:max-w-xl p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-yellow-400 text-slate-950 font-extrabold shadow-lg' : 'bg-white/5 border border-white/10 text-slate-200 backdrop-blur-md'}">
+                                    <div class="max-w-[80%] sm:max-w-xl p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-yellow-400 text-slate-950 font-extrabold shadow-lg' : 'bg-white/5 border border-white/10 text-slate-200 backdrop-blur-2xl'}">
                                         <div class="flex justify-between items-center gap-4 mb-1">
                                             <span class="text-[10px] font-extrabold uppercase ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'text-slate-900' : 'text-yellow-400'}">${sanitize(msg.sender)}</span>
                                             <span class="text-[9px] opacity-60">${msg.time}</span>
@@ -540,7 +541,7 @@
                         </div>
 
                         <div class="flex gap-2 sm:gap-3 pt-3 border-t border-white/10">
-                            <input type="text" id="communityChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendCommunityMessage()" placeholder="Type a message..." class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                            <input type="text" id="communityChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendCommunityMessage()" placeholder="Type a message..." class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             <button onclick="sendCommunityMessage()" class="gold-btn px-5 sm:px-7 py-3.5 rounded-2xl text-xs font-extrabold shrink-0">
                                 Send 💬
                             </button>
@@ -573,14 +574,14 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Industry Wire</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Industry Wire</span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Latest Tech & Engineering News</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Curated daily updates on AI breakthroughs, full-stack tools, and developer frameworks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         ${techNewsData.map(news => `
-                            <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 flex flex-col justify-between">
+                            <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 flex flex-col justify-between backdrop-blur-3xl">
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
                                         <span class="text-[10px] font-extrabold uppercase tracking-wider text-yellow-300 bg-white/10 border border-white/20 px-3 py-1 rounded-full">${news.tag}</span>
@@ -611,7 +612,7 @@
                 if (isSelected) {
                     btnClasses += "bg-gradient-to-br from-yellow-400 to-amber-600 text-slate-950 border-yellow-300 shadow-lg scale-105 z-10 font-extrabold";
                 } else if (isUnlocked) {
-                    btnClasses += "bg-white/10 text-yellow-300 border-white/20 hover:bg-white/20 backdrop-blur-md";
+                    btnClasses += "bg-white/10 text-yellow-300 border-white/20 hover:bg-white/20 backdrop-blur-2xl";
                 } else {
                     btnClasses += "bg-white/5 text-slate-600 border-white/5 opacity-40 cursor-not-allowed";
                 }
@@ -630,7 +631,7 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
                     <!-- Profile Banner with Clickable Avatar -->
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6 backdrop-blur-3xl">
                         <div class="flex items-center gap-5 sm:gap-6 text-center sm:text-left flex-col sm:flex-row">
                             <div onclick="openAvatarModal()" class="relative group cursor-pointer" title="Click to edit avatar">
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=eab308" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-white/10 border-2 border-yellow-400 p-1 group-hover:scale-105 transition shadow-lg shadow-yellow-500/30">
@@ -643,37 +644,37 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 w-full sm:w-auto justify-center">
-                            <button onclick="router.navigateTo('/analytics')" class="glass-card px-4 sm:px-5 py-3 rounded-2xl text-xs font-bold text-yellow-200 hover:bg-white/10">
+                            <button onclick="router.navigateTo('/analytics')" class="glass-card px-4 sm:px-5 py-3 rounded-2xl text-xs font-bold text-yellow-200 hover:bg-white/10 backdrop-blur-2xl">
                                 View Stats 📊
                             </button>
-                            <button onclick="appState.currentUser=null; localStorage.removeItem('abtalks_user'); showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
+                            <button onclick="appState.currentUser=null; localStorage.removeItem('abtalks_user'); showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20 backdrop-blur-2xl">
                                 Logout ⎋
                             </button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-yellow-400 tracking-wider">Active Streak</span>
                             <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-base sm:text-lg font-normal text-slate-400">Day 🔥</span></div>
                         </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-slate-300 tracking-wider">Milestone Progress</span>
                             <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">1.6%</div>
                         </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Synergy Points</span>
                             <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
                         </div>
                     </div>
 
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 backdrop-blur-3xl">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <div>
                                 <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
                                 <p class="text-xs text-slate-400 font-medium">Select any unlocked day to inspect requirements and verification logs.</p>
                             </div>
-                            <span class="text-xs bg-white/10 text-yellow-300 border border-white/20 px-4 py-1.5 rounded-full font-bold backdrop-blur-md">Selected: Day ${appState.selectedCalendarDay}</span>
+                            <span class="text-xs bg-white/10 text-yellow-300 border border-white/20 px-4 py-1.5 rounded-full font-bold backdrop-blur-2xl">Selected: Day ${appState.selectedCalendarDay}</span>
                         </div>
 
                         <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
@@ -690,7 +691,7 @@
                 <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
                     <div class="flex items-center justify-between">
                         <button onclick="router.navigateTo('/dashboard')" class="text-sm text-slate-400 hover:text-white font-bold flex items-center gap-2">← Back to Dashboard</button>
-                        <span class="text-xs font-bold text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Day 1 of 60</span>
+                        <span class="text-xs font-bold text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Day 1 of 60</span>
                     </div>
 
                     <div class="space-y-3">
@@ -698,7 +699,7 @@
                         <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work.</p>
                     </div>
 
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
+                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 backdrop-blur-3xl">
                         <h3 class="text-base sm:text-lg font-bold text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                             <span>👑 Submit Day One Proof of Work</span>
                             ${appState.isSubmitted ? '<span class="text-xs text-emerald-300 font-bold bg-emerald-500/20 px-4 py-1 rounded-full border border-emerald-500/40">Verified ✓</span>' : '<span class="text-xs text-amber-300 font-bold bg-amber-500/20 px-4 py-1 rounded-full border border-amber-500/40">Pending</span>'}
@@ -707,23 +708,23 @@
                         <div class="space-y-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
-                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
-                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                             
-                            <div class="bg-white/5 border border-white/10 p-4 sm:p-5 rounded-2xl space-y-3 shadow-inner backdrop-blur-md">
+                            <div class="bg-white/5 border border-white/10 p-4 sm:p-5 rounded-2xl space-y-3 shadow-inner backdrop-blur-2xl">
                                 <div class="flex justify-between items-center">
                                     <span class="text-xs uppercase font-bold text-slate-300">Security Math Verification</span>
                                     <button onclick="refreshCaptcha()" class="text-xs text-yellow-400 hover:underline font-bold">Generate New Code ↺</button>
                                 </div>
                                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                                    <div class="bg-black/40 border border-white/10 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-yellow-300 text-center shadow-sm">
+                                    <div class="bg-black/30 border border-white/10 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-yellow-300 text-center shadow-sm backdrop-blur-2xl">
                                         ${appState.captchaNum1} + ${appState.captchaNum2} = ?
                                     </div>
-                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-full sm:w-40 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-full sm:w-40 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                                 </div>
                             </div>
                         </div>
@@ -744,30 +745,30 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Cohort Insights</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Cohort Insights</span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Performance Analytics & Velocity</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Real-time metrics tracking your commit frequency, language distribution, and consistency score.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2 backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-slate-400">Commit Velocity</span>
                             <div class="text-2xl sm:text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
                             <span class="text-[11px] text-yellow-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
                         </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2 backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-slate-400">Consistency Score</span>
                             <div class="text-2xl sm:text-3xl font-extrabold text-yellow-300">${hasStarted ? '100%' : '0%'}</div>
                             <span class="text-[11px] text-yellow-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
                         </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
+                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2 backdrop-blur-3xl">
                             <span class="text-xs uppercase font-bold text-slate-400">Recruiter Visibility</span>
                             <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">${hasStarted ? 'Active' : 'Unranked'}</div>
                             <span class="text-[11px] text-amber-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
                         </div>
                     </div>
 
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-5">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-5 backdrop-blur-3xl">
                         <h3 class="text-base sm:text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
                         <div class="space-y-3 text-xs">
                             <div>
@@ -793,14 +794,14 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Knowledge Hub</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Knowledge Hub</span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Curated Engineering Vault</h1>
                         <p class="text-slate-400 text-xs sm:text-sm font-medium">Essential guides, templates, and architectural references for the 60-day challenge.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-lg shadow-sm backdrop-blur-md">👑</div>
+                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 backdrop-blur-3xl">
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-lg shadow-sm backdrop-blur-2xl">👑</div>
                             <h3 class="text-lg sm:text-xl font-extrabold text-white">Full-Stack Architecture Best Practices</h3>
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Learn how to structure single-file components, manage state effectively, and deploy with zero downtime.</p>
                             <button onclick="showToast('👑 Resource guide downloaded successfully!')" class="gold-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
@@ -815,28 +816,28 @@
             return `
                 <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">About Us • Team Vitality</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">About Us • Team Vitality</span>
                         <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
                         <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">🎨</div>
+                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float backdrop-blur-3xl">
+                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-2xl">🎨</div>
                             <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
                             <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">Designer</p>
                             <p class="text-slate-400 text-xs font-normal">Crafted intuitive layouts, visual aesthetics, and refined user experiences.</p>
                         </div>
 
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float" style="animation-delay: 0.5s;">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">🤖</div>
+                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float backdrop-blur-3xl" style="animation-delay: 0.5s;">
+                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-2xl">🤖</div>
                             <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
                             <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">AI Specialist</p>
                             <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
                         </div>
 
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float" style="animation-delay: 1s;">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">💻</div>
+                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float backdrop-blur-3xl" style="animation-delay: 1s;">
+                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-2xl">💻</div>
                             <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
                             <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
                             <p class="text-slate-400 text-xs font-normal">Developed full-stack architecture, routing mechanics, and application logic.</p>
@@ -851,20 +852,20 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
                     <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Get In Touch</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Get In Touch</span>
                         <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
                         <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
                     </div>
 
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
+                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 backdrop-blur-3xl">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                         </div>
 
@@ -881,7 +882,7 @@
 
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md resize-none"></textarea>
+                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl resize-none"></textarea>
                         </div>
                         <button onclick="handleContactSubmit()" class="gold-btn w-full py-4 rounded-2xl text-base">
                             Submit Feedback & Rating 👑
@@ -910,20 +911,20 @@
                 return `
                     <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                         <div class="text-center space-y-2">
-                            <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Email Verification</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Email Verification</span>
                             <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Verify Your College Email</h1>
                             <p class="text-slate-400 text-xs sm:text-sm font-medium">We have sent a verification code to <span class="text-yellow-300 underline">${appState.pendingEmail}</span>.</p>
                         </div>
 
-                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 text-center shadow-2xl">
-                            <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs text-yellow-300 font-mono backdrop-blur-md">
+                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 text-center shadow-2xl backdrop-blur-3xl">
+                            <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs text-yellow-300 font-mono backdrop-blur-2xl">
                                 💡 <strong>Developer Sandbox Notice:</strong> Your simulated verification code is <span class="text-white font-extrabold text-sm underline">${appState.generatedOtp}</span>
                             </div>
 
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Enter 6-Digit OTP Code</label>
-                                    <input type="text" id="otpInput" maxlength="6" placeholder="123456" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-center font-mono tracking-widest text-lg text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                    <input type="text" id="otpInput" maxlength="6" placeholder="123456" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-center font-mono tracking-widest text-lg text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                                 </div>
                                 <button onclick="handleVerifyOtp()" class="gold-btn w-full py-4 rounded-2xl text-sm">
                                     Verify Email & Complete Registration 👑
@@ -940,14 +941,14 @@
             return `
                 <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
                     <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Secure Authentication</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-2xl">Secure Authentication</span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
                         <p class="text-slate-400 text-xs font-medium">${isLogin ? 'Enter your credentials to access your active 60-day challenge.' : 'Select your professional persona and initialize your cohort streak.'}</p>
                     </div>
 
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 shadow-2xl">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 shadow-2xl backdrop-blur-3xl">
                         <!-- Mode Switcher Tabs -->
-                        <div class="flex bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
+                        <div class="flex bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-2xl">
                             <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
                                 New Registration
                             </button>
@@ -959,7 +960,7 @@
                         ${!isLogin ? `
                             <div class="space-y-3">
                                 <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Indian Avatar (10 Choices)</label>
-                                <div class="grid grid-cols-5 gap-2.5 sm:gap-3 max-h-48 overflow-y-auto p-2 bg-white/5 border border-white/10 rounded-2xl shadow-inner backdrop-blur-md">
+                                <div class="grid grid-cols-5 gap-2.5 sm:gap-3 max-h-48 overflow-y-auto p-2 bg-white/5 border border-white/10 rounded-2xl shadow-inner backdrop-blur-2xl">
                                     ${avatarChoices.map(av => `
                                         <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-white/10'}">
                                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 p-0.5">
@@ -975,16 +976,16 @@
                             ${!isLogin ? `
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                                 </div>
                             ` : ''}
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email / Username</label>
-                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Password / Security Pin</label>
-                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-2xl">
                             </div>
                             <button onclick="handleAuthSubmit()" class="gold-btn w-full py-4 rounded-2xl text-sm">
                                 ${isLogin ? 'Login to Dashboard 🔑' : 'Proceed to Email Verification ✉️'}
