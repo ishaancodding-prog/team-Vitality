@@ -2,135 +2,211 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morphism & Class — Advanced Algebraic UI Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MorphismOS — Category Theory UI Core</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                 }
             }
         }
     </script>
     <style>
-        .morphism-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+        /* Advanced Glassmorphism & Morphism Variables */
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .morphism-glass:hover {
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.2);
+        .glass-panel:hover {
+            border-color: rgba(129, 140, 248, 0.4);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.2);
         }
         .algebraic-btn {
             background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #312e81 100%);
             color: #ffffff;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s ease;
+            font-weight: 700;
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .algebraic-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+            box-shadow: 0 18px 45px rgba(99, 102, 241, 0.6);
         }
-        @keyframes morphFloat {
-            0%, 100% { transform: translateY(0) scale(1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { transform: translateY(-15px) scale(1.05); border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; }
+        .algebraic-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 40%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .animate-morph { animation: morphFloat 8s ease-in-out infinite; }
+
+        /* Fluid Morphing Animations */
+        @keyframes morphBlob {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0px, 0px) scale(1); }
+            33% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; transform: translate(30px, -50px) scale(1.08); }
+            66% { border-radius: 50% 50% 60% 40% / 30% 40% 70% 60%; transform: translate(-20px, 20px) scale(0.95); }
+        }
+        .animate-morph-blob {
+            animation: morphBlob 12s ease-in-out infinite;
+        }
+
+        @keyframes fadeInSlide {
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-fade-in {
+            animation: fadeInSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-padding { padding-left: 1rem !important; padding-right: 1rem !important; }
+        }
     </style>
 </head>
-<body class="bg-[#030712] text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#020617] text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white overflow-x-hidden">
 
-    <!-- Background Orbs -->
-    <div class="fixed top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none animate-morph"></div>
-    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[150px] pointer-events-none animate-morph" style="animation-delay: -4s;"></div>
+    <!-- Ambient Morphing Background Shapes (Graphic Designer Touch) -->
+    <div class="fixed top-[-10%] left-[-10%] w-[700px] h-[700px] bg-indigo-600/15 rounded-full blur-[160px] pointer-events-none animate-morph-blob"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[160px] pointer-events-none animate-morph-blob" style="animation-delay: -6s;"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-white/10 bg-slate-950/60 backdrop-blur-xl sticky top-0 z-50 px-6 lg:px-20 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="app.navigate('home')">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg">⚡</div>
+    <header class="border-b border-white/10 bg-slate-950/60 backdrop-blur-2xl sticky top-0 z-50 px-6 lg:px-20 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="MorphismApp.router.navigateTo('home')">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg group-hover:scale-105 transition">
+                🪞
+            </div>
             <div>
-                <span class="font-bold tracking-wider text-sm text-white uppercase">Morphism OS</span>
-                <span class="block text-[10px] text-indigo-400 font-mono">Class Algebra v2.4</span>
+                <span class="font-bold tracking-wider text-xs sm:text-sm text-white uppercase">MorphismOS</span>
+                <span class="block text-[9px] sm:text-[10px] text-indigo-400 font-mono">Category Kernel v3.0</span>
             </div>
         </div>
-        <nav class="hidden md:flex gap-6 text-xs font-medium text-slate-400">
-            <button onclick="app.navigate('home')" class="hover:text-white transition">Theory Core</button>
-            <button onclick="app.navigate('classes')" class="hover:text-white transition">Class Registry</button>
-            <button onclick="app.navigate('morphism')" class="hover:text-white transition">Transformation Matrix</button>
+
+        <nav class="hidden md:flex gap-6 text-xs font-medium text-slate-400 font-mono">
+            <button onclick="MorphismApp.router.navigateTo('home')" id="nav-home" class="hover:text-white transition">01 // Overview</button>
+            <button onclick="MorphismApp.router.navigateTo('classes')" id="nav-classes" class="hover:text-white transition">02 // Class Hierarchy</button>
+            <button onclick="MorphismApp.router.navigateTo('morphism')" id="nav-morphism" class="hover:text-white transition">03 // Morphism Lab</button>
         </nav>
-        <div class="flex items-center gap-3">
-            <button onclick="app.navigate('auth')" id="navAuthBtn" class="algebraic-btn px-5 py-2.5 rounded-xl text-xs">Initialize Session ✦</button>
+
+        <div class="flex items-center gap-4">
+            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl font-mono text-xs text-indigo-300 font-bold backdrop-blur-md">
+                <span>⚡</span> <span id="clockText">00:00:00</span>
+            </div>
+            <button onclick="MorphismApp.router.navigateTo('auth')" id="navAuthBtn" class="algebraic-btn px-5 py-2.5 rounded-xl text-xs">
+                Initialize Session ✦
+            </button>
         </div>
     </header>
 
-    <!-- CONTAINER ROUTER -->
-    <main id="routerContainer" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-20 py-12 z-10"></main>
+    <!-- DYNAMIC ROUTER CONTAINER -->
+    <main id="appRouter" class="flex-grow max-w-7xl mx-auto w-full mobile-padding py-10 z-10"></main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <div class="glass-panel px-5 py-3.5 rounded-2xl border border-indigo-500/40 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
+            <span class="text-indigo-400">✦</span> <span id="toastText">System notification</span>
+        </div>
+    </div>
 
     <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-slate-950/80 py-8 px-6 lg:px-20 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div>© 2026 Morphism & Class Engine. Built with pure functional UI mechanics.</div>
+    <footer class="border-t border-white/10 bg-slate-950/80 py-8 px-6 lg:px-20 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4 backdrop-blur-xl">
+        <div>© 2026 MorphismOS. Engineered with Object-Oriented Class Structures & Functor Maps.</div>
         <div class="flex gap-4 font-mono text-indigo-400">
-            <span>[Category Theory Active]</span>
-            <span>[Objects: 256]</span>
-            <span>[Functors: Synced]</span>
+            <span>[Category: Set → UI]</span>
+            <span>[Status: Isomorphic]</span>
         </div>
     </footer>
 
-    <!-- ENGINE LOGIC -->
+    <!-- SOFTWARE ENGINEERING & OOP CLASS SYSTEM SCRIPT -->
     <script>
-        // CORE OOP CLASS DEFINITION SYSTEM (Object-Oriented Programming & Morphism)
+        // --- SOFTWARE ENGINEERING: OBJECT-ORIENTED CLASSES & MORPHISMS ---
+        
+        // 1. Base Class: Represents any abstract entity category
         class CategoryObject {
-            constructor(name, properties) {
+            constructor(name, metadata = {}) {
+                this.id = Math.random().toString(36).substring(2, 9);
                 this.name = name;
-                this.properties = properties;
-                this.id = Math.random().toString(36.substring(2, 9));
+                this.metadata = metadata;
+                this.createdAt = new Date().toISOString();
             }
-            describe() {
-                return `Object Class [${this.name}] with properties: ${Object.keys(this.properties).join(', ')}`;
-            }
-        }
-
-        class MorphismTransformation {
-            constructor(sourceClass, targetClass, transformationFunction) {
-                this.source = sourceClass;
-                this.target = targetClass;
-                this.transform = transformationFunction;
-            }
-            execute(data) {
-                return this.transform(data);
+            inspect() {
+                return `Entity [${this.name}] ID: ${this.id}`;
             }
         }
 
-        // APPLICATION STATE & ROUTER ENGINE
-        const app = {
-            route: 'home',
-            authMode: 'signin', // 'signin', 'signup'
-            user: JSON.parse(localStorage.getItem('morphism_user')) || null,
-            
-            navigate(route) {
-                this.route = route;
-                this.render();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 2. Derived Class: User Entity inheriting from CategoryObject
+        class UserEntity extends CategoryObject {
+            constructor(name, email, role = 'Theorist') {
+                super(name, { email, role });
+                this.authenticated = true;
+                this.transformCount = 0;
+            }
+            incrementTransformation() {
+                this.transformCount++;
+            }
+        }
+
+        // 3. Morphism Class: Structure-preserving map between categories
+        class Morphism {
+            constructor(sourceCategory, targetCategory, mappingFunction) {
+                this.source = sourceCategory;
+                this.target = targetCategory;
+                this.mapFn = mappingFunction;
+            }
+            apply(inputData) {
+                return this.mapFn(inputData);
+            }
+        }
+
+        // --- APPLICATION STATE & ROUTER CORE ---
+        const MorphismApp = {
+            state: {
+                user: JSON.parse(localStorage.getItem('morphism_user')) || null,
+                authMode: 'signin', // 'signin' or 'signup'
+                activeTab: 'home',
+                morphismLogs: []
+            },
+
+            showToast(message) {
+                const container = document.getElementById('toastContainer');
+                document.getElementById('toastText').innerText = message;
+                container.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+                container.classList.add('translate-y-0', 'opacity-100');
+                setTimeout(() => {
+                    container.classList.remove('translate-y-0', 'opacity-100');
+                    container.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                }, 3500);
+            },
+
+            router: {
+                navigateTo(route) {
+                    MorphismApp.state.activeTab = route;
+                    window.location.hash = route;
+                    MorphismApp.render();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                init() {
+                    const hash = window.location.hash.replace('#', '') || 'home';
+                    this.navigateTo(hash);
+                }
             },
 
             render() {
-                const container = document.getElementById('routerContainer');
+                const container = document.getElementById('appRouter');
+                const route = this.state.activeTab;
                 let html = '';
-                
-                if (this.route === 'home') html = this.renderHome();
-                else if (this.route === 'auth') html = this.renderAuth();
-                else if (this.route === 'classes') html = this.renderClasses();
-                else if (this.route === 'morphism') html = this.renderMorphismPlayground();
-                else if (this.route === 'dashboard') html = this.renderDashboard();
+
+                if (route === 'home') html = this.views.renderHome();
+                else if (route === 'auth') html = this.views.renderAuth();
+                else if (route === 'classes') html = this.views.renderClasses();
+                else if (route === 'morphism') html = this.views.renderMorphismLab();
+                else if (route === 'dashboard') html = this.views.renderDashboard();
 
                 container.innerHTML = html;
                 this.updateNavbar();
@@ -138,249 +214,293 @@
 
             updateNavbar() {
                 const btn = document.getElementById('navAuthBtn');
-                if (this.user) {
-                    btn.innerText = `👤 ${this.user.name}`;
-                    btn.onclick = () => this.navigate('dashboard');
+                if (this.state.user) {
+                    btn.innerText = `👤 ${this.state.user.name}`;
+                    btn.onclick = () => this.router.navigateTo('dashboard');
                 } else {
                     btn.innerText = 'Initialize Session ✦';
-                    btn.onclick = () => this.navigate('auth');
+                    btn.onclick = () => this.router.navigateTo('auth');
                 }
+
+                // Highlight active nav tab
+                ['home', 'classes', 'morphism'].forEach(tab => {
+                    const el = document.getElementById(`nav-${tab}`);
+                    if (el) {
+                        if (tab === this.state.activeTab) el.classList.add('text-white', 'underline');
+                        else el.classList.remove('text-white', 'underline');
+                    }
+                });
             },
 
-            renderHome() {
-                return `
-                    <div class="space-y-16 animate-fadeIn">
-                        <div class="morphism-glass p-12 lg:p-20 rounded-[3rem] text-center space-y-8 relative overflow-hidden">
-                            <div class="absolute -top-32 -left-32 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
-                            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+            // --- UI VIEWS SYSTEM ---
+            views: {
+                renderHome() {
+                    return `
+                        <div class="space-y-16 animate-fade-in">
+                            <!-- Hero Section with Glassmorphism & Floating Animation -->
+                            <div class="glass-panel p-10 lg:p-20 rounded-[3.5rem] text-center space-y-8 relative overflow-hidden">
+                                <div class="absolute -top-32 -left-32 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+                                <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-                            <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest">
-                                Algebraic UI Architecture
-                            </span>
-                            <h1 class="text-4xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
-                                The Synthesis of <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Class</span> and <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Morphism</span>.
-                            </h1>
-                            <p class="text-slate-400 text-base lg:text-lg max-w-2xl mx-auto">
-                                Explore a web application built entirely on object-oriented class hierarchies and category-theoretic structural transformations.
-                            </p>
-                            <div class="flex justify-center gap-4 pt-4">
-                                <button onclick="app.navigate('classes')" class="algebraic-btn px-8 py-4 rounded-2xl text-sm">Explore Class Hierarchy →</button>
-                                <button onclick="app.navigate('morphism')" class="morphism-glass px-8 py-4 rounded-2xl text-sm hover:bg-white/10 text-slate-200">Run Morphism Lab 🧪</button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
-                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl font-bold">🏛️</div>
-                                <h3 class="text-xl font-bold text-white">Class-Based Encapsulation</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">
-                                    Objects maintain state, behavior, and inheritance structures, mapped directly into interactive user interface components.
-                                </p>
-                            </div>
-                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
-                                <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold">🔄</div>
-                                <h3 class="text-xl font-bold text-white">Structure-Preserving Morphisms</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">
-                                    Transform objects from one category state to another securely while maintaining relational integrity and type safety.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            renderAuth() {
-                const isLogin = this.authMode === 'login';
-                return `
-                    <div class="max-w-md mx-auto py-10 animate-fadeIn">
-                        <div class="glass-card morphism-glass p-10 rounded-[3rem] space-y-8 relative overflow-hidden">
-                            <div class="text-center space-y-2">
-                                <span class="text-xs font-mono text-indigo-400 uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1.5 rounded-full">
-                                    Authentication Functor
+                                <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest">
+                                    Algebraic UI Architecture
                                 </span>
-                                <h2 class="text-2xl font-bold text-white pt-2">${isLogin ? 'Access Portal' : 'Register Entity'}</h2>
-                                <p class="text-xs text-slate-400">Initialize your user class object instance.</p>
+                                <h1 class="text-4xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+                                    Where <span class="algebraic-gradient">Classes</span> Encapsulate State & <span class="algebraic-gradient">Morphisms</span> Shape Form.
+                                </h1>
+                                <p class="text-slate-300 text-base lg:text-lg max-w-2xl mx-auto font-normal">
+                                    A cutting-edge web application blending rigorous software engineering OOP principles with graphic-designer-grade glassmorphic UI/UX.
+                                </p>
+                                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                                    <button onclick="MorphismApp.router.navigateTo('classes')" class="algebraic-btn px-8 py-4 rounded-2xl text-sm">
+                                        Explore Class Hierarchy →
+                                    </button>
+                                    <button onclick="MorphismApp.router.navigateTo('morphism')" class="glass-panel px-8 py-4 rounded-2xl text-sm hover:bg-white/10 text-slate-200">
+                                        Open Morphism Lab 🧪
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- Mode Switcher -->
-                            <div class="flex bg-slate-900/60 p-1.5 rounded-2xl border border-white/10">
-                                <button onclick="app.authMode='signin'; app.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${!isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
-                                    Sign Up
-                                </button>
-                                <button onclick="app.authMode='login'; app.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
-                                    Login
-                                </button>
+                            <!-- Feature Cards -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl font-bold shadow-inner">🏛️</div>
+                                    <h3 class="text-lg font-bold text-white">OOP Encapsulation</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">
+                                        Entities instantiated through explicit JavaScript class definitions with inherited properties and clean methods.
+                                    </p>
+                                </div>
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold shadow-inner">🔄</div>
+                                    <h3 class="text-lg font-bold text-white">Functor Morphisms</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">
+                                        Transform application states cleanly using category-theoretic mapping structures without mutating core data buckets.
+                                    </p>
+                                </div>
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl font-bold shadow-inner">✨</div>
+                                    <h3 class="text-lg font-bold text-white">Glassmorphic UI</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">
+                                        Graphic-designer styled chromatic glows, animated backdrops, and blur filters delivering supreme visual aesthetics.
+                                    </p>
+                                </div>
                             </div>
+                        </div>
+                    `;
+                },
 
-                            <div class="space-y-4">
-                                ${!isLogin ? `
+                renderAuth() {
+                    const isLogin = MorphismApp.state.authMode === 'login';
+                    return `
+                        <div class="max-w-md mx-auto py-8 animate-fade-in">
+                            <div class="glass-panel p-10 rounded-[3rem] space-y-8 relative overflow-hidden shadow-2xl">
+                                <div class="text-center space-y-2">
+                                    <span class="text-xs font-mono text-indigo-400 uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1.5 rounded-full">
+                                        Authentication Functor
+                                    </span>
+                                    <h2 class="text-2xl font-bold text-white pt-3">${isLogin ? 'Access Portal' : 'Register Entity'}</h2>
+                                    <p class="text-xs text-slate-400">Instantiate a secure <span class="font-mono text-indigo-300">UserEntity</span> class session.</p>
+                                </div>
+
+                                <!-- Mode Switcher Tabs -->
+                                <div class="flex bg-slate-900/60 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
+                                    <button onclick="MorphismApp.state.authMode='signin'; MorphismApp.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${!isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                                        New Registration
+                                    </button>
+                                    <button onclick="MorphismApp.state.authMode='login'; MorphismApp.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                                        Existing Login
+                                    </button>
+                                </div>
+
+                                <div class="space-y-4">
+                                    ${!isLogin ? `
+                                        <div>
+                                            <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Entity Name</label>
+                                            <input type="text" id="authName" placeholder="Dr. Emmy Noether" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                        </div>
+                                    ` : ''}
                                     <div>
-                                        <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Entity Name</label>
-                                        <input type="text" id="authName" placeholder="Dr. Alan Turing" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                        <label class="block text-xs font-mono uppercase text-slate-400 mb-2">College Email / Identifier</label>
+                                        <input type="email" id="authEmail" placeholder="noether@algebra.edu" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
                                     </div>
-                                ` : ''}
-                                <div>
-                                    <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Identifier (Email)</label>
-                                    <input type="email" id="authEmail" placeholder="turing@algebra.edu" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                    <div>
+                                        <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Security Key (Password)</label>
+                                        <input type="password" id="authPass" placeholder="••••••••" class="w-full bg-slate-950/40 border border-white/10 rounded-2xl px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                    </div>
+                                    <button onclick="MorphismApp.handleAuthSubmit()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
+                                        ${isLogin ? 'Authenticate Session ⚡' : 'Instantiate Entity Class ✦'}
+                                    </button>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Security Key (Password)</label>
-                                    <input type="password" id="authPass" placeholder="••••••••" class="w-full bg-slate-950/40 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                            </div>
+                        </div>
+                    `;
+                },
+
+                renderClasses() {
+                    return `
+                        <div class="space-y-8 animate-fade-in max-w-5xl mx-auto">
+                            <div class="text-center space-y-3">
+                                <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
+                                    Object Taxonomy
+                                </span>
+                                <h1 class="text-3xl lg:text-4xl font-extrabold text-white">Class Hierarchy Registry</h1>
+                                <p class="text-slate-400 text-sm">Software engineering architecture breakdown powering this platform interface.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="text-xs font-mono text-indigo-400">Class 01 // Base</div>
+                                    <h3 class="text-xl font-bold text-white">CategoryObject</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">Handles universal entity properties, metadata dictionaries, and timestamp generation.</p>
+                                    <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-indigo-300 border border-white/5 overflow-x-auto">
+                                        class CategoryObject {<br>&nbsp;&nbsp;constructor(name, meta)<br>}
+                                    </div>
                                 </div>
-                                <button onclick="app.handleAuthSubmit()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
-                                    ${isLogin ? 'Authenticate Session ⚡' : 'Instantiate Entity ✦'}
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="text-xs font-mono text-purple-400">Class 02 // Derived</div>
+                                    <h3 class="text-xl font-bold text-white">UserEntity</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">Extends base class to manage authentication states and tracking transformation frequency.</p>
+                                    <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-purple-300 border border-white/5 overflow-x-auto">
+                                        class UserEntity extends CategoryObject {<br>&nbsp;&nbsp;incrementTransform()<br>}
+                                    </div>
+                                </div>
+                                <div class="glass-panel p-8 rounded-[2.5rem] space-y-4">
+                                    <div class="text-xs font-mono text-pink-400">Class 03 // Functor</div>
+                                    <h3 class="text-xl font-bold text-white">Morphism</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">Encapsulates structure-preserving mapping functions between category states.</p>
+                                    <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-pink-300 border border-white/5 overflow-x-auto">
+                                        class Morphism {<br>&nbsp;&nbsp;apply(inputData)<br>}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                },
+
+                renderMorphismLab() {
+                    return `
+                        <div class="space-y-8 animate-fade-in max-w-4xl mx-auto">
+                            <div class="text-center space-y-3">
+                                <span class="bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
+                                    Category Theory Sandbox
+                                </span>
+                                <h1 class="text-3xl lg:text-4xl font-extrabold text-white">Morphism Transformation Matrix</h1>
+                                <p class="text-slate-400 text-sm">Provide object payload data and execute structural mappings in real time.</p>
+                            </div>
+
+                            <div class="glass-panel p-8 lg:p-10 rounded-[3rem] space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-xs font-mono uppercase text-slate-400">Source Object (JSON Category A)</label>
+                                        <textarea id="labInput" rows="6" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 font-mono text-xs text-indigo-300 focus:outline-none focus:border-indigo-500 shadow-inner">{
+  "rawUser": "ADA LOVELACE",
+  "securityClearance": 7,
+  "systemActive": true
+}</textarea>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-xs font-mono uppercase text-slate-400">Transformed Output (Category B)</label>
+                                        <div id="labOutput" class="w-full bg-slate-950/80 border border-white/10 rounded-2xl p-4 font-mono text-xs text-emerald-400 h-[146px] overflow-y-auto">
+                                            Awaiting morphism execution pipeline...
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="MorphismApp.executeMorphismLab()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
+                                    Execute Morphism Mapping ⚡
                                 </button>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                },
+
+                renderDashboard() {
+                    const u = MorphismApp.state.user || { name: 'Scholar', email: 'scholar@morphism.os', role: 'Theorist' };
+                    return `
+                        <div class="space-y-8 animate-fade-in max-w-4xl mx-auto">
+                            <div class="glass-panel p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
+                                <div class="flex items-center gap-6 text-center sm:text-left">
+                                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl">👑</div>
+                                    <div class="space-y-1">
+                                        <span class="text-[10px] font-mono text-indigo-400 uppercase tracking-widest">Active UserEntity Instance</span>
+                                        <h2 class="text-2xl font-bold text-white">${u.name}</h2>
+                                        <p class="text-xs text-slate-400 font-mono">${u.email} • Role: ${u.role}</p>
+                                    </div>
+                                </div>
+                                <button onclick="MorphismApp.state.user = null; localStorage.removeItem('morphism_user'); MorphismApp.showToast('Session terminated.'); MorphismApp.router.navigateTo('home');" class="bg-red-500/10 border border-red-500/30 px-5 py-3 rounded-2xl text-xs font-bold text-red-400 hover:bg-red-500/20 transition">
+                                    Terminate Session ⎋
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="glass-panel p-7 rounded-[2.5rem] space-y-3">
+                                    <span class="text-xs font-mono uppercase text-indigo-400">Class Polymorphism</span>
+                                    <div class="text-2xl font-bold text-white">UserEntity [Active]</div>
+                                    <p class="text-xs text-slate-400">Instance verified securely against local storage container category.</p>
+                                </div>
+                                <div class="glass-panel p-7 rounded-[2.5rem] space-y-3">
+                                    <span class="text-xs font-mono uppercase text-purple-400">Functor Mapping</span>
+                                    <div class="text-2xl font-bold text-white">Isomorphic State</div>
+                                    <p class="text-xs text-slate-400">UI layout reflects current object property values without state loss.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
             },
 
             handleAuthSubmit() {
-                const email = document.getElementById('authEmail').value;
-                const name = document.getElementById('authName') ? document.getElementById('authName').value : 'Scholar';
-                if (!email) {
-                    alert('Please provide a valid identifier.');
+                const email = document.getElementById('authEmail').value.trim();
+                const name = document.getElementById('authName') ? document.getElementById('authName').value.trim() : 'Scholar';
+                
+                if (!email || !email.includes('@')) {
+                    this.showToast('❌ Please provide a valid email identifier.');
                     return;
                 }
-                this.user = { name: name || email.split('@')[0], email, role: 'Category Theorist' };
-                localStorage.setItem('morphism_user', JSON.stringify(this.user));
-                this.navigate('dashboard');
+
+                // Instantiate UserEntity class object (OOP Requirement)
+                const activeUser = new UserEntity(name || email.split('@')[0], email, 'Category Theorist');
+                this.state.user = { name: activeUser.name, email: activeUser.metadata.email, role: activeUser.metadata.role };
+                
+                localStorage.setItem('morphism_user', JSON.stringify(this.state.user));
+                this.showToast(`✦ Successfully instantiated session for ${activeUser.name}!`);
+                this.router.navigateTo('dashboard');
             },
 
-            renderDashboard() {
-                const u = this.user || { name: 'Guest', email: 'guest@system.net', role: 'Observer' };
-                return `
-                    <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
-                        <div class="morphism-glass p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
-                            <div class="flex items-center gap-6 text-center sm:text-left">
-                                <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl">👑</div>
-                                <div class="space-y-1">
-                                    <span class="text-[10px] font-mono text-indigo-400 uppercase tracking-widest">Active Object Instance</span>
-                                    <h2 class="text-2xl font-bold text-white">${u.name}</h2>
-                                    <p class="text-xs text-slate-400 font-mono">${u.email} • Role: ${u.role}</p>
-                                </div>
-                            </div>
-                            <button onclick="app.user=null; localStorage.removeItem('morphism_user'); app.navigate('home');" class="bg-red-500/10 border border-red-500/30 px-5 py-3 rounded-2xl text-xs font-bold text-red-400 hover:bg-red-500/20 transition">
-                                Terminate Session ⎋
-                            </button>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="morphism-glass p-7 rounded-[2.5rem] space-y-3">
-                                <span class="text-xs font-mono uppercase text-indigo-400">Class Type</span>
-                                <div class="text-2xl font-bold text-white">UserEntity[Class]</div>
-                                <p class="text-xs text-slate-400">Inherits from CategoryObject base class with active state binding.</p>
-                            </div>
-                            <div class="morphism-glass p-7 rounded-[2.5rem] space-y-3">
-                                <span class="text-xs font-mono uppercase text-purple-400">Morphism Status</span>
-                                <div class="text-2xl font-bold text-white">Isomorphic (1:1)</div>
-                                <p class="text-xs text-slate-400">State mapping is fully synchronized with local storage category database.</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            renderClasses() {
-                return `
-                    <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
-                        <div class="text-center space-y-3">
-                            <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
-                                Object-Oriented Taxonomy
-                            </span>
-                            <h1 class="text-3xl lg:text-4xl font-bold text-white">Class Hierarchy Registry</h1>
-                            <p class="text-slate-400 text-sm">Interactive inspection of classes instantiated within the application engine.</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
-                                <div class="text-xs font-mono text-indigo-400">Base Class</div>
-                                <h3 class="text-xl font-bold text-white">CategoryObject</h3>
-                                <p class="text-xs text-slate-400 leading-relaxed">Defines properties, unique identifiers, and structural metadata for all UI entities.</p>
-                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-indigo-300 border border-white/5">
-                                    class CategoryObject { constructor(name, props)... }
-                                </div>
-                            </div>
-                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
-                                <div class="text-xs font-mono text-purple-400">Derived Class</div>
-                                <h3 class="text-xl font-bold text-white">UserEntity</h3>
-                                <p class="text-xs text-slate-400 leading-relaxed">Extends base class to handle secure user authentication, sessions, and permissions.</p>
-                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-purple-300 border border-white/5">
-                                    class UserEntity extends CategoryObject { authenticate()... }
-                                </div>
-                            </div>
-                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
-                                <div class="text-xs font-mono text-pink-400">Transformation Class</div>
-                                <h3 class="text-xl font-bold text-white">MorphismEngine</h3>
-                                <p class="text-xs text-slate-400 leading-relaxed">Executes mapping functions to convert domain models into display structures.</p>
-                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-pink-300 border border-white/5">
-                                    class MorphismTransformation { execute(data)... }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            renderMorphismPlayground() {
-                return `
-                    <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
-                        <div class="text-center space-y-3">
-                            <span class="bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
-                                Category Theory Lab
-                            </span>
-                            <h1 class="text-3xl lg:text-4xl font-bold text-white">Morphism Transformation Matrix</h1>
-                            <p class="text-slate-400 text-sm">Input raw object state data and observe morphism mapping into structured UI views.</p>
-                        </div>
-
-                        <div class="morphism-glass p-8 rounded-[3rem] space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="text-xs font-mono uppercase text-slate-400">Source Object (JSON)</label>
-                                    <textarea id="sourceObjInput" rows="6" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 font-mono text-xs text-indigo-300 focus:outline-none focus:border-indigo-500">{
-  "rawName": "alex turing",
-  "clearanceLevel": 5,
-  "systemActive": true
-}</textarea>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-xs font-mono uppercase text-slate-400">Transformed Output (Morphism Result)</label>
-                                    <div id="morphismOutput" class="w-full bg-slate-950/80 border border-white/10 rounded-2xl p-4 font-mono text-xs text-emerald-400 h-[146px] overflow-y-auto">
-                                        Click execute to apply morphism transformation...
-                                    </div>
-                                </div>
-                            </div>
-                            <button onclick="app.runMorphismTest()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
-                                Execute Morphism Functor ⚡
-                            </button>
-                        </div>
-                    </div>
-                `;
-            },
-
-            runMorphismTest() {
+            executeMorphismLab() {
                 try {
-                    const rawText = document.getElementById('sourceObjInput').value;
-                    const parsed = JSON.parse(rawText);
-                    
-                    // Define a morphism: Category A -> Category B
-                    const morphism = new MorphismTransformation('RawData', 'DisplayEntity', (data) => ({
-                        displayName: data.rawName.toUpperCase(),
-                        accessTier: `Level-${data.clearanceLevel} [Verified]`,
-                        statusFlag: data.systemActive ? 'ONLINE 🟢' : 'OFFLINE 🔴',
-                        morphismTimestamp: new Date().toISOString()
+                    const rawInput = document.getElementById('labInput').value;
+                    const parsedData = JSON.parse(rawInput);
+
+                    // Instantiate a Morphism object (Category Theory Requirement)
+                    const structuralMorphism = new Morphism('SourceJSON', 'FormattedView', (input) => ({
+                        normalizedName: input.rawUser ? input.rawUser.toLowerCase() : 'anonymous',
+                        authorizationTier: `Tier-${input.securityClearance || 1}`,
+                        operationalStatus: input.systemActive ? 'ACTIVE (ISOMORPHIC)' : 'INACTIVE',
+                        processedAt: new Date().toLocaleTimeString()
                     }));
 
-                    const result = morphism.execute(parsed);
-                    document.getElementById('morphismOutput').innerText = JSON.stringify(result, null, 2);
-                } catch (e) {
-                    document.getElementById('morphismOutput').innerText = `Morphism Error: Invalid JSON input format (${e.message})`;
+                    const output = structuralMorphism.apply(parsedData);
+                    document.getElementById('labOutput').innerText = JSON.stringify(output, null, 2);
+                    this.showToast('⚡ Morphism transformation executed successfully.');
+                } catch (err) {
+                    document.getElementById('labOutput').innerText = `Error: Invalid JSON payload (${err.message})`;
+                    this.showToast('❌ Morphism mapping failed.');
                 }
             }
         };
 
-        window.addEventListener('DOMContentLoaded', () => { app.render(); });
+        // Initialize Live Clock & Router Engine
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            const clockEl = document.getElementById('clockText');
+            if (clockEl) clockEl.innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            MorphismApp.router.init();
+        });
     </script>
 </body>
 </html>
