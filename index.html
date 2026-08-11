@@ -2,1127 +2,385 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ABTalks - 60-Day Coding Challenge Hub (Team Vitality Edition)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morphism & Class — Advanced Algebraic UI Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    fontFamily: { sans: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                 }
             }
         }
     </script>
     <style>
-        /* Comprehensive Glassmorphic Design System */
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .morphism-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .glass-card:hover {
-            border-color: rgba(234, 179, 8, 0.5);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(234, 179, 8, 0.2);
-            transform: translateY(-3px);
+        .morphism-glass:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.2);
         }
-        .gold-btn {
-            background: linear-gradient(135deg, #facc15 0%, #eab308 50%, #ca8a04 100%);
-            color: #0c0a09;
-            font-weight: 800;
-            box-shadow: 0 12px 35px rgba(234, 179, 8, 0.35);
+        .algebraic-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #312e81 100%);
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
             transition: all 0.3s ease;
         }
-        .gold-btn:hover {
-            opacity: 0.95;
+        .algebraic-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 18px 40px rgba(234, 179, 8, 0.55);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
         }
-        .gold-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #fef08a 40%, #eab308 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes morphFloat {
+            0%, 100% { transform: translateY(0) scale(1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { transform: translateY(-15px) scale(1.05); border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; }
         }
-
-        @keyframes slideInFromRight {
-            0% { opacity: 0; transform: translateX(35px) scale(0.98); }
-            100% { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        .animate-slide {
-            animation: slideInFromRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        .animate-float { animation: floatCard 4s ease-in-out infinite; }
-
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 25s linear infinite;
-        }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-
-        .star-rating span {
-            cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-        .star-rating span:hover { transform: scale(1.25); }
-        .star-rating span.active {
-            color: #fbbf24;
-            text-shadow: 0 0 18px rgba(251, 191, 36, 0.9);
-        }
-
-        @media (max-width: 768px) {
-            .mobile-padding { padding-left: 1rem !important; padding-right: 1rem !important; }
-        }
+        .animate-morph { animation: morphFloat 8s ease-in-out infinite; }
     </style>
 </head>
-<body class="bg-[#050402] text-slate-100 antialiased selection:bg-yellow-500 selection:text-slate-950 min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="bg-[#030712] text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-    <!-- Glowing Background Orbs for Glassmorphism Contrast -->
-    <div class="fixed top-[-10%] left-[-10%] w-[700px] h-[700px] bg-yellow-600/20 rounded-full blur-[180px] pointer-events-none"></div>
-    <div class="fixed bottom-[-10%] right-[-10%] w-[700px] h-[700px] bg-amber-700/20 rounded-full blur-[180px] pointer-events-none"></div>
+    <!-- Background Orbs -->
+    <div class="fixed top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none animate-morph"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[150px] pointer-events-none animate-morph" style="animation-delay: -4s;"></div>
 
     <!-- NAVBAR -->
-    <header class="border-b border-white/10 bg-black/40 backdrop-blur-2xl sticky top-0 z-50 px-4 sm:px-6 lg:px-20 py-4 flex justify-between items-center shadow-2xl">
-        <div class="flex items-center gap-3 cursor-pointer group" onclick="router.navigateTo('/')">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-yellow-400 to-amber-700 flex items-center justify-center font-extrabold text-slate-950 text-xl sm:text-2xl shadow-xl shadow-yellow-500/30 group-hover:scale-105 transition">
-                👑
-            </div>
+    <header class="border-b border-white/10 bg-slate-950/60 backdrop-blur-xl sticky top-0 z-50 px-6 lg:px-20 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="app.navigate('home')">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg">⚡</div>
             <div>
-                <span class="font-extrabold tracking-widest text-xs sm:text-sm text-white uppercase">ABTALKS</span>
-                <span class="block text-[9px] sm:text-[10px] text-yellow-400 font-bold tracking-widest uppercase">Team Vitality</span>
+                <span class="font-bold tracking-wider text-sm text-white uppercase">Morphism OS</span>
+                <span class="block text-[10px] text-indigo-400 font-mono">Class Algebra v2.4</span>
             </div>
         </div>
-
-        <nav class="hidden lg:flex items-center gap-1 bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
-            <button onclick="router.navigateTo('/')" id="nav-home" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Overview</button>
-            <button onclick="router.navigateTo('/dashboard')" id="nav-dashboard" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Dashboard</button>
-            <button onclick="router.navigateTo('/day/1')" id="nav-day" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Day One</button>
-            <button onclick="router.navigateTo('/chat')" id="nav-chat" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Community Chat 💬</button>
-            <button onclick="router.navigateTo('/news')" id="nav-news" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Tech News 📰</button>
-            <button onclick="router.navigateTo('/analytics')" id="nav-analytics" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Analytics 📊</button>
-            <button onclick="router.navigateTo('/resources')" id="nav-resources" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Resources 📚</button>
-            <button onclick="router.navigateTo('/about')" id="nav-about" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">About</button>
-            <button onclick="router.navigateTo('/contact')" id="nav-contact" class="px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white">Contact</button>
+        <nav class="hidden md:flex gap-6 text-xs font-medium text-slate-400">
+            <button onclick="app.navigate('home')" class="hover:text-white transition">Theory Core</button>
+            <button onclick="app.navigate('classes')" class="hover:text-white transition">Class Registry</button>
+            <button onclick="app.navigate('morphism')" class="hover:text-white transition">Transformation Matrix</button>
         </nav>
-
         <div class="flex items-center gap-3">
-            <div id="liveClock" class="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl font-mono text-xs text-yellow-300 font-bold backdrop-blur-md">
-                <span>🕒</span> <span id="clockText">00:00:00 AM</span>
-            </div>
-            <button onclick="router.navigateTo('/signin')" id="nav-auth-btn" class="bg-white/10 border border-white/20 hover:border-yellow-400 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition text-yellow-300 shadow-md backdrop-blur-md">
-                Sign In / Login ✦
-            </button>
-            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-white/10 border border-white/20 text-yellow-300 backdrop-blur-md">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <button onclick="app.navigate('auth')" id="navAuthBtn" class="algebraic-btn px-5 py-2.5 rounded-xl text-xs">Initialize Session ✦</button>
         </div>
     </header>
 
-    <!-- MOBILE NAVIGATION DRAWER -->
-    <div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-50 flex flex-col p-6 space-y-4 hidden lg:hidden">
-        <div class="flex justify-between items-center border-b border-white/10 pb-4">
-            <span class="font-extrabold tracking-widest text-sm text-white uppercase">Menu Navigation</span>
-            <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 flex items-center justify-center font-bold">✕</button>
-        </div>
-        <div class="flex flex-col space-y-2 overflow-y-auto flex-grow py-2">
-            <button onclick="toggleMobileMenu(); router.navigateTo('/');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Overview</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/dashboard');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Dashboard</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/day/1');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Day One Challenge</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/chat');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Community Chat 💬</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/news');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Tech News 📰</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/analytics');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Analytics 📊</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/resources');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Resources 📚</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/about');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">About Us</button>
-            <button onclick="toggleMobileMenu(); router.navigateTo('/contact');" class="text-left px-4 py-3 rounded-xl bg-white/5 text-xs font-bold text-white backdrop-blur-md">Contact Us</button>
-        </div>
-    </div>
-
-    <!-- MAIN ROUTER CONTAINER -->
-    <main id="app-router" class="flex-grow max-w-7xl mx-auto w-full mobile-padding py-8 sm:py-12 z-10 overflow-x-hidden"></main>
-
-    <!-- TOAST NOTIFICATION POPUP -->
-    <div id="toastContainer" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-        <div id="toastMessageContent" class="glass-card px-5 py-3.5 rounded-2xl border border-white/20 text-xs font-bold text-white shadow-2xl flex items-center gap-3">
-            <span class="text-yellow-400">✦</span> <span id="toastText">Notification message</span>
-        </div>
-    </div>
-
-    <!-- AVATAR EDITOR MODAL OVERLAY -->
-    <div id="avatarModal" class="fixed inset-0 bg-black/85 backdrop-blur-xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] max-w-lg w-full space-y-6 border border-white/20">
-            <div class="flex justify-between items-center">
-                <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-yellow-400">Persona Customizer</span>
-                    <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">Select Your Indian Avatar</h3>
-                </div>
-                <button onclick="closeAvatarModal()" class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold hover:bg-white/20">✕</button>
-            </div>
-            <p class="text-xs text-slate-300">Choose from 10 professional student avatars:</p>
-            <div class="grid grid-cols-4 sm:grid-cols-5 gap-3 max-h-60 overflow-y-auto p-2 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md" id="modalAvatarGrid"></div>
-            <div class="pt-2 flex gap-3">
-                <button onclick="saveModalAvatar()" class="gold-btn flex-1 py-3.5 rounded-2xl text-xs">Save Avatar 👑</button>
-            </div>
-        </div>
-    </div>
+    <!-- CONTAINER ROUTER -->
+    <main id="routerContainer" class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-20 py-12 z-10"></main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-white/10 bg-black/40 py-8 sm:py-10 px-6 lg:px-20 z-10 text-xs text-slate-400 backdrop-blur-2xl">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-semibold text-center md:text-left">
-            <div>© 2026 ABTalks Ecosystem. Glassmorphic Edition by Team <span class="text-yellow-400">Vitality</span>[cite: 1].</div>
-            <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                <a href="#/" onclick="router.navigateTo('/')" class="hover:text-yellow-300 transition">Overview</a>
-                <a href="#/dashboard" onclick="router.navigateTo('/dashboard')" class="hover:text-yellow-300 transition">Dashboard</a>
-                <a href="#/chat" onclick="router.navigateTo('/chat')" class="hover:text-yellow-300 transition">Chat 💬</a>
-                <a href="#/news" onclick="router.navigateTo('/news')" class="hover:text-yellow-300 transition">News 📰</a>
-                <a href="#/contact" onclick="router.navigateTo('/contact')" class="hover:text-yellow-300 transition">Contact</a>
-            </div>
+    <footer class="border-t border-white/10 bg-slate-950/80 py-8 px-6 lg:px-20 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div>© 2026 Morphism & Class Engine. Built with pure functional UI mechanics.</div>
+        <div class="flex gap-4 font-mono text-indigo-400">
+            <span>[Category Theory Active]</span>
+            <span>[Objects: 256]</span>
+            <span>[Functors: Synced]</span>
         </div>
     </footer>
 
-    <!-- ENGINE SCRIPT -->
+    <!-- ENGINE LOGIC -->
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            if (menu) menu.classList.toggle('hidden');
-        }
-
-        // XSS Sanitization Helper[cite: 1]
-        function sanitize(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        const appState = {
-            streakDays: parseInt(localStorage.getItem('abtalks_streak')) || 1,
-            selectedTrack: 'AI & Full Stack',
-            githubLink: localStorage.getItem('abtalks_gh') || '',
-            linkedinLink: localStorage.getItem('abtalks_li') || '',
-            isSubmitted: localStorage.getItem('abtalks_submitted') === 'true',
-            synergyPoints: parseInt(localStorage.getItem('abtalks_sp')) || 50,
-            selectedCalendarDay: 1,
-            selectedRating: 5,
-            captchaNum1: 4,
-            captchaNum2: 3,
-            captchaInput: '',
-            currentUser: JSON.parse(localStorage.getItem('abtalks_user')) || null, 
-            selectedAvatar: 'Aarav',
-            authMode: 'signin', 
-            pendingEmail: '',
-            pendingName: '',
-            pendingPass: '',
-            generatedOtp: '',
-            activeSlideTab: 0,
-            chatInput: '',
-            chatMessages: JSON.parse(localStorage.getItem('abtalks_chat')) || [
-                { sender: 'Rohan Sharma', avatar: 'Rohan', text: sanitize('Hey everyone! Welcome to the 60-day coding challenge cohort!'), time: '10:14 AM' },
-                { sender: 'Priya Patel', avatar: 'Priya', text: sanitize('Just completed Day 1 setup. The AI & Full Stack track looks incredible!'), time: '10:18 AM' }
-            ]
-        };
-
-        const interactiveSlides = [
-            {
-                tag: "PHASE 01 • FOUNDATION",
-                title: "Initialize Your Developer Environment",
-                desc: "Set up version control, configure your remote repository, and execute your first public deployment to ignite your 60-day streak with professional grade tools.",
-                stat: "Day 1 to 15",
-                highlight: "GitHub & CI/CD Setup"
-            },
-            {
-                tag: "PHASE 02 • ARCHITECTURE",
-                title: "Build High-Performance Applications",
-                desc: "Implement modern component architectures, state management, and robust backend endpoints tailored for real-world production environments.",
-                stat: "Day 16 to 40",
-                highlight: "Full-Stack Scaling"
-            },
-            {
-                tag: "PHASE 03 • DEPLOYMENT & LAUNCH",
-                title: "Production & Professional Proof",
-                desc: "Integrate robust testing suites, secure authentication pipelines, and automated deployments to stand out to elite tech recruiters.",
-                stat: "Day 41 to 60",
-                highlight: "Production Launch"
+        // CORE OOP CLASS DEFINITION SYSTEM (Object-Oriented Programming & Morphism)
+        class CategoryObject {
+            constructor(name, properties) {
+                this.name = name;
+                this.properties = properties;
+                this.id = Math.random().toString(36.substring(2, 9));
             }
-        ];
-
-        const avatarChoices = [
-            { seed: "Aarav", name: "Aarav", role: "Software Engineer" },
-            { seed: "Rohan", name: "Rohan", role: "Full Stack Dev" },
-            { seed: "Kabir", name: "Kabir", role: "Backend Architect" },
-            { seed: "Aditya", name: "Aditya", role: "Tech Lead" },
-            { seed: "Ishaan", name: "Ishaan", role: "Cloud Specialist" },
-            { seed: "Ananya", name: "Ananya", role: "UI/UX Designer" },
-            { seed: "Diya", name: "Diya", role: "Frontend Dev" },
-            { seed: "Priya", name: "Priya", role: "Data Scientist" },
-            { seed: "Neha", name: "Neha", role: "Security Analyst" },
-            { seed: "Kavya", name: "Kavya", role: "Systems Researcher" }
-        ];
-
-        const techNewsData = [
-            {
-                tag: "AI & LLMs",
-                title: "Next-Gen AI Code Assistants Reach 98% Benchmark Precision in Complex Refactoring",
-                date: "June 6, 2026",
-                source: "TechCrunch AI",
-                desc: "Recent evaluations of developer workflows show that advanced multi-file reasoning models have cut production debugging cycles in half for full-stack engineering teams."
-            },
-            {
-                tag: "Cloud Infrastructure",
-                title: "Serverless Edge Computing Adopted by 75% of Enterprise Scale Startups",
-                date: "June 5, 2026",
-                source: "DevOps Weekly",
-                desc: "Global cloud providers announced new zero-latency micro-VM runtimes, enabling instantaneous full-stack application scaling across international regions."
-            },
-            {
-                tag: "Security & DevOps",
-                title: "Mandatory Automated CI/CD Checks Redefine Open Source Contribution Standards",
-                date: "June 4, 2026",
-                source: "GitHub Octoverse",
-                desc: "Top repositories are now requiring strict zero-vulnerability container scans and automated test coverage thresholds before merging any community pull requests."
-            }
-        ];
-
-        function openAvatarModal() {
-            const grid = document.getElementById('modalAvatarGrid');
-            if (grid) {
-                grid.innerHTML = avatarChoices.map(av => `
-                    <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-white/10'}">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 p-0.5">
-                        <span class="text-[9px] sm:text-[10px] font-bold text-white mt-1 text-center">${av.name}</span>
-                    </div>
-                `).join('');
-            }
-            document.getElementById('avatarModal').classList.remove('hidden');
-        }
-
-        function closeAvatarModal() {
-            document.getElementById('avatarModal').classList.add('hidden');
-        }
-
-        function updateLiveAvatar() {
-            avatarChoices.forEach(av => {
-                const el = document.querySelector(`.modal-av-item-${av.seed}`);
-                if (el) {
-                    if (appState.selectedAvatar === av.seed) {
-                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30 modal-av-item-${av.seed}`;
-                    } else {
-                        el.className = `cursor-pointer flex flex-col items-center p-2 rounded-xl transition border border-transparent hover:bg-white/10 modal-av-item-${av.seed}`;
-                    }
-                }
-            });
-        }
-
-        function saveModalAvatar() {
-            if (appState.currentUser) {
-                appState.currentUser.avatar = appState.selectedAvatar;
-                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser));
-            }
-            showToast(`✦ Avatar updated to ${appState.selectedAvatar}!`);
-            closeAvatarModal();
-            render();
-        }
-
-        function showToast(msg) {
-            const container = document.getElementById('toastContainer');
-            const textEl = document.getElementById('toastText');
-            if (container && textEl) {
-                textEl.innerText = msg;
-                container.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-                container.classList.add('translate-y-0', 'opacity-100');
-                setTimeout(() => {
-                    container.classList.remove('translate-y-0', 'opacity-100');
-                    container.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-                }, 3500);
+            describe() {
+                return `Object Class [${this.name}] with properties: ${Object.keys(this.properties).join(', ')}`;
             }
         }
 
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+        class MorphismTransformation {
+            constructor(sourceClass, targetClass, transformationFunction) {
+                this.source = sourceClass;
+                this.target = targetClass;
+                this.transform = transformationFunction;
+            }
+            execute(data) {
+                return this.transform(data);
+            }
+        }
+
+        // APPLICATION STATE & ROUTER ENGINE
+        const app = {
+            route: 'home',
+            authMode: 'signin', // 'signin', 'signup'
+            user: JSON.parse(localStorage.getItem('morphism_user')) || null,
             
-            hours = hours % 12;
-            hours = hours ? hours : 12; 
-            const formattedHours = String(hours).padStart(2, '0');
-
-            const timeString = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
-            const clockEl = document.getElementById('clockText');
-            if (clockEl) clockEl.innerText = timeString;
-        }
-        setInterval(updateClock, 1000);
-
-        const router = {
-            currentRoute: '/',
-            init() { 
-                const path = window.location.hash.replace('#', '') || '/';
-                this.currentRoute = path;
-                render();
-            },
-            navigateTo(route) { 
-                window.location.hash = route;
-                this.currentRoute = route;
-                render(); 
+            navigate(route) {
+                this.route = route;
+                this.render();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        };
+            },
 
-        window.addEventListener('hashchange', () => {
-            router.currentRoute = window.location.hash.replace('#', '') || '/';
-            render();
-        });
-
-        // 1. HOMEPAGE (Overview) WITH SLIDING AVATAR MARQUEE
-        function renderLanding() {
-            const currentSlide = interactiveSlides[appState.activeSlideTab];
-            const marqueeAvatars = [...avatarChoices, ...avatarChoices];
-
-            return `
-                <div class="space-y-12 sm:space-y-16 animate-fadeIn py-4 sm:py-6">
-                    <!-- Hero Header / Glassmorphism Call to Action -->
-                    <div class="glass-card p-6 sm:p-12 lg:p-20 rounded-[2.5rem] sm:rounded-[3.5rem] relative overflow-hidden text-center space-y-6 sm:space-y-8 shadow-2xl">
-                        <div class="absolute -top-32 -right-32 w-96 h-96 bg-yellow-500/15 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-700/15 rounded-full blur-3xl pointer-events-none"></div>
-
-                        <div class="inline-flex items-center gap-2 bg-white/10 text-yellow-300 border border-white/20 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-extrabold uppercase tracking-widest shadow-inner backdrop-blur-md">
-                            <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-yellow-400 animate-pulse"></span> Team Vitality • 60-Day Elite Tech Cohort[cite: 1]
-                        </div>
-                        
-                        <h1 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.15] max-w-5xl mx-auto">
-                            Master Code & Build Your <span class="gold-gradient">60-Day Legacy.</span>
-                        </h1>
-                        
-                        <p class="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
-                            Designed specifically for ambitious engineering students. Turn post-college hours into high-impact GitHub commits, professional verification, and industry proof of work.
-                        </p>
-
-                        <!-- Action Buttons -->
-                        <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-5 w-full">
-                            <button onclick="router.navigateTo('/dashboard')" class="gold-btn w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-sm tracking-wide">
-                                Access Dashboard 👑
-                            </button>
-                            <button onclick="appState.authMode='signin'; router.navigateTo('/signin');" class="glass-card w-full sm:w-auto text-yellow-200 font-bold px-7 sm:px-9 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/20">
-                                Register / Sign Up ✦
-                            </button>
-                            <button onclick="appState.authMode='login'; router.navigateTo('/signin');" class="bg-white/5 w-full sm:w-auto text-yellow-300 font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm transition hover:bg-white/10 border border-white/10 backdrop-blur-md">
-                                Existing User Login 🔑
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Sliding Avatars Marquee Section -->
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] space-y-4 overflow-hidden">
-                        <div class="text-center space-y-1">
-                            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-400">Professional Cohort Network</span>
-                            <h3 class="text-lg sm:text-xl font-extrabold text-white">Meet Active Engineering Scholars</h3>
-                        </div>
-                        <div class="relative w-full overflow-hidden py-4">
-                            <div class="absolute left-0 inset-y-0 w-20 bg-gradient-to-r from-[#050402] to-transparent z-10 pointer-events-none"></div>
-                            <div class="absolute right-0 inset-y-0 w-20 bg-gradient-to-l from-[#050402] to-transparent z-10 pointer-events-none"></div>
-                            
-                            <div class="animate-marquee flex gap-6 items-center">
-                                ${marqueeAvatars.map(av => `
-                                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl shrink-0 shadow-lg backdrop-blur-md">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-12 h-12 rounded-full bg-white/10 p-0.5 border border-yellow-400">
-                                        <div>
-                                            <div class="text-sm font-extrabold text-white">${av.name}</div>
-                                            <div class="text-[10px] font-bold text-yellow-400 uppercase tracking-wide">${av.role}</div>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Curriculum / Animated Slide -->
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6 sm:space-y-8 animate-slide" key="${appState.activeSlideTab}">
-                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-white/10 pb-6">
-                            <div>
-                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-400">Curriculum & Animated Roadmap Slider</span>
-                                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Explore 60-Day Execution Phases</h2>
-                            </div>
-                            <div class="flex flex-wrap bg-white/5 p-1.5 rounded-2xl border border-white/10 gap-1 w-full lg:w-auto justify-center backdrop-blur-md">
-                                ${interactiveSlides.map((slide, idx) => `
-                                    <button onclick="appState.activeSlideTab = ${idx}; render();" class="flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${appState.activeSlideTab === idx ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'}">
-                                        Phase 0${idx + 1}
-                                    </button>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center animate-slide">
-                            <div class="lg:col-span-2 space-y-3 sm:space-y-4">
-                                <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-3.5 py-1 rounded-full backdrop-blur-md">${currentSlide.tag}</span>
-                                <h3 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white">${currentSlide.title}</h3>
-                                <p class="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed">${currentSlide.desc}</p>
-                            </div>
-                            <div class="bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl space-y-3 sm:space-y-4 text-center shadow-inner backdrop-blur-md">
-                                <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Timeline Window</div>
-                                <div class="text-xl sm:text-2xl font-extrabold text-yellow-300">${currentSlide.stat}</div>
-                                <div class="text-xs font-bold text-white bg-white/10 py-2 px-4 rounded-xl border border-white/20 shadow-sm">${currentSlide.highlight}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rich Feature Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/chat')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">💬</div>
-                            <h3 class="text-base font-extrabold text-white">Community Chat</h3>
-                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Interact live with fellow students, discuss code solutions, and collaborate safely[cite: 1].</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/news')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">📰</div>
-                            <h3 class="text-base font-extrabold text-white">Latest Tech News</h3>
-                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Stay updated with breaking industry news, AI developments, and cloud updates.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-[2.5rem] space-y-3 cursor-pointer" onclick="router.navigateTo('/analytics')">
-                            <div class="w-10 h-10 rounded-xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-sm backdrop-blur-md">📊</div>
-                            <h3 class="text-base font-extrabold text-white">Deep Analytics</h3>
-                            <p class="text-slate-400 text-xs leading-relaxed font-normal">Track commit velocity, language usage, and consistency metrics.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 2. COMMUNITY CHAT SCREEN
-        function renderChat() {
-            const userName = appState.currentUser ? appState.currentUser.name : 'Guest Scholar';
-            const userAvatar = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
-
-            return `
-                <div class="space-y-6 animate-fadeIn max-w-4xl mx-auto py-2">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Cohort Live Lounge</span>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Community Interaction Room</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Chat securely with real-time persistence and input protection[cite: 1].</p>
-                    </div>
-
-                    <div class="glass-card p-4 sm:p-6 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
-                        <div id="chatMessagesBox" class="h-80 sm:h-96 overflow-y-auto space-y-4 pr-2">
-                            ${appState.chatMessages.map(msg => `
-                                <div class="flex items-start gap-3 ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'flex-row-reverse' : ''}">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${msg.avatar}&backgroundColor=eab308" alt="Avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-yellow-400 p-0.5 shrink-0">
-                                    <div class="max-w-[80%] sm:max-w-xl p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'bg-yellow-400 text-slate-950 font-extrabold shadow-lg' : 'bg-white/5 border border-white/10 text-slate-200 backdrop-blur-md'}">
-                                        <div class="flex justify-between items-center gap-4 mb-1">
-                                            <span class="text-[10px] font-extrabold uppercase ${msg.sender === (appState.currentUser ? appState.currentUser.name : 'You') ? 'text-slate-900' : 'text-yellow-400'}">${sanitize(msg.sender)}</span>
-                                            <span class="text-[9px] opacity-60">${msg.time}</span>
-                                        </div>
-                                        ${msg.text}
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        <div class="flex gap-2 sm:gap-3 pt-3 border-t border-white/10">
-                            <input type="text" id="communityChatInput" value="${appState.chatInput}" oninput="appState.chatInput=this.value" onkeydown="if(event.key==='Enter') sendCommunityMessage()" placeholder="Type a message..." class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                            <button onclick="sendCommunityMessage()" class="gold-btn px-5 sm:px-7 py-3.5 rounded-2xl text-xs font-extrabold shrink-0">
-                                Send 💬
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function sendCommunityMessage() {
-            const rawInput = document.getElementById('communityChatInput').value.trim();
-            if (!rawInput) return;
-
-            const sanitizedText = sanitize(rawInput); // Patched against XSS[cite: 1]
-            const senderName = appState.currentUser ? appState.currentUser.name : 'Guest Scholar';
-            const senderAvatar = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
-            const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            appState.chatMessages.push({ sender: senderName, avatar: senderAvatar, text: sanitizedText, time: timeNow });
-            localStorage.setItem('abtalks_chat', JSON.stringify(appState.chatMessages)); // Persistent State Patch[cite: 1]
-            appState.chatInput = '';
-            render();
-
-            const box = document.getElementById('chatMessagesBox');
-            if (box) box.scrollTop = box.scrollHeight;
-        }
-
-        // 3. TECH NEWS SECTION (/news)
-        function renderNews() {
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Industry Wire</span>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Latest Tech & Engineering News</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Curated daily updates on AI breakthroughs, full-stack tools, and developer frameworks.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        ${techNewsData.map(news => `
-                            <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] sm:rounded-[3rem] space-y-4 flex flex-col justify-between">
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-yellow-300 bg-white/10 border border-white/20 px-3 py-1 rounded-full">${news.tag}</span>
-                                        <span class="text-[10px] text-slate-400 font-mono">${news.date}</span>
-                                    </div>
-                                    <h3 class="text-base sm:text-lg font-extrabold text-white leading-snug">${news.title}</h3>
-                                    <p class="text-slate-300 text-xs leading-relaxed font-normal">${news.desc}</p>
-                                </div>
-                                <div class="pt-4 border-t border-white/10 flex justify-between items-center text-xs">
-                                    <span class="text-yellow-400 font-bold">Source: ${news.source}</span>
-                                    <button onclick="showToast('📰 Opening full article wire...')" class="text-xs text-yellow-300 hover:underline font-extrabold">Read Full →</button>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        // 4. STUDENT DASHBOARD (/dashboard)
-        function renderDashboard() {
-            let daysHtml = '';
-            for (let i = 1; i <= 60; i++) {
-                const isSelected = appState.selectedCalendarDay === i;
-                const isUnlocked = i === 1;
+            render() {
+                const container = document.getElementById('routerContainer');
+                let html = '';
                 
-                let btnClasses = "p-3 rounded-2xl text-xs font-bold transition flex flex-col items-center justify-center gap-1 border ";
-                if (isSelected) {
-                    btnClasses += "bg-gradient-to-br from-yellow-400 to-amber-600 text-slate-950 border-yellow-300 shadow-lg scale-105 z-10 font-extrabold";
-                } else if (isUnlocked) {
-                    btnClasses += "bg-white/10 text-yellow-300 border-white/20 hover:bg-white/20 backdrop-blur-md";
+                if (this.route === 'home') html = this.renderHome();
+                else if (this.route === 'auth') html = this.renderAuth();
+                else if (this.route === 'classes') html = this.renderClasses();
+                else if (this.route === 'morphism') html = this.renderMorphismPlayground();
+                else if (this.route === 'dashboard') html = this.renderDashboard();
+
+                container.innerHTML = html;
+                this.updateNavbar();
+            },
+
+            updateNavbar() {
+                const btn = document.getElementById('navAuthBtn');
+                if (this.user) {
+                    btn.innerText = `👤 ${this.user.name}`;
+                    btn.onclick = () => this.navigate('dashboard');
                 } else {
-                    btnClasses += "bg-white/5 text-slate-600 border-white/5 opacity-40 cursor-not-allowed";
+                    btn.innerText = 'Initialize Session ✦';
+                    btn.onclick = () => this.navigate('auth');
                 }
+            },
 
-                daysHtml += `
-                    <button onclick="${isUnlocked ? `selectCalendarDay(${i})` : `showToast('🔒 Day ${i} unlocks after Day 1 completion.')`}" class="${btnClasses}">
-                        <span>Day ${i}</span>
-                        <span class="text-[9px] ${isSelected ? 'text-slate-950 font-extrabold' : (isUnlocked ? 'text-yellow-400' : 'text-slate-600')}">${i === 1 ? 'Pending' : 'Lock'}</span>
-                    </button>
-                `;
-            }
-
-            const userName = appState.currentUser ? appState.currentUser.name : "Aarav Sharma";
-            const avatarSeed = appState.currentUser ? appState.currentUser.avatar : appState.selectedAvatar;
-
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
-                    <!-- Profile Banner with Clickable Avatar -->
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div class="flex items-center gap-5 sm:gap-6 text-center sm:text-left flex-col sm:flex-row">
-                            <div onclick="openAvatarModal()" class="relative group cursor-pointer" title="Click to edit avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}&backgroundColor=eab308" alt="User Avatar" class="w-20 h-20 rounded-2xl bg-white/10 border-2 border-yellow-400 p-1 group-hover:scale-105 transition shadow-lg shadow-yellow-500/30">
-                                <div class="absolute inset-0 bg-black/50 rounded-2xl opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-[10px] font-extrabold text-white">Edit ✎</div>
-                            </div>
-                            <div class="space-y-1">
-                                <span class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">${appState.currentUser ? 'Authenticated Scholar' : 'Guest Scholar (Sign in recommended)'}</span>
-                                <h2 class="text-xl sm:text-2xl font-extrabold text-white">${userName}</h2>
-                                <p class="text-xs text-slate-400 font-medium">${appState.currentUser ? appState.currentUser.email : 'Govind Ballabh Pant University • AI & Full Stack Track'}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3 w-full sm:w-auto justify-center">
-                            <button onclick="router.navigateTo('/analytics')" class="glass-card px-4 sm:px-5 py-3 rounded-2xl text-xs font-bold text-yellow-200 hover:bg-white/10">
-                                View Stats 📊
-                            </button>
-                            <button onclick="appState.currentUser=null; localStorage.removeItem('abtalks_user'); showToast('Logged out securely.'); router.navigateTo('/');" class="bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-2xl text-xs font-bold text-red-300 hover:bg-red-500/20">
-                                Logout ⎋
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-yellow-400 tracking-wider">Active Streak</span>
-                            <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">${appState.streakDays} <span class="text-base sm:text-lg font-normal text-slate-400">Day 🔥</span></div>
-                        </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-slate-300 tracking-wider">Milestone Progress</span>
-                            <div class="text-3xl sm:text-4xl font-extrabold text-white mt-2">1.6%</div>
-                        </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem]">
-                            <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Synergy Points</span>
-                            <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 mt-2">${appState.synergyPoints} SP</div>
-                        </div>
-                    </div>
-
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">60-Day Challenge Calendar</h3>
-                                <p class="text-xs text-slate-400 font-medium">Select any unlocked day to inspect requirements and verification logs.</p>
-                            </div>
-                            <span class="text-xs bg-white/10 text-yellow-300 border border-white/20 px-4 py-1.5 rounded-full font-bold backdrop-blur-md">Selected: Day ${appState.selectedCalendarDay}</span>
-                        </div>
-
-                        <div class="grid grid-cols-5 sm:grid-cols-10 gap-3 max-h-72 overflow-y-auto pr-2">
-                            ${daysHtml}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 5. CHALLENGE DAY VIEW (/day/1)
-        function renderDayChallenge() {
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
-                    <div class="flex items-center justify-between">
-                        <button onclick="router.navigateTo('/dashboard')" class="text-sm text-slate-400 hover:text-white font-bold flex items-center gap-2">← Back to Dashboard</button>
-                        <span class="text-xs font-bold text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Day 1 of 60</span>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h1 class="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-white tracking-tight">Environment Setup & Hello World</h1>
-                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">Initialize your public GitHub repository, configure your development environment, and publish your initial proof of work.</p>
-                    </div>
-
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
-                        <h3 class="text-base sm:text-lg font-bold text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                            <span>👑 Submit Day One Proof of Work</span>
-                            ${appState.isSubmitted ? '<span class="text-xs text-emerald-300 font-bold bg-emerald-500/20 px-4 py-1 rounded-full border border-emerald-500/40">Verified ✓</span>' : '<span class="text-xs text-amber-300 font-bold bg-amber-500/20 px-4 py-1 rounded-full border border-amber-500/40">Pending</span>'}
-                        </h3>
-
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">GitHub Repository URL</label>
-                                <input type="text" id="ghInput" value="${appState.githubLink}" oninput="appState.githubLink=this.value" placeholder="https://github.com/username/repo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn Post URL</label>
-                                <input type="text" id="liInput" value="${appState.linkedinLink}" oninput="appState.linkedinLink=this.value" placeholder="https://linkedin.com/posts/..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                            </div>
-                            
-                            <div class="bg-white/5 border border-white/10 p-4 sm:p-5 rounded-2xl space-y-3 shadow-inner backdrop-blur-md">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs uppercase font-bold text-slate-300">Security Math Verification</span>
-                                    <button onclick="refreshCaptcha()" class="text-xs text-yellow-400 hover:underline font-bold">Generate New Code ↺</button>
-                                </div>
-                                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                                    <div class="bg-black/40 border border-white/10 px-5 py-3 rounded-2xl text-base font-mono font-extrabold text-yellow-300 text-center shadow-sm">
-                                        ${appState.captchaNum1} + ${appState.captchaNum2} = ?
-                                    </div>
-                                    <input type="number" id="captchaInput" value="${appState.captchaInput}" oninput="appState.captchaInput=this.value" placeholder="Answer" class="w-full sm:w-40 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="handleSubmission()" class="gold-btn flex-1 py-4 rounded-2xl text-sm sm:text-base">
-                                Verify & Submit Day 1 Proof (+50 SP) 👑
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 6. ANALYTICS & STATS SCREEN (/analytics)
-        function renderAnalytics() {
-            const hasStarted = appState.isSubmitted;
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Cohort Insights</span>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Performance Analytics & Velocity</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Real-time metrics tracking your commit frequency, language distribution, and consistency score.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
-                            <span class="text-xs uppercase font-bold text-slate-400">Commit Velocity</span>
-                            <div class="text-2xl sm:text-3xl font-extrabold text-white">${hasStarted ? '1.0 / day' : '0.0 / day'}</div>
-                            <span class="text-[11px] text-yellow-400 font-bold">${hasStarted ? 'Baseline established' : 'Zero commits logged yet'}</span>
-                        </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
-                            <span class="text-xs uppercase font-bold text-slate-400">Consistency Score</span>
-                            <div class="text-2xl sm:text-3xl font-extrabold text-yellow-300">${hasStarted ? '100%' : '0%'}</div>
-                            <span class="text-[11px] text-yellow-400 font-bold">${hasStarted ? 'Day 1 verified' : 'Awaiting first submission'}</span>
-                        </div>
-                        <div class="glass-card p-6 sm:p-7 rounded-[2.5rem] space-y-2">
-                            <span class="text-xs uppercase font-bold text-slate-400">Recruiter Visibility</span>
-                            <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">${hasStarted ? 'Active' : 'Unranked'}</div>
-                            <span class="text-[11px] text-amber-400 font-bold">${hasStarted ? 'Visible in cohort feed' : 'Submit Day 1 to unlock'}</span>
-                        </div>
-                    </div>
-
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-5">
-                        <h3 class="text-base sm:text-lg font-extrabold text-white">Language Breakdown (AI & Full Stack Track)</h3>
-                        <div class="space-y-3 text-xs">
-                            <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>JavaScript / TypeScript</span><span>${hasStarted ? '50%' : '0%'}</span></div>
-                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden border border-white/10"><div class="bg-yellow-400 h-full ${hasStarted ? 'w-[50%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>Python & AI Integration</span><span>${hasStarted ? '30%' : '0%'}</span></div>
-                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden border border-white/10"><div class="bg-amber-400 h-full ${hasStarted ? 'w-[30%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-1 text-slate-300 font-bold"><span>HTML / CSS / Tailwind</span><span>${hasStarted ? '20%' : '0%'}</span></div>
-                                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden border border-white/10"><div class="bg-orange-400 h-full ${hasStarted ? 'w-[20%]' : 'w-0'} rounded-full transition-all duration-500"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 7. RESOURCE VAULT SCREEN (/resources)
-        function renderResources() {
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto py-2">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Knowledge Hub</span>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Curated Engineering Vault</h1>
-                        <p class="text-slate-400 text-xs sm:text-sm font-medium">Essential guides, templates, and architectural references for the 60-day challenge.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-white/10 text-yellow-300 border border-white/20 flex items-center justify-center font-bold text-lg shadow-sm backdrop-blur-md">👑</div>
-                            <h3 class="text-lg sm:text-xl font-extrabold text-white">Full-Stack Architecture Best Practices</h3>
-                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">Learn how to structure single-file components, manage state effectively, and deploy with zero downtime.</p>
-                            <button onclick="showToast('👑 Resource guide downloaded successfully!')" class="gold-btn px-5 py-2.5 rounded-xl text-xs">Read Guide ✦</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 8. ANIMATED ABOUT US SECTION (/about)
-        function renderAbout() {
-            return `
-                <div class="space-y-12 animate-fadeIn max-w-5xl mx-auto py-6">
-                    <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">About Us • Team Vitality</span>
-                        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">Meet Our Core Team</h1>
-                        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-medium">The dedicated creators behind the architecture, design, and execution of ABTalks.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">🎨</div>
-                            <h3 class="text-2xl font-extrabold text-white">Mahima</h3>
-                            <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">Designer</p>
-                            <p class="text-slate-400 text-xs font-normal">Crafted intuitive layouts, visual aesthetics, and refined user experiences.</p>
-                        </div>
-
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float" style="animation-delay: 0.5s;">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">🤖</div>
-                            <h3 class="text-2xl font-extrabold text-white">Diksha</h3>
-                            <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">AI Specialist</p>
-                            <p class="text-slate-400 text-xs font-normal">Engineered intelligent workflows and cutting-edge assistance mechanics.</p>
-                        </div>
-
-                        <div class="glass-card p-8 rounded-[3rem] space-y-4 text-center animate-float" style="animation-delay: 1s;">
-                            <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-yellow-300 flex items-center justify-center font-bold text-xl mx-auto shadow-lg shadow-yellow-500/20 backdrop-blur-md">💻</div>
-                            <h3 class="text-2xl font-extrabold text-white">Ishaan</h3>
-                            <p class="text-xs text-yellow-400 font-bold uppercase tracking-widest">Frontend & Backend Developer</p>
-                            <p class="text-slate-400 text-xs font-normal">Developed full-stack architecture, routing mechanics, and application logic.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // 9. CONTACT US SECTION (/contact)
-        function renderContact() {
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-3xl mx-auto py-6">
-                    <div class="text-center space-y-3">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Get In Touch</span>
-                        <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Team Vitality</h1>
-                        <p class="text-slate-400 text-sm font-medium">Have feedback or inquiries? Send us a message and rate your experience below.</p>
-                    </div>
-
-                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Your Name</label>
-                                <input type="text" id="contactName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address</label>
-                                <input type="email" id="contactEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Platform Experience Rating</label>
-                            <div class="star-rating flex gap-3 text-3xl text-slate-600" id="starRatingContainer">
-                                <span onclick="setRating(1)" class="${appState.selectedRating >= 1 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(2)" class="${appState.selectedRating >= 2 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(3)" class="${appState.selectedRating >= 3 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(4)" class="${appState.selectedRating >= 4 ? 'active' : ''}">★</span>
-                                <span onclick="setRating(5)" class="${appState.selectedRating >= 5 ? 'active' : ''}">★</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Feedback</label>
-                            <textarea id="contactMsg" rows="4" placeholder="How can we assist you?" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md resize-none"></textarea>
-                        </div>
-                        <button onclick="handleContactSubmit()" class="gold-btn w-full py-4 rounded-2xl text-base">
-                            Submit Feedback & Rating 👑
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function handleContactSubmit() {
-            const rawName = document.getElementById('contactName').value;
-            const cleanName = sanitize(rawName); // XSS Sanitization Patch[cite: 1]
-            if(!cleanName) {
-                showToast('Please enter your name.');
-                return;
-            }
-            showToast(`👑 Feedback & ${appState.selectedRating}-Star Rating sent successfully, ${cleanName}!`);
-        }
-
-        // 10. GLASSMORPHISM SIGN UP / LOGIN PAGE (/signin) WITH VERIFICATION WORKFLOW
-        function renderSignIn() {
-            const isLogin = appState.authMode === 'login';
-            const isVerify = appState.authMode === 'verify';
-
-            if (isVerify) {
+            renderHome() {
                 return `
-                    <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
-                        <div class="text-center space-y-2">
-                            <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Email Verification</span>
-                            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Verify Your College Email</h1>
-                            <p class="text-slate-400 text-xs sm:text-sm font-medium">We have sent a verification code to <span class="text-yellow-300 underline">${appState.pendingEmail}</span>.</p>
+                    <div class="space-y-16 animate-fadeIn">
+                        <div class="morphism-glass p-12 lg:p-20 rounded-[3rem] text-center space-y-8 relative overflow-hidden">
+                            <div class="absolute -top-32 -left-32 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+
+                            <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-5 py-2 rounded-full text-xs font-mono uppercase tracking-widest">
+                                Algebraic UI Architecture
+                            </span>
+                            <h1 class="text-4xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+                                The Synthesis of <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Class</span> and <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Morphism</span>.
+                            </h1>
+                            <p class="text-slate-400 text-base lg:text-lg max-w-2xl mx-auto">
+                                Explore a web application built entirely on object-oriented class hierarchies and category-theoretic structural transformations.
+                            </p>
+                            <div class="flex justify-center gap-4 pt-4">
+                                <button onclick="app.navigate('classes')" class="algebraic-btn px-8 py-4 rounded-2xl text-sm">Explore Class Hierarchy →</button>
+                                <button onclick="app.navigate('morphism')" class="morphism-glass px-8 py-4 rounded-2xl text-sm hover:bg-white/10 text-slate-200">Run Morphism Lab 🧪</button>
+                            </div>
                         </div>
 
-                        <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 text-center shadow-2xl">
-                            <div class="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs text-yellow-300 font-mono backdrop-blur-md">
-                                💡 <strong>Developer Sandbox Notice:</strong> Your simulated verification code is <span class="text-white font-extrabold text-sm underline">${appState.generatedOtp}</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl font-bold">🏛️</div>
+                                <h3 class="text-xl font-bold text-white">Class-Based Encapsulation</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    Objects maintain state, behavior, and inheritance structures, mapped directly into interactive user interface components.
+                                </p>
+                            </div>
+                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
+                                <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold">🔄</div>
+                                <h3 class="text-xl font-bold text-white">Structure-Preserving Morphisms</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    Transform objects from one category state to another securely while maintaining relational integrity and type safety.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            renderAuth() {
+                const isLogin = this.authMode === 'login';
+                return `
+                    <div class="max-w-md mx-auto py-10 animate-fadeIn">
+                        <div class="glass-card morphism-glass p-10 rounded-[3rem] space-y-8 relative overflow-hidden">
+                            <div class="text-center space-y-2">
+                                <span class="text-xs font-mono text-indigo-400 uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1.5 rounded-full">
+                                    Authentication Functor
+                                </span>
+                                <h2 class="text-2xl font-bold text-white pt-2">${isLogin ? 'Access Portal' : 'Register Entity'}</h2>
+                                <p class="text-xs text-slate-400">Initialize your user class object instance.</p>
+                            </div>
+
+                            <!-- Mode Switcher -->
+                            <div class="flex bg-slate-900/60 p-1.5 rounded-2xl border border-white/10">
+                                <button onclick="app.authMode='signin'; app.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${!isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                                    Sign Up
+                                </button>
+                                <button onclick="app.authMode='login'; app.render();" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition ${isLogin ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}">
+                                    Login
+                                </button>
                             </div>
 
                             <div class="space-y-4">
+                                ${!isLogin ? `
+                                    <div>
+                                        <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Entity Name</label>
+                                        <input type="text" id="authName" placeholder="Dr. Alan Turing" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                    </div>
+                                ` : ''}
                                 <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Enter 6-Digit OTP Code</label>
-                                    <input type="text" id="otpInput" maxlength="6" placeholder="123456" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-center font-mono tracking-widest text-lg text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                                    <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Identifier (Email)</label>
+                                    <input type="email" id="authEmail" placeholder="turing@algebra.edu" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
                                 </div>
-                                <button onclick="handleVerifyOtp()" class="gold-btn w-full py-4 rounded-2xl text-sm">
-                                    Verify Email & Complete Registration 👑
-                                </button>
-                                <button onclick="appState.authMode='signin'; render();" class="text-xs text-slate-400 hover:text-white font-bold underline">
-                                    ← Back to Sign Up
+                                <div>
+                                    <label class="block text-xs font-mono uppercase text-slate-400 mb-2">Security Key (Password)</label>
+                                    <input type="password" id="authPass" placeholder="••••••••" class="w-full bg-slate-950/40 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white focus:outline-none focus:border-indigo-500 shadow-inner">
+                                </div>
+                                <button onclick="app.handleAuthSubmit()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
+                                    ${isLogin ? 'Authenticate Session ⚡' : 'Instantiate Entity ✦'}
                                 </button>
                             </div>
                         </div>
                     </div>
                 `;
-            }
+            },
 
-            return `
-                <div class="space-y-8 animate-fadeIn max-w-xl mx-auto py-8">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-300 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">Secure Authentication</span>
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${isLogin ? 'Login to Your Account' : 'Create Account & Choose Avatar'}</h1>
-                        <p class="text-slate-400 text-xs font-medium">${isLogin ? 'Enter your credentials to access your active 60-day challenge.' : 'Select your professional persona and initialize your cohort streak.'}</p>
-                    </div>
+            handleAuthSubmit() {
+                const email = document.getElementById('authEmail').value;
+                const name = document.getElementById('authName') ? document.getElementById('authName').value : 'Scholar';
+                if (!email) {
+                    alert('Please provide a valid identifier.');
+                    return;
+                }
+                this.user = { name: name || email.split('@')[0], email, role: 'Category Theorist' };
+                localStorage.setItem('morphism_user', JSON.stringify(this.user));
+                this.navigate('dashboard');
+            },
 
-                    <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] space-y-6 shadow-2xl">
-                        <!-- Mode Switcher Tabs -->
-                        <div class="flex bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
-                            <button onclick="appState.authMode='signin'; render();" class="flex-1 py-2.5 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${!isLogin ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
-                                New Registration
-                            </button>
-                            <button onclick="appState.authMode='login'; render();" class="flex-1 py-2.5 rounded-xl text-[11px] sm:text-xs font-extrabold transition ${isLogin ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'}">
-                                Existing User Login
+            renderDashboard() {
+                const u = this.user || { name: 'Guest', email: 'guest@system.net', role: 'Observer' };
+                return `
+                    <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+                        <div class="morphism-glass p-8 rounded-[3rem] flex flex-col sm:flex-row items-center justify-between gap-6">
+                            <div class="flex items-center gap-6 text-center sm:text-left">
+                                <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl">👑</div>
+                                <div class="space-y-1">
+                                    <span class="text-[10px] font-mono text-indigo-400 uppercase tracking-widest">Active Object Instance</span>
+                                    <h2 class="text-2xl font-bold text-white">${u.name}</h2>
+                                    <p class="text-xs text-slate-400 font-mono">${u.email} • Role: ${u.role}</p>
+                                </div>
+                            </div>
+                            <button onclick="app.user=null; localStorage.removeItem('morphism_user'); app.navigate('home');" class="bg-red-500/10 border border-red-500/30 px-5 py-3 rounded-2xl text-xs font-bold text-red-400 hover:bg-red-500/20 transition">
+                                Terminate Session ⎋
                             </button>
                         </div>
 
-                        ${!isLogin ? `
-                            <div class="space-y-3">
-                                <label class="block text-xs font-bold uppercase text-slate-400 text-center">Choose Your Indian Avatar (10 Choices)</label>
-                                <div class="grid grid-cols-5 gap-2.5 sm:gap-3 max-h-48 overflow-y-auto p-2 bg-white/5 border border-white/10 rounded-2xl shadow-inner backdrop-blur-md">
-                                    ${avatarChoices.map(av => `
-                                        <div onclick="appState.selectedAvatar='${av.seed}'; updateLiveAvatar();" class="cursor-pointer flex flex-col items-center p-2 rounded-xl transition border modal-av-item-${av.seed} ${appState.selectedAvatar === av.seed ? 'bg-yellow-500/30 border-yellow-400 scale-105 shadow-md shadow-yellow-500/30' : 'border-transparent hover:bg-white/10'}">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${av.seed}&backgroundColor=eab308" alt="${av.name}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 p-0.5">
-                                            <span class="text-[8px] sm:text-[9px] font-bold text-white mt-1 text-center">${av.name}</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <div class="text-center text-xs text-yellow-300 font-semibold">Selected Persona: <span class="text-white underline">${appState.selectedAvatar}</span></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="morphism-glass p-7 rounded-[2.5rem] space-y-3">
+                                <span class="text-xs font-mono uppercase text-indigo-400">Class Type</span>
+                                <div class="text-2xl font-bold text-white">UserEntity[Class]</div>
+                                <p class="text-xs text-slate-400">Inherits from CategoryObject base class with active state binding.</p>
                             </div>
-                        ` : ''}
+                            <div class="morphism-glass p-7 rounded-[2.5rem] space-y-3">
+                                <span class="text-xs font-mono uppercase text-purple-400">Morphism Status</span>
+                                <div class="text-2xl font-bold text-white">Isomorphic (1:1)</div>
+                                <p class="text-xs text-slate-400">State mapping is fully synchronized with local storage category database.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
 
-                        <div class="space-y-4">
-                            ${!isLogin ? `
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name</label>
-                                    <input type="text" id="signInName" placeholder="Enter your name" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+            renderClasses() {
+                return `
+                    <div class="space-y-8 animate-fadeIn max-w-5xl mx-auto">
+                        <div class="text-center space-y-3">
+                            <span class="bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
+                                Object-Oriented Taxonomy
+                            </span>
+                            <h1 class="text-3xl lg:text-4xl font-bold text-white">Class Hierarchy Registry</h1>
+                            <p class="text-slate-400 text-sm">Interactive inspection of classes instantiated within the application engine.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
+                                <div class="text-xs font-mono text-indigo-400">Base Class</div>
+                                <h3 class="text-xl font-bold text-white">CategoryObject</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Defines properties, unique identifiers, and structural metadata for all UI entities.</p>
+                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-indigo-300 border border-white/5">
+                                    class CategoryObject { constructor(name, props)... }
                                 </div>
-                            ` : ''}
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">College Email / Username</label>
-                                <input type="email" id="signInEmail" placeholder="student@university.ac.in" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Password / Security Pin</label>
-                                <input type="password" id="signInPass" placeholder="••••••••" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 sm:px-5 py-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-yellow-400 shadow-inner backdrop-blur-md">
+                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
+                                <div class="text-xs font-mono text-purple-400">Derived Class</div>
+                                <h3 class="text-xl font-bold text-white">UserEntity</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Extends base class to handle secure user authentication, sessions, and permissions.</p>
+                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-purple-300 border border-white/5">
+                                    class UserEntity extends CategoryObject { authenticate()... }
+                                </div>
                             </div>
-                            <button onclick="handleAuthSubmit()" class="gold-btn w-full py-4 rounded-2xl text-sm">
-                                ${isLogin ? 'Login to Dashboard 🔑' : 'Proceed to Email Verification ✉️'}
+                            <div class="morphism-glass p-8 rounded-[2.5rem] space-y-4">
+                                <div class="text-xs font-mono text-pink-400">Transformation Class</div>
+                                <h3 class="text-xl font-bold text-white">MorphismEngine</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed">Executes mapping functions to convert domain models into display structures.</p>
+                                <div class="p-3 bg-slate-950/60 rounded-xl font-mono text-[11px] text-pink-300 border border-white/5">
+                                    class MorphismTransformation { execute(data)... }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            renderMorphismPlayground() {
+                return `
+                    <div class="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+                        <div class="text-center space-y-3">
+                            <span class="bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest">
+                                Category Theory Lab
+                            </span>
+                            <h1 class="text-3xl lg:text-4xl font-bold text-white">Morphism Transformation Matrix</h1>
+                            <p class="text-slate-400 text-sm">Input raw object state data and observe morphism mapping into structured UI views.</p>
+                        </div>
+
+                        <div class="morphism-glass p-8 rounded-[3rem] space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-mono uppercase text-slate-400">Source Object (JSON)</label>
+                                    <textarea id="sourceObjInput" rows="6" class="w-full bg-slate-950/60 border border-white/10 rounded-2xl p-4 font-mono text-xs text-indigo-300 focus:outline-none focus:border-indigo-500">{
+  "rawName": "alex turing",
+  "clearanceLevel": 5,
+  "systemActive": true
+}</textarea>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-mono uppercase text-slate-400">Transformed Output (Morphism Result)</label>
+                                    <div id="morphismOutput" class="w-full bg-slate-950/80 border border-white/10 rounded-2xl p-4 font-mono text-xs text-emerald-400 h-[146px] overflow-y-auto">
+                                        Click execute to apply morphism transformation...
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="app.runMorphismTest()" class="algebraic-btn w-full py-4 rounded-2xl text-sm font-bold shadow-lg">
+                                Execute Morphism Functor ⚡
                             </button>
                         </div>
                     </div>
-                </div>
-            `;
-        }
+                `;
+            },
 
-        function handleAuthSubmit() {
-            const isLogin = appState.authMode === 'login';
-            const emailEl = document.getElementById('signInEmail');
-            const passEl = document.getElementById('signInPass');
-            const nameEl = document.getElementById('signInName');
+            runMorphismTest() {
+                try {
+                    const rawText = document.getElementById('sourceObjInput').value;
+                    const parsed = JSON.parse(rawText);
+                    
+                    // Define a morphism: Category A -> Category B
+                    const morphism = new MorphismTransformation('RawData', 'DisplayEntity', (data) => ({
+                        displayName: data.rawName.toUpperCase(),
+                        accessTier: `Level-${data.clearanceLevel} [Verified]`,
+                        statusFlag: data.systemActive ? 'ONLINE 🟢' : 'OFFLINE 🔴',
+                        morphismTimestamp: new Date().toISOString()
+                    }));
 
-            if (!emailEl || !passEl || (!isLogin && !nameEl)) {
-                showToast('❌ Form validation error.');
-                return;
-            }
-
-            const emailVal = emailEl.value.trim();
-            const passVal = passEl.value.trim();
-            const nameVal = !isLogin ? sanitize(nameEl.value.trim()) : (emailVal.split('@')[0] || 'Scholar');
-
-            if (!emailVal || passVal.length < 4 || (!isLogin && !nameVal)) {
-                showToast('Please provide valid credentials (password must be at least 4 characters).');
-                return;
-            }
-
-            if (isLogin) {
-                appState.currentUser = { name: nameVal, email: emailVal, avatar: appState.selectedAvatar };
-                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
-                showToast(`🔑 Login successful! Welcome back, ${nameVal}.`);
-                setTimeout(() => router.navigateTo('/dashboard'), 1200);
-            } else {
-                appState.pendingEmail = emailVal;
-                appState.pendingName = nameVal;
-                appState.pendingPass = passVal;
-                appState.generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
-                appState.authMode = 'verify';
-                showToast(`✉️ Verification code sent to ${emailVal}!`);
-                render();
-            }
-        }
-
-        function handleVerifyOtp() {
-            const otpInput = document.getElementById('otpInput').value.trim();
-            if (otpInput === appState.generatedOtp) {
-                appState.currentUser = { name: appState.pendingName, email: appState.pendingEmail, avatar: appState.selectedAvatar };
-                localStorage.setItem('abtalks_user', JSON.stringify(appState.currentUser)); // Persistent State Patch[cite: 1]
-                showToast(`👑 Email verified! Welcome, ${appState.pendingName}.`);
-                appState.authMode = 'signin';
-                setTimeout(() => router.navigateTo('/dashboard'), 1200);
-            } else {
-                showToast('❌ Invalid verification code. Please check sandbox notice.');
-            }
-        }
-
-        function setRating(stars) {
-            appState.selectedRating = stars;
-            render();
-        }
-
-        function selectCalendarDay(day) {
-            appState.selectedCalendarDay = day;
-            render();
-        }
-
-        function refreshCaptcha() {
-            appState.captchaNum1 = Math.floor(Math.random() * 6) + 2;
-            appState.captchaNum2 = Math.floor(Math.random() * 4) + 1;
-            appState.captchaInput = '';
-            render();
-        }
-
-        function handleSubmission() {
-            const gh = sanitize(document.getElementById('ghInput').value); // XSS Sanitization Patch[cite: 1]
-            const li = sanitize(document.getElementById('liInput').value); // XSS Sanitization Patch[cite: 1]
-            const captchaVal = parseInt(document.getElementById('captchaInput').value);
-
-            if (!gh || !li) {
-                showToast('Please provide both GitHub and LinkedIn URLs.');
-                return;
-            }
-
-            const expectedAnswer = appState.captchaNum1 + appState.captchaNum2;
-            if (isNaN(captchaVal) || captchaVal !== expectedAnswer) {
-                showToast('❌ Incorrect verification answer. Try again.');
-                refreshCaptcha();
-                return;
-            }
-
-            appState.isSubmitted = true;
-            appState.streakDays = 1;
-            appState.synergyPoints += 50;
-
-            localStorage.setItem('abtalks_gh', gh);
-            localStorage.setItem('abtalks_li', li);
-            localStorage.setItem('abtalks_submitted', 'true');
-            localStorage.setItem('abtalks_streak', appState.streakDays);
-            localStorage.setItem('abtalks_sp', appState.synergyPoints);
-
-            showToast('👑 Day 1 Verified! Streak ignited & +50 Synergy Points added.');
-            setTimeout(() => router.navigateTo('/dashboard'), 1500);
-        }
-
-        function render() {
-            const route = router.currentRoute;
-            let html = '';
-            if (route === '/') html = renderLanding();
-            else if (route === '/dashboard') html = renderDashboard();
-            else if (route === '/day/1') html = renderDayChallenge();
-            else if (route === '/chat') html = renderChat();
-            else if (route === '/news') html = renderNews();
-            else if (route === '/analytics') html = renderAnalytics();
-            else if (route === '/resources') html = renderResources();
-            else if (route === '/signin') html = renderSignIn();
-            else if (route === '/about') html = renderAbout();
-            else if (route === '/contact') html = renderContact();
-            document.getElementById('app-router').innerHTML = html;
-
-            const authBtn = document.getElementById('nav-auth-btn');
-            if (authBtn) {
-                if (appState.currentUser) {
-                    authBtn.innerText = `👤 ${appState.currentUser.name.split(' ')[0]}`;
-                } else {
-                    authBtn.innerText = 'Sign In / Login ✦';
+                    const result = morphism.execute(parsed);
+                    document.getElementById('morphismOutput').innerText = JSON.stringify(result, null, 2);
+                } catch (e) {
+                    document.getElementById('morphismOutput').innerText = `Morphism Error: Invalid JSON input format (${e.message})`;
                 }
             }
+        };
 
-            ['/', '/dashboard', '/day/1', '/chat', '/news', '/analytics', '/resources', '/signin', '/about', '/contact'].forEach(r => {
-                const btnId = 'nav-' + (r === '/' ? 'home' : (r === '/dashboard' ? 'dashboard' : (r === '/day/1' ? 'day' : (r === '/chat' ? 'chat' : (r === '/news' ? 'news' : (r === '/analytics' ? 'analytics' : (r === '/resources' ? 'resources' : (r === '/about' ? 'about' : 'contact'))))))));
-                const btn = document.getElementById(btnId);
-                if(btn) {
-                    if(r === route) {
-                        btn.className = 'px-3.5 py-2 text-xs font-extrabold rounded-xl transition bg-gradient-to-r from-yellow-400 to-amber-600 text-slate-950 shadow-lg shadow-yellow-500/30';
-                    } else {
-                        btn.className = 'px-3.5 py-2 text-xs font-bold rounded-xl transition text-slate-400 hover:text-white';
-                    }
-                }
-            });
-            updateClock();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => { router.init(); });
+        window.addEventListener('DOMContentLoaded', () => { app.render(); });
     </script>
 </body>
 </html>
