@@ -1,181 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class & Morphism | Interactive Explorer</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ABTalks - Team Vitality V for the Win (Astra Design System)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Astra Design System Core Styles */
+        :root {
+            --bg-surface: #0a0711;
+            --panel-raised: #151022;
+            --violet-glow: rgba(139, 92, 246, 0.25);
+            --border-subtle: rgba(139, 92, 246, 0.15);
+        }
+
+        body {
+            background-color: var(--bg-surface);
+            font-family: 'Inter', sans-serif;
+            color: #f8fafc;
+        }
+
+        .astra-panel {
+            background-color: var(--panel-raised);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px var(--violet-glow);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .astra-panel:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(139, 92, 246, 0.4);
+        }
+
+        .astra-input {
+            background: #0d0a17;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: #ffffff;
+            border-radius: 9999px; /* Pill control */
+            transition: all 0.3s ease;
+        }
+
+        .astra-input:focus {
+            outline: none;
+            border-color: #a78bfa;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+        }
+
+        .astra-btn-pill {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            border-radius: 9999px; /* Pill control */
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .astra-btn-pill:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.55);
+        }
+
+        .luminous-glow {
+            text-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+        }
+    </style>
 </head>
-<body>
-    <!-- Background Animated Orbs -->
-    <div class="bg-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-purple-500 selection:text-white">
 
-    <!-- AUTHENTICATION VIEW -->
-    <div id="auth-container" class="auth-wrapper">
-        <div class="glass-card auth-card">
-            <div class="auth-header">
-                <div class="logo-icon"><i class="fa-solid fa-cube"></i></div>
-                <h1 id="auth-title">Welcome Back</h1>
-                <p id="auth-subtitle">Explore Category Theory & Programming Morphisms</p>
+    <!-- Ambient Glow Orbs -->
+    <div class="fixed top-0 left-1/4 w-[700px] h-[700px] bg-purple-900/10 rounded-full blur-[180px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-[700px] h-[700px] bg-indigo-900/10 rounded-full blur-[180px] pointer-events-none"></div>
+
+    <!-- NAVBAR -->
+    <header class="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/80 backdrop-blur-xl sticky top-0 z-50 px-6 lg:px-20 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="router.navigateTo('/')">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-500/20">
+                ⚡
             </div>
-
-            <!-- Tab Switcher -->
-            <div class="auth-tabs">
-                <button id="tab-login" class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
-                <button id="tab-signup" class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+            <div>
+                <span class="font-extrabold tracking-widest text-xs text-white uppercase">ABTALKS</span>
+                <span class="block text-[9px] text-purple-400 font-bold tracking-widest uppercase">Team Vitality — V for the Win</span>
             </div>
-
-            <!-- Auth Form -->
-            <form id="auth-form" onsubmit="handleAuth(event)">
-                <div class="input-group" id="name-group" style="display: none;">
-                    <i class="fa-regular fa-user"></i>
-                    <input type="text" id="auth-name" placeholder="Full Name">
-                </div>
-                <div class="input-group">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input type="email" id="auth-email" placeholder="Email Address" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-lock fa-solid"></i>
-                    <input type="password" id="auth-password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="glass-btn primary-btn" id="auth-submit-btn">
-                    <span>Login</span> <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </form>
-            <div id="auth-message" class="auth-msg"></div>
         </div>
-    </div>
+        <button onclick="router.navigateTo('/')" class="text-xs text-purple-300 hover:text-white font-medium transition">
+            ← Return Home
+        </button>
+    </header>
 
-    <!-- MAIN APP DASHBOARD VIEW (Hidden by default) -->
-    <div id="app-container" class="app-wrapper" style="display: none;">
-        <!-- Sidebar Navigation -->
-        <aside class="glass-sidebar">
-            <div class="sidebar-brand">
-                <i class="fa-solid fa-cube"></i>
-                <span>CatTheory</span>
+    <!-- MAIN LOGIN / AUTH CONTAINER -->
+    <main class="flex-grow max-w-xl mx-auto w-full px-6 py-12 z-10 flex items-center justify-center">
+        <div class="astra-panel w-full p-8 sm:p-10 rounded-[2.5rem] space-y-6">
+            
+            <div class="text-center space-y-2">
+                <span class="bg-purple-500/10 text-purple-300 border border-purple-500/30 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                    Team Vitality • V for the Win 👑
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight luminous-glow">
+                    Welcome Back, Scholar
+                </h1>
+                <p class="text-xs text-slate-400">
+                    Enter your credentials to synchronize your 60-day challenge session.
+                </p>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item active" onclick="switchSection('dashboard', event)"><i class="fa-solid fa-house"></i> Overview</a>
-                <a href="#" class="nav-item" onclick="switchSection('classes', event)"><i class="fa-solid fa-shapes"></i> Classes</a>
-                <a href="#" class="nav-item" onclick="switchSection('morphisms', event)"><i class="fa-solid fa-right-long"></i> Morphisms</a>
-                <a href="#" class="nav-item" onclick="switchSection('sandbox', event)"><i class="fa-solid fa-terminal"></i> Sandbox</a>
-            </nav>
-            <div class="sidebar-footer">
-                <button class="glass-btn logout-btn" onclick="handleLogout()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+
+            <!-- Auth Mode Switcher (Pill Controls) -->
+            <div class="flex bg-[#0d0a17] p-1 rounded-full border border-purple-500/20">
+                <button onclick="setAuthMode('login')" id="tabLogin" class="flex-1 py-2.5 rounded-full text-xs font-bold transition bg-purple-600 text-white shadow-md">
+                    Existing User Login
+                </button>
+                <button onclick="setAuthMode('register')" id="tabRegister" class="flex-1 py-2.5 rounded-full text-xs font-bold transition text-slate-400 hover:text-white">
+                    New Registration
                 </button>
             </div>
-        </aside>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <header class="glass-header">
-                <div class="header-title">
-                    <h2 id="section-title">Overview</h2>
-                    <p>Understanding structures and structure-preserving transformations.</p>
+            <!-- Form Content -->
+            <div class="space-y-4 pt-2">
+                <div id="nameFieldContainer" class="hidden space-y-1">
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">Full Name</label>
+                    <input type="text" id="regName" placeholder="Aarav Sharma" class="astra-input w-full px-5 py-3.5 text-xs">
                 </div>
-                <div class="user-profile-badge">
-                    <div class="avatar" id="user-avatar">U</div>
-                    <span id="user-display-name">User</span>
+
+                <div class="space-y-1">
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">College Email / Username</label>
+                    <input type="email" id="authEmail" placeholder="student@university.ac.in" class="astra-input w-full px-5 py-3.5 text-xs">
                 </div>
-            </header>
 
-            <div class="content-body">
-                <!-- SECTION: OVERVIEW -->
-                <section id="sec-dashboard" class="content-section active">
-                    <div class="hero-banner glass-card">
-                        <h2>The Bridge Between Math & Code</h2>
-                        <p>In mathematics (Category Theory) and computer science (Object-Oriented & Functional Programming), systems are built on two core pillars:</p>
-                        <div class="hero-grid">
-                            <div class="mini-card">
-                                <i class="fa-solid fa-box-archive"></i>
-                                <h3>Classes / Objects</h3>
-                                <p>The static blueprints, data types, or sets holding structural state.</p>
-                            </div>
-                            <div class="mini-card">
-                                <i class="fa-solid fa-shuffle"></i>
-                                <h3>Morphisms / Functions</h3>
-                                <p>The dynamic arrows or methods that safely transform one class/type into another.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <div class="space-y-1">
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">Password / Security Pin</label>
+                    <input type="password" id="authPass" placeholder="••••••••" class="astra-input w-full px-5 py-3.5 text-xs">
+                </div>
 
-                <!-- SECTION: CLASSES -->
-                <section id="sec-classes" class="content-section">
-                    <div class="glass-card">
-                        <h3>What is a Class (or Object)?</h3>
-                        <p>A class defines a set of attributes and behaviors. In category theory, objects can be thought of as data types (e.g., <code>Integer</code>, <code>String</code>, or custom user-defined structs).</p>
-                        
-                        <div class="interactive-demo-box">
-                            <h4>Class Inspector</h4>
-                            <div class="class-controls">
-                                <select id="class-selector" onchange="updateClassInspector()">
-                                    <option value="User">Class: User</option>
-                                    <option value="Product">Class: Product</option>
-                                    <option value="Vector2D">Class: Vector2D</option>
-                                </select>
-                            </div>
-                            <div class="code-preview" id="class-code-output">
-                                <!-- Dynamic Code output -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION: MORPHISMS -->
-                <section id="sec-morphisms" class="content-section">
-                    <div class="glass-card">
-                        <h3>What is a Morphism?</h3>
-                        <p>A morphism (or arrow) maps an object $A$ to an object $B$. In programming, this is a pure function <code>f: A -> B</code> that preserves compositional laws (associativity and identity).</p>
-                        
-                        <div class="morphism-visualizer">
-                            <div class="node-box" id="morph-source">Class A</div>
-                            <div class="arrow-container">
-                                <span id="morph-label">f()</span>
-                                <div class="animated-arrow"></div>
-                            </div>
-                            <div class="node-box" id="morph-target">Class B</div>
-                        </div>
-                        <div class="morphism-controls">
-                            <button class="glass-btn" onclick="runMorphismDemo('json')">Serialize (User $\to$ JSON)</button>
-                            <button class="glass-btn" onclick="runMorphismDemo('string')">Stringify (Vector $\to$ String)</button>
-                        </div>
-                        <div id="morphism-result" class="result-box">Click a transformation above to execute morphism.</div>
-                    </div>
-                </section>
-
-                <!-- SECTION: SANDBOX -->
-                <section id="sec-sandbox" class="content-section">
-                    <div class="glass-card">
-                        <h3>Interactive Morphism Sandbox</h3>
-                        <p>Chain transformations together! Apply sequential morphisms $f: A \to B$ and $g: B \to C$.</p>
-                        <div class="sandbox-workspace">
-                            <div class="input-group">
-                                <label>Initial Value (Class A - String):</label>
-                                <input type="text" id="sandbox-input" value="hello category theory">
-                            </div>
-                            <div class="pipeline-actions">
-                                <button class="glass-btn primary-btn" onclick="runSandboxPipeline()">Execute Pipeline ($g \circ f$)</button>
-                            </div>
-                            <div class="pipeline-steps" id="sandbox-output">
-                                <!-- Steps rendered dynamically -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <button onclick="handleAuthentication()" class="astra-btn-pill w-full py-4 text-xs tracking-wide uppercase mt-4">
+                    <span id="submitBtnText">Authenticate & Launch Dashboard ⚡</span>
+                </button>
             </div>
-        </main>
-    </div>
 
-    <script src="app.js"></script>
+            <!-- Sandbox Helper Note -->
+            <div class="bg-[#0d0a17] border border-purple-500/20 p-4 rounded-2xl text-[11px] text-purple-300 text-center font-mono">
+                🛡️ Astra Dark-First Violet Protocol Active. V for the Win Edition.
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] py-6 px-6 text-center text-xs text-slate-500">
+        © 2026 ABTalks Ecosystem. Team Vitality — V for the Win.
+    </footer>
+
+    <!-- ASTRA DESIGN SYSTEM SCRIPT ENGINE -->
+    <script>
+        let currentMode = 'login';
+
+        function setAuthMode(mode) {
+            currentMode = mode;
+            const tabLogin = document.getElementById('tabLogin');
+            const tabRegister = document.getElementById('tabRegister');
+            const nameContainer = document.getElementById('nameFieldContainer');
+            const submitBtn = document.getElementById('submitBtnText');
+
+            if (mode === 'login') {
+                tabLogin.className = "flex-1 py-2.5 rounded-full text-xs font-bold transition bg-purple-600 text-white shadow-md";
+                tabRegister.className = "flex-1 py-2.5 rounded-full text-xs font-bold transition text-slate-400 hover:text-white";
+                nameContainer.classList.add('hidden');
+                submitBtn.innerText = "Authenticate & Launch Dashboard ⚡";
+            } else {
+                tabRegister.className = "flex-1 py-2.5 rounded-full text-xs font-bold transition bg-purple-600 text-white shadow-md";
+                tabLogin.className = "flex-1 py-2.5 rounded-full text-xs font-bold transition text-slate-400 hover:text-white";
+                nameContainer.classList.remove('hidden');
+                submitBtn.innerText = "Initialize Account & Send OTP ✉️";
+            }
+        }
+
+        function handleAuthentication() {
+            const email = document.getElementById('authEmail').value.trim();
+            const pass = document.getElementById('authPass').value.trim();
+
+            if (!email || !pass) {
+                alert('Please fill out all required authentication fields.');
+                return;
+            }
+
+            const userName = currentMode === 'register' ? (document.getElementById('regName').value || 'Scholar') : (email.split('@')[0] || 'Scholar');
+            
+            const sessionUser = { name: userName, email: email, avatar: 'Aarav' };
+            localStorage.setItem('abtalks_user', JSON.stringify(sessionUser));
+            
+            alert(`Session verified successfully for ${userName}! V for the Win!`);
+            window.location.href = '#/dashboard';
+        }
+
+        const router = {
+            navigateTo(path) {
+                window.location.href = path;
+            }
+        };
+    </script>
 </body>
 </html>
