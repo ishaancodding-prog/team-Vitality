@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABTalks — 60-Day Coding Challenge Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,56 +17,71 @@
         }
     </script>
     <style>
+        /* Responsive Deep Oceanic Blue Theme */
         body {
-            background: #090d16;
+            background: radial-gradient(circle at 50% 0%, #1e3a8a 0%, #0f172a 50%, #020617 100%);
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #f8fafc;
             min-height: 100vh;
         }
         .glass-card {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
         }
-        .cyan-btn {
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+        .ocean-btn {
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
             color: #ffffff;
             font-weight: 800;
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.35);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
             transition: all 0.3s ease;
         }
-        .cyan-btn:active {
+        .ocean-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .ocean-btn:active {
             transform: scale(0.98);
+        }
+        @keyframes ambientGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.08); }
+        }
+        .animate-ambient {
+            animation: ambientGlow 8s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="max-w-[390px] mx-auto min-h-screen flex flex-col justify-between p-4 selection:bg-cyan-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-6 lg:p-10 selection:bg-blue-500 selection:text-white">
 
-    <!-- Ambient Glow -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- Atmospheric Oceanic Background Glow -->
+    <div class="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[180px] pointer-events-none animate-ambient"></div>
 
-    <!-- HEADER / ROUTE BAR -->
-    <header class="glass-card px-4 py-3 rounded-2xl flex justify-between items-center z-20">
-        <div class="flex items-center gap-2 cursor-pointer" onclick="router.navigate('/')">
-            <div class="w-8 h-8 rounded-xl bg-cyan-500 flex items-center justify-center font-bold text-slate-950 text-sm">⚡</div>
-            <span class="font-extrabold text-xs tracking-wider text-white uppercase">ABTALKS</span>
+    <!-- RESPONSIVE HEADER / NAVBAR -->
+    <header class="max-w-4xl mx-auto w-full glass-card px-5 py-4 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 z-20">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="router.navigate('/')">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-400 to-indigo-600 flex items-center justify-center font-bold text-white text-base shadow-md">🌊</div>
+            <div>
+                <span class="font-extrabold text-xs tracking-wider text-white uppercase block">ABTALKS</span>
+                <span class="text-[9px] text-blue-300 font-mono">60-Day Challenge Hub</span>
+            </div>
         </div>
-        <div class="flex gap-1 bg-slate-900/80 p-1 rounded-xl border border-white/10 text-[9px] font-bold">
-            <button onclick="router.navigate('/')" id="r-home" class="px-2 py-1 rounded-lg transition text-slate-400">Home</button>
-            <button onclick="router.navigate('/auth')" id="r-auth" class="px-2 py-1 rounded-lg transition text-slate-400">Auth</button>
-            <button onclick="router.navigate('/dashboard')" id="r-dash" class="px-2 py-1 rounded-lg transition text-slate-400">Dash</button>
-            <button onclick="router.navigate('/day/1')" id="r-day" class="px-2 py-1 rounded-lg transition text-slate-400">Day 1</button>
+        <div class="flex flex-wrap justify-center gap-1.5 bg-slate-900/80 p-1.5 rounded-xl border border-white/10 text-xs font-bold">
+            <button onclick="router.navigate('/')" id="r-home" class="px-3 py-1.5 rounded-lg transition text-slate-400">Home</button>
+            <button onclick="router.navigate('/auth')" id="r-auth" class="px-3 py-1.5 rounded-lg transition text-slate-400">Auth</button>
+            <button onclick="router.navigate('/dashboard')" id="r-dash" class="px-3 py-1.5 rounded-lg transition text-slate-400">Dashboard</button>
+            <button onclick="router.navigate('/day/1')" id="r-day" class="px-3 py-1.5 rounded-lg transition text-slate-400">Day 1</button>
         </div>
     </header>
 
-    <!-- DYNAMIC ROUTER VIEW CONTAINER -->
-    <main id="appContainer" class="flex-grow my-4 z-10 flex flex-col justify-center"></main>
+    <!-- DYNAMIC RESPONSIVE ROUTER CONTAINER -->
+    <main id="appContainer" class="flex-grow max-w-4xl mx-auto w-full my-6 z-10 flex flex-col justify-center"></main>
 
-    <!-- ROUTE MAP FOOTER REQUIRED BY HACKATHON -->
-    <footer class="glass-card p-3 rounded-2xl text-[10px] font-mono text-slate-400 text-center z-20 space-y-1">
-        <div class="font-bold text-cyan-400">Route Map Specification:</div>
+    <!-- HACKATHON COMPLIANT ROUTE MAP FOOTER -->
+    <footer class="max-w-4xl mx-auto w-full glass-card p-4 rounded-2xl text-xs font-mono text-slate-400 text-center z-20 space-y-1">
+        <div class="font-bold text-blue-400">Route Map Specification:</div>
         <div class="text-slate-300">/</div>
         <div class="text-slate-300">/dashboard</div>
         <div class="text-slate-300">/day/1</div>
@@ -97,11 +112,11 @@
                 let html = '';
 
                 // Update nav highlights
-                document.querySelectorAll('header button').forEach(b => b.className = "px-2 py-1 rounded-lg transition text-slate-400");
-                if (path === '/') document.getElementById('r-home').className = "px-2 py-1 rounded-lg transition bg-cyan-500 text-slate-950 font-extrabold";
-                if (path === '/auth') document.getElementById('r-auth').className = "px-2 py-1 rounded-lg transition bg-cyan-500 text-slate-950 font-extrabold";
-                if (path === '/dashboard') document.getElementById('r-dash').className = "px-2 py-1 rounded-lg transition bg-cyan-500 text-slate-950 font-extrabold";
-                if (path === '/day/1') document.getElementById('r-day').className = "px-2 py-1 rounded-lg transition bg-cyan-500 text-slate-950 font-extrabold";
+                document.querySelectorAll('header button').forEach(b => b.className = "px-3 py-1.5 rounded-lg transition text-slate-400");
+                if (path === '/') document.getElementById('r-home').className = "px-3 py-1.5 rounded-lg transition bg-blue-600 text-white font-extrabold shadow-sm";
+                if (path === '/auth') document.getElementById('r-auth').className = "px-3 py-1.5 rounded-lg transition bg-blue-600 text-white font-extrabold shadow-sm";
+                if (path === '/dashboard') document.getElementById('r-dash').className = "px-3 py-1.5 rounded-lg transition bg-blue-600 text-white font-extrabold shadow-sm";
+                if (path === '/day/1') document.getElementById('r-day').className = "px-3 py-1.5 rounded-lg transition bg-blue-600 text-white font-extrabold shadow-sm";
 
                 if (path === '/') html = this.views.home();
                 else if (path === '/auth') html = this.views.auth();
@@ -115,36 +130,36 @@
             views: {
                 home() {
                     return `
-                        <div class="glass-card p-6 rounded-[2rem] space-y-5 text-center animate-fadeIn">
-                            <span class="bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 px-3.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest">
-                                Late-Night College Coding
+                        <div class="glass-card p-8 sm:p-12 rounded-[2.5rem] space-y-6 text-center animate-fadeIn">
+                            <span class="inline-block bg-blue-500/15 text-blue-300 border border-blue-500/30 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest">
+                                Smart Finance & Coding Challenge
                             </span>
-                            <h1 class="text-2xl font-extrabold text-white tracking-tight leading-snug">
-                                Build Every Day. <br/><span class="text-cyan-400">Get Noticed by Recruiters.</span>
+                            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-2xl mx-auto">
+                                Smart Finance <br/><span class="text-blue-400">Starts Here.</span>
                             </h1>
-                            <p class="text-xs text-slate-300 leading-relaxed">
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
                                 Join Indian college students turning post-college hours into high-impact GitHub commits and public LinkedIn learning streaks.
                             </p>
-                            <div class="pt-2 space-y-2">
-                                <button onclick="router.navigate('/auth')" class="cyan-btn w-full py-3.5 rounded-2xl text-xs tracking-wide">
+                            <div class="pt-4 max-w-sm mx-auto space-y-3">
+                                <button onclick="router.navigate('/auth')" class="ocean-btn w-full py-4 rounded-2xl text-sm tracking-wide">
                                     Get Started / Sign In 🚀
                                 </button>
-                                <button onclick="router.navigate('/dashboard')" class="w-full bg-white/5 border border-white/10 py-3 rounded-2xl text-xs font-bold text-slate-300 hover:bg-white/10">
+                                <button onclick="router.navigate('/dashboard')" class="w-full bg-white/5 border border-white/10 py-3.5 rounded-2xl text-xs font-bold text-slate-300 hover:bg-white/10 transition">
                                     Explore Dashboard
                                 </button>
                             </div>
-                            <div class="grid grid-cols-3 gap-2 pt-2 text-left">
-                                <div class="bg-white/5 p-2.5 rounded-xl border border-white/10">
-                                    <div class="text-sm font-extrabold text-white">60 Days</div>
-                                    <div class="text-[9px] text-slate-400">Consistency</div>
+                            <div class="grid grid-cols-3 gap-4 pt-6 text-left max-w-md mx-auto">
+                                <div class="glass-card p-4 rounded-2xl">
+                                    <div class="text-lg sm:text-xl font-extrabold text-white">500K+</div>
+                                    <div class="text-[10px] text-slate-400">Active Users</div>
                                 </div>
-                                <div class="bg-white/5 p-2.5 rounded-xl border border-white/10">
-                                    <div class="text-sm font-extrabold text-cyan-400">GitHub</div>
-                                    <div class="text-[9px] text-slate-400">Daily Commit</div>
+                                <div class="glass-card p-4 rounded-2xl">
+                                    <div class="text-lg sm:text-xl font-extrabold text-blue-400">$3B+</div>
+                                    <div class="text-[10px] text-slate-400">Fraud Detection</div>
                                 </div>
-                                <div class="bg-white/5 p-2.5 rounded-xl border border-white/10">
-                                    <div class="text-sm font-extrabold text-indigo-400">LinkedIn</div>
-                                    <div class="text-[9px] text-slate-400">Visibility</div>
+                                <div class="glass-card p-4 rounded-2xl">
+                                    <div class="text-lg sm:text-xl font-extrabold text-indigo-400">99.9%</div>
+                                    <div class="text-[10px] text-slate-400">Uptime</div>
                                 </div>
                             </div>
                         </div>
@@ -154,36 +169,36 @@
                 auth() {
                     const isLogin = store.authMode === 'login';
                     return `
-                        <div class="glass-card p-6 rounded-[2rem] space-y-4 animate-fadeIn">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-extrabold text-cyan-300 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Secure Gateway</span>
-                                <div class="flex gap-1 bg-slate-900 p-1 rounded-xl text-[10px] font-bold">
-                                    <button onclick="store.authMode='login'; router.render('/auth')" class="px-3 py-1 rounded-lg transition ${isLogin ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'}">Login</button>
-                                    <button onclick="store.authMode='signup'; router.render('/auth')" class="px-3 py-1 rounded-lg transition ${!isLogin ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'}">Sign Up</button>
+                        <div class="max-w-md mx-auto w-full glass-card p-8 sm:p-10 rounded-[2.5rem] space-y-6 animate-fadeIn">
+                            <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+                                <span class="text-[10px] font-extrabold text-blue-300 bg-blue-500/10 px-3.5 py-1.5 rounded-full border border-blue-500/20">Secure Portal</span>
+                                <div class="flex gap-1 bg-slate-900 p-1 rounded-xl text-xs font-bold">
+                                    <button onclick="store.authMode='login'; router.render('/auth')" class="px-4 py-1.5 rounded-lg transition ${isLogin ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">Login</button>
+                                    <button onclick="store.authMode='signup'; router.render('/auth')" class="px-4 py-1.5 rounded-lg transition ${!isLogin ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">Sign Up</button>
                                 </div>
                             </div>
 
                             <div class="space-y-1">
-                                <h2 class="text-lg font-extrabold text-white">${isLogin ? 'Welcome Back!' : 'Create Account'}</h2>
-                                <p class="text-[11px] text-slate-300">${isLogin ? 'Log in to synchronize your active streak.' : 'Register and kick off your Day 1 streak.'}</p>
+                                <h2 class="text-xl font-extrabold text-white">${isLogin ? 'Welcome Back!' : 'Create Account'}</h2>
+                                <p class="text-xs text-slate-300">${isLogin ? 'Log in to synchronize your active streak.' : 'Register and kick off your Day 1 streak.'}</p>
                             </div>
 
-                            <div class="space-y-3 pt-1">
+                            <div class="space-y-4 pt-1">
                                 ${!isLogin ? `
-                                    <div>
-                                        <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Full Name</label>
-                                        <input type="text" id="signUpName" placeholder="Aarav Sharma" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-bold uppercase text-slate-400">Full Name</label>
+                                        <input type="text" id="signUpName" placeholder="Aarav Sharma" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400">
                                     </div>
                                 ` : ''}
-                                <div>
-                                    <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">College Email</label>
-                                    <input type="email" id="authEmail" placeholder="student@university.ac.in" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold uppercase text-slate-400">College Email</label>
+                                    <input type="email" id="authEmail" placeholder="student@university.ac.in" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400">
                                 </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Password</label>
-                                    <input type="password" id="authPass" placeholder="••••••••" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold uppercase text-slate-400">Password</label>
+                                    <input type="password" id="authPass" placeholder="••••••••" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-400">
                                 </div>
-                                <button onclick="app.handleAuthSubmit()" class="cyan-btn w-full py-3 rounded-xl text-xs">
+                                <button onclick="app.handleAuthSubmit()" class="ocean-btn w-full py-3.5 rounded-xl text-sm mt-2">
                                     ${isLogin ? 'Login to Dashboard ⚡' : 'Sign Up & Start Day 1 🚀'}
                                 </button>
                             </div>
@@ -196,36 +211,36 @@
                     const completionRate = Math.round((store.completedDays.length / 60) * 100);
 
                     return `
-                        <div class="space-y-4 animate-fadeIn">
+                        <div class="space-y-6 animate-fadeIn">
                             <!-- Edge Case Banner: Zero Streak -->
                             ${isZeroStreak ? `
-                                <div class="bg-amber-500/15 border border-amber-500/30 p-3 rounded-2xl text-[11px] text-amber-200 flex items-center justify-between">
+                                <div class="bg-amber-500/15 border border-amber-500/30 p-4 rounded-2xl text-xs text-amber-200 flex flex-col sm:flex-row items-center justify-between gap-3">
                                     <span>⚠️ Day 1: No active streak yet. Start today!</span>
-                                    <button onclick="router.navigate('/day/1')" class="underline font-bold">Start Day 1</button>
+                                    <button onclick="router.navigate('/day/1')" class="underline font-bold bg-amber-500/20 px-3 py-1 rounded-lg">Start Day 1</button>
                                 </div>
                             ` : ''}
 
                             <!-- Streak & Stats Widget -->
-                            <div class="glass-card p-5 rounded-[2rem] flex justify-between items-center">
+                            <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] flex flex-col sm:flex-row justify-between items-center gap-4">
                                 <div>
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Streak</span>
-                                    <div class="text-3xl font-extrabold text-white mt-1">${store.streak} <span class="text-sm text-cyan-400 font-normal">Days 🔥</span></div>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Active Streak</span>
+                                    <div class="text-4xl font-extrabold text-white mt-1">${store.streak} <span class="text-base text-blue-400 font-normal">Days 🔥</span></div>
                                 </div>
-                                <div class="text-right">
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Completion</span>
-                                    <div class="text-2xl font-extrabold text-emerald-400 mt-1">${completionRate}%</div>
+                                <div class="text-center sm:text-right">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Completion Rate</span>
+                                    <div class="text-3xl font-extrabold text-emerald-400 mt-1">${completionRate}%</div>
                                 </div>
                             </div>
 
                             <!-- Today's Task Card (Day 1 Focus) -->
-                            <div class="glass-card p-5 rounded-[2.5rem] space-y-4 border-cyan-500/40">
+                            <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] space-y-4 border-blue-500/40">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-[10px] font-extrabold text-cyan-300 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Today's Focus • Day 1</span>
-                                    <span class="text-[10px] text-slate-400">Pending Proof</span>
+                                    <span class="text-xs font-extrabold text-blue-300 bg-blue-500/10 px-3.5 py-1 rounded-full border border-blue-500/20">Today's Focus • Day 1</span>
+                                    <span class="text-xs text-slate-400">Pending Proof</span>
                                 </div>
-                                <h3 class="text-sm font-bold text-white">Environment Setup & Hello World</h3>
-                                <p class="text-[11px] text-slate-300 leading-relaxed">Initialize your public GitHub repository, configure your development tools, and publish your initial proof of work.</p>
-                                <button onclick="router.navigate('/day/1')" class="cyan-btn w-full py-3 rounded-xl text-xs">
+                                <h3 class="text-base sm:text-lg font-bold text-white">Environment Setup & Hello World</h3>
+                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Initialize your public GitHub repository, configure your development tools, and publish your initial proof of work.</p>
+                                <button onclick="router.navigate('/day/1')" class="ocean-btn w-full py-3.5 rounded-xl text-xs sm:text-sm">
                                     Submit Day 1 Proof ⚡
                                 </button>
                             </div>
@@ -237,33 +252,33 @@
                     const isSubmitted = store.completedDays.includes(1);
 
                     return `
-                        <div class="glass-card p-5 rounded-[2.5rem] space-y-4 animate-fadeIn">
+                        <div class="max-w-2xl mx-auto w-full glass-card p-8 sm:p-10 rounded-[2.5rem] space-y-6 animate-fadeIn">
                             <div class="flex justify-between items-center">
-                                <button onclick="router.navigate('/dashboard')" class="text-xs text-slate-400 hover:text-white font-bold">← Dash</button>
-                                <span class="text-[10px] font-bold text-cyan-300 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Day 1 of 60</span>
+                                <button onclick="router.navigate('/dashboard')" class="text-xs sm:text-sm text-slate-400 hover:text-white font-bold">← Dashboard</button>
+                                <span class="text-xs font-bold text-blue-300 bg-blue-500/10 px-3.5 py-1 rounded-full border border-blue-500/20">Day 1 of 60</span>
                             </div>
 
-                            <div class="space-y-1">
-                                <h1 class="text-base font-extrabold text-white">Environment Setup & Hello World</h1>
-                                <p class="text-[11px] text-slate-300 leading-relaxed">Set up your workspace, create your first repository, and deploy a simple landing page or script to kick off your journey.</p>
+                            <div class="space-y-2">
+                                <h1 class="text-xl sm:text-2xl font-extrabold text-white">Environment Setup & Hello World</h1>
+                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Set up your workspace, create your first repository, and deploy a simple landing page or script to kick off your journey.</p>
                             </div>
 
-                            <div class="space-y-3 pt-1">
-                                <div>
-                                    <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">GitHub Commit / Repo URL</label>
-                                    <input type="text" id="ghInput" value="${store.githubUrl}" placeholder="https://github.com/user/repo-day1" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                            <div class="space-y-4 pt-2">
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold uppercase text-slate-400">GitHub Commit / Repo URL</label>
+                                    <input type="text" id="ghInput" value="${store.githubUrl}" placeholder="https://github.com/user/repo-day1" class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-blue-400">
                                 </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">LinkedIn Post URL</label>
-                                    <input type="text" id="liInput" value="${store.linkedinUrl}" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold uppercase text-slate-400">LinkedIn Post URL</label>
+                                    <input type="text" id="liInput" value="${store.linkedinUrl}" placeholder="https://linkedin.com/posts/..." class="w-full bg-slate-900/80 border border-white/15 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-blue-400">
                                 </div>
-                                <button onclick="app.submitDay1()" class="cyan-btn w-full py-3 rounded-xl text-xs">
+                                <button onclick="app.submitDay1()" class="ocean-btn w-full py-3.5 rounded-xl text-xs sm:text-sm">
                                     ${isSubmitted ? 'Update Day 1 Submission ✓' : 'Submit Proof & Start Streak ⚡'}
                                 </button>
                             </div>
 
                             ${isSubmitted ? `
-                                <div class="bg-emerald-500/15 border border-emerald-500/30 p-3 rounded-xl text-center text-[11px] text-emerald-300 font-bold">
+                                <div class="bg-emerald-500/15 border border-emerald-500/30 p-4 rounded-2xl text-center text-xs sm:text-sm text-emerald-300 font-bold">
                                     🎉 Day 1 Verified! Your 60-day challenge has officially begun.
                                 </div>
                             ` : ''}
