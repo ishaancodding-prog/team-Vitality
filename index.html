@@ -44,13 +44,16 @@
 }
 
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
+html,body{margin:0;padding:0;width:100%;height:100%;}
 body{
   background:var(--bg);
   color:var(--text);
   font-family:var(--font-body);
   -webkit-font-smoothing:antialiased;
   line-height:1.5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 a{color:inherit;text-decoration:none;}
 button{font-family:inherit;cursor:pointer;}
@@ -68,36 +71,50 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
 }
 
-/* ============================= LAYOUT SHELL ============================= */
+/* ============================= LAYOUT SHELL (FULL SCREEN RESPONSIVE) ============================= */
 #app{
-  max-width:480px;
-  margin:0 auto;
-  min-height:100vh;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  margin:0;
   background:var(--bg);
   position:relative;
-  padding-bottom:84px; /* space for bottom nav */
+  padding-bottom:84px;
+  overflow-y:auto;
   background-image:
     radial-gradient(circle at 12% 0%, rgba(255,159,67,0.10), transparent 40%),
     radial-gradient(circle at 90% 8%, rgba(52,199,123,0.07), transparent 35%);
 }
+
 @media (min-width:900px){
-  #app{ max-width:480px; box-shadow:0 0 0 1px var(--border), 0 40px 100px -30px rgba(0,0,0,0.8); margin:32px auto; min-height:auto; border-radius:28px; overflow:hidden;}
-  body{ background: linear-gradient(160deg,#0C0E13,#181C24); min-height:100vh; display:flex; align-items:flex-start; justify-content:center; }
+  #app{
+    max-width:900px;
+    height:92vh;
+    box-shadow:0 0 0 1px var(--border), 0 40px 100px -30px rgba(0,0,0,0.8);
+    margin:auto;
+    border-radius:28px;
+    overflow-y:auto;
+  }
 }
 
 .container{ padding:0 20px; }
 
-/* top brand bar (all screens) */
+/* top brand bar */
 .topbar{
   display:flex; align-items:center; justify-content:space-between;
-  padding:16px 20px 8px;
+  padding:16px 24px 12px;
+  border-bottom:1px solid var(--border-soft);
+  background:var(--surface);
+  position:sticky;
+  top:0;
+  z-index:100;
 }
-.brand{ display:flex; align-items:center; gap:8px; font-family:var(--font-display); font-weight:700; font-size:17px; letter-spacing:-0.01em; cursor:pointer; }
+.brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:18px; letter-spacing:-0.01em; cursor:pointer; }
 .brand-mark{
-  width:26px;height:26px;border-radius:7px;
+  width:30px;height:30px;border-radius:8px;
   background:linear-gradient(145deg, var(--turmeric), #E8792B);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-mono); font-weight:700; font-size:12px; color:#20140A;
+  font-family:var(--font-mono); font-weight:700; font-size:13px; color:#20140A;
 }
 
 /* ============================= UTILITY ============================= */
@@ -106,7 +123,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   color:var(--turmeric); font-weight:600; display:flex; align-items:center; gap:8px;
 }
 .eyebrow::before{content:"";width:14px;height:1px;background:var(--turmeric);display:inline-block;}
-.h1{ font-family:var(--font-display); font-weight:700; font-size:30px; line-height:1.12; letter-spacing:-0.02em; margin:10px 0 0; }
+.h1{ font-family:var(--font-display); font-weight:700; font-size:clamp(26px, 4vw, 36px); line-height:1.12; letter-spacing:-0.02em; margin:10px 0 0; }
 .h2{ font-family:var(--font-display); font-weight:700; font-size:21px; line-height:1.2; letter-spacing:-0.01em; margin:0; }
 .h3{ font-family:var(--font-display); font-weight:600; font-size:16px; margin:0; }
 .p-muted{ color:var(--text-dim); font-size:14.5px; line-height:1.6; margin:0; }
@@ -131,7 +148,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .btn-ghost{ background:transparent; color:var(--text-dim); border:1px solid var(--border); }
 .btn-sm{ padding:10px 14px; font-size:13.5px; width:auto; }
 .btn[disabled]{ opacity:0.45; cursor:not-allowed; }
-.btn:active[disabled]{transform:none;}
 
 .pill{
   display:inline-flex; align-items:center; gap:6px;
@@ -142,8 +158,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .pill-turmeric{ background:var(--turmeric-dim); color:var(--turmeric-strong); }
 .pill-coral{ background:var(--coral-dim); color:var(--coral); }
 .pill-neutral{ background:var(--surface-3); color:var(--text-dim); }
-
-.divider{ height:1px; background:var(--border-soft); border:none; margin:0; }
 
 /* ============================= TOAST ============================= */
 #toast{
@@ -157,34 +171,34 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 #toast.show{ opacity:1; transform:translate(-50%, 0); }
 
 /* ============================= LANDING ============================= */
-.hero{ padding:8px 20px 28px; }
+.hero{ padding:24px; }
+.hero-grid-layout { display:grid; grid-template-columns: 1fr; gap:24px; }
+@media(min-width:768px){ .hero-grid-layout { grid-template-columns: 1.2fr 0.8fr; align-items:center; } }
+
 .hero-graph{
-  margin-top:22px; border-radius:var(--radius-lg); overflow:hidden;
-  background:var(--surface); border:1px solid var(--border-soft); padding:16px 16px 14px;
+  margin-top:16px; border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--surface); border:1px solid var(--border-soft); padding:16px;
 }
 .hero-graph-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
-.hero-graph-head .mono{ font-size:12px; color:var(--text-faint); }
 .mini-grid{ display:grid; grid-template-columns:repeat(20, 1fr); gap:3px; }
 .mini-cell{ aspect-ratio:1; border-radius:3px; background:var(--surface-3); }
 
 .trust-strip{
-  display:flex; gap:10px; padding:18px 20px 6px; overflow-x:auto;
-  scrollbar-width:none;
+  display:flex; gap:12px; padding:12px 24px; overflow-x:auto;
 }
-.trust-strip::-webkit-scrollbar{display:none;}
 .trust-stat{
-  flex:0 0 auto; min-width:112px; background:var(--surface); border:1px solid var(--border-soft);
-  border-radius:var(--radius); padding:14px;
+  flex:1; min-width:130px; background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:var(--radius); padding:16px;
 }
-.trust-stat .num{ font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--turmeric-strong); }
-.trust-stat .lbl{ font-size:11.5px; color:var(--text-dim); margin-top:2px; }
+.trust-stat .num{ font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--turmeric-strong); }
+.trust-stat .lbl{ font-size:12px; color:var(--text-dim); margin-top:2px; }
 
-.section{ padding:30px 20px 6px; }
-.steps{ margin-top:16px; display:flex; flex-direction:column; gap:0; }
-.step{ display:flex; gap:14px; padding:16px 0; }
-.step + .step{ border-top:1px solid var(--border-soft); }
-.step-num{ font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--turmeric); width:26px; flex:0 0 auto; padding-top:2px; }
-.step-body h4{ margin:0 0 4px; font-family:var(--font-display); font-size:15px; font-weight:600; }
+.section{ padding:30px 24px 6px; }
+.steps{ margin-top:16px; display:grid; grid-template-columns:1fr; gap:16px; }
+@media(min-width:768px){ .steps{ grid-template-columns:repeat(3, 1fr); } }
+.step{ display:flex; flex-direction:column; gap:8px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
+.step-num{ font-family:var(--font-mono); font-weight:700; font-size:14px; color:var(--turmeric); }
+.step-body h4{ margin:0; font-family:var(--font-display); font-size:16px; font-weight:600; }
 .step-body p{ margin:0; font-size:13.5px; color:var(--text-dim); }
 
 .track-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
@@ -193,10 +207,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   padding:8px 14px; font-size:13px; font-weight:600; color:var(--text-dim);
 }
 
-.testi{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); padding:16px; margin-top:12px;}
+.testimonials-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
+@media(min-width:768px){ .testimonials-grid { grid-template-columns:repeat(2, 1fr); } }
+.testi{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); padding:20px; }
 .testi-quote{ font-size:14px; line-height:1.55; }
 .testi-who{ display:flex; align-items:center; gap:10px; margin-top:12px; }
-.avatar{ width:30px;height:30px;border-radius:50%; display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:12px; color:#171a20; }
+.avatar{ width:32px;height:32px;border-radius:50%; display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:12px; color:#171a20; }
 .testi-who .name{ font-size:13px; font-weight:600; }
 .testi-who .meta{ font-size:11.5px; color:var(--text-faint); }
 
@@ -210,196 +226,197 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 .sticky-cta{
   position:fixed; left:50%; bottom:0; transform:translateX(-50%);
-  width:100%; max-width:480px; padding:12px 20px calc(14px + env(safe-area-inset-bottom));
-  background:linear-gradient(0deg, var(--bg) 60%, transparent);
+  width:100%; max-width:900px; padding:12px 24px calc(14px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg, var(--bg) 80%, transparent);
   z-index:200;
 }
-.sticky-cta-inner{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:10px; box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5);}
+.sticky-cta-inner{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:12px; box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5); display:flex; justify-content:space-between; align-items:center;}
 
-/* ============================= AUTH PAGES (LOGIN / SIGNUP) ============================= */
-.auth-container{ padding:20px 20px 40px; }
-.auth-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-card); margin-top:16px; }
-.auth-title{ font-family:var(--font-display); font-size:24px; font-weight:700; margin-bottom:6px; }
-.auth-subtitle{ font-size:13.5px; color:var(--text-dim); margin-bottom:20px; }
-.auth-switch{ text-align:center; font-size:13px; color:var(--text-dim); margin-top:16px; }
+/* ============================= AUTH PAGES ============================= */
+.auth-container{ padding:40px 24px; display:flex; justify-content:center; align-items:center; min-height:75vh; }
+.auth-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow-card); width:100%; max-width:440px; }
+.auth-title{ font-family:var(--font-display); font-size:26px; font-weight:700; margin-bottom:6px; }
+.auth-subtitle{ font-size:13.5px; color:var(--text-dim); margin-bottom:24px; }
+.auth-switch{ text-align:center; font-size:13px; color:var(--text-dim); margin-top:20px; }
 .auth-switch a{ color:var(--turmeric-strong); font-weight:600; text-decoration:underline; }
 
-/* ============================= DASHBOARD ============================= */
-.dash-header{ padding:6px 20px 4px; display:flex; align-items:center; justify-content:space-between; }
-.greeting{ font-family:var(--font-display); font-weight:700; font-size:19px; }
-.greeting-sub{ font-size:12.5px; color:var(--text-faint); margin-top:2px; }
-.profile-dot{ width:38px;height:38px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:14px; }
+/* ============================= DASHBOARD & LAYOUTS ============================= */
+.dash-header{ padding:16px 24px 8px; display:flex; align-items:center; justify-content:space-between; }
+.greeting{ font-family:var(--font-display); font-weight:700; font-size:21px; }
+.greeting-sub{ font-size:13px; color:var(--text-faint); margin-top:2px; }
+.profile-dot{ width:40px;height:40px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:15px; }
+
+.dashboard-grid { display:grid; grid-template-columns:1fr; gap:16px; padding:0 24px; }
+@media(min-width:768px){ .dashboard-grid { grid-template-columns: 2fr 1fr; } }
 
 .streak-hero{
-  margin:14px 20px 0; border-radius:var(--radius-lg); padding:20px;
+  border-radius:var(--radius-lg); padding:24px;
   background:linear-gradient(155deg, #22190C, var(--surface) 55%);
   border:1px solid var(--turmeric-dim);
   display:flex; align-items:center; justify-content:space-between; gap:14px;
 }
 .streak-hero.zero{ background:var(--surface); border-color:var(--border-soft); }
 .streak-num-wrap{ display:flex; align-items:baseline; gap:8px; }
-.streak-num{ font-family:var(--font-mono); font-weight:700; font-size:44px; color:var(--turmeric-strong); letter-spacing:-0.02em; }
+.streak-num{ font-family:var(--font-mono); font-weight:700; font-size:48px; color:var(--turmeric-strong); letter-spacing:-0.02em; }
 .streak-hero.zero .streak-num{ color:var(--text-dim); }
-.streak-unit{ font-size:13px; color:var(--text-dim); font-weight:600; }
-.streak-flame{ font-size:26px; }
-.streak-caption{ font-size:12px; color:var(--text-dim); margin-top:4px; }
+.streak-unit{ font-size:14px; color:var(--text-dim); font-weight:600; }
+.streak-flame{ font-size:32px; }
+.streak-caption{ font-size:12.5px; color:var(--text-dim); margin-top:4px; }
 
 .missed-banner{
-  margin:14px 20px 0; border-radius:var(--radius); padding:14px 16px;
+  margin:0 24px; border-radius:var(--radius); padding:14px 18px;
   background:var(--coral-dim); border:1px solid #5A3030;
-  display:flex; gap:10px; align-items:flex-start;
+  display:flex; gap:12px; align-items:flex-start;
 }
-.missed-banner .txt{ font-size:13px; color:#FFD9D9; line-height:1.5; }
+.missed-banner .txt{ font-size:13.5px; color:#FFD9D9; line-height:1.5; }
 .missed-banner b{ color:#fff; }
 
-.today-card{ margin:16px 20px 0; padding:18px; }
+.today-card{ padding:20px; }
 .today-card .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
-.today-title{ font-family:var(--font-display); font-weight:700; font-size:17px; margin:6px 0 4px; line-height:1.3; }
-.today-meta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.today-title{ font-family:var(--font-display); font-weight:700; font-size:19px; margin:6px 0 6px; line-height:1.3; }
+.today-meta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
 
-.progress-block{ margin:18px 20px 0; }
-.progress-bar-track{ height:8px; border-radius:999px; background:var(--surface-3); overflow:hidden; margin-top:8px; }
+.progress-block{ margin:0 24px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
+.progress-bar-track{ height:10px; border-radius:999px; background:var(--surface-3); overflow:hidden; margin-top:10px; }
 .progress-bar-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--turmeric), var(--green)); transition:width .5s ease; }
-.progress-labels{ display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim); margin-top:6px; }
+.progress-labels{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-dim); margin-top:8px; }
 
-.graph-section{ margin:22px 20px 0; }
+.graph-section{ margin:0 24px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
 .graph-scroll{ overflow-x:auto; padding-bottom:6px; margin-top:12px; scrollbar-width:thin; }
-.graph-grid{ display:grid; grid-template-rows:repeat(6, 1fr); grid-auto-flow:column; gap:4px; width:max-content; }
-.g-cell{ width:15px;height:15px;border-radius:4px; background:var(--surface-3); border:1px solid var(--border-soft); position:relative; }
+.graph-grid{ display:grid; grid-template-rows:repeat(6, 1fr); grid-auto-flow:column; gap:5px; width:max-content; }
+.g-cell{ width:16px;height:16px;border-radius:4px; background:var(--surface-3); border:1px solid var(--border-soft); position:relative; }
 .g-cell.done{ background:var(--green); border-color:var(--green); }
 .g-cell.missed{ background:var(--coral-dim); border-color:var(--coral); }
 .g-cell.today{ background:var(--turmeric); border-color:var(--turmeric); box-shadow:0 0 0 3px rgba(255,159,67,0.18); animation:pulse 2s infinite; }
 .g-cell.future{ opacity:0.5; }
 @keyframes pulse{ 0%,100%{box-shadow:0 0 0 3px rgba(255,159,67,0.18);} 50%{box-shadow:0 0 0 6px rgba(255,159,67,0.05);} }
-.graph-legend{ display:flex; gap:14px; margin-top:10px; flex-wrap:wrap; }
-.graph-legend span{ font-size:11px; color:var(--text-faint); display:flex; align-items:center; gap:5px; }
-.legend-dot{ width:9px;height:9px;border-radius:3px; display:inline-block; }
+.graph-legend{ display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
+.graph-legend span{ font-size:12px; color:var(--text-faint); display:flex; align-items:center; gap:6px; }
+.legend-dot{ width:10px;height:10px;border-radius:3px; display:inline-block; }
 
-.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 20px 0; }
-.stat-box{ padding:14px; }
-.stat-box .num{ font-family:var(--font-mono); font-size:19px; font-weight:700; }
-.stat-box .lbl{ font-size:11.5px; color:var(--text-dim); margin-top:3px; }
+.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 24px; }
+.stat-box{ padding:18px; }
+.stat-box .num{ font-family:var(--font-mono); font-size:22px; font-weight:700; }
+.stat-box .lbl{ font-size:12px; color:var(--text-dim); margin-top:4px; }
 
-.badge-row{ display:flex; gap:10px; margin:16px 20px 0; overflow-x:auto; scrollbar-width:none; }
-.badge-row::-webkit-scrollbar{display:none;}
+.badge-row{ display:flex; gap:10px; margin:0 24px; overflow-x:auto; scrollbar-width:none; }
 .badge-chip{
   flex:0 0 auto; display:flex; align-items:center; gap:8px;
-  background:var(--surface); border:1px solid var(--border-soft); border-radius:999px; padding:9px 14px;
-  font-size:12.5px; font-weight:600; color:var(--text-dim);
+  background:var(--surface); border:1px solid var(--border-soft); border-radius:999px; padding:10px 16px;
+  font-size:13px; font-weight:600; color:var(--text-dim);
 }
 
 .bottom-nav{
   position:fixed; left:50%; bottom:0; transform:translateX(-50%);
-  width:100%; max-width:480px; background:rgba(26,32,41,0.92); backdrop-filter:blur(10px);
+  width:100%; max-width:900px; background:rgba(26,32,41,0.95); backdrop-filter:blur(10px);
   border-top:1px solid var(--border); display:flex; z-index:250;
   padding-bottom:env(safe-area-inset-bottom);
 }
-.nav-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:12px 0 10px; font-size:10.5px; color:var(--text-faint); font-weight:600; }
+.nav-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:12px 0 10px; font-size:11px; color:var(--text-faint); font-weight:600; }
 .nav-item.active{ color:var(--turmeric); }
 .nav-ic{ font-size:18px; line-height:1; }
 
 /* ============================= CHALLENGE DAY ============================= */
-.day-hero{ padding:6px 20px 0; }
-.day-back{ display:inline-flex; align-items:center; gap:6px; color:var(--text-dim); font-size:13px; font-weight:600; padding:6px 0 10px; }
-.day-badge-row{ display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
-.day-title{ font-family:var(--font-display); font-weight:700; font-size:23px; line-height:1.25; letter-spacing:-0.01em; margin:0 0 10px; }
-.day-meta-row{ display:flex; gap:14px; margin:12px 0 4px; }
-.day-meta-row .item{ font-size:12.5px; color:var(--text-dim); display:flex; align-items:center; gap:6px; }
+.day-hero{ padding:16px 24px 0; }
+.day-back{ display:inline-flex; align-items:center; gap:6px; color:var(--text-dim); font-size:13.5px; font-weight:600; padding:6px 0 10px; }
+.day-badge-row{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.day-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(22px, 3vw, 28px); line-height:1.25; letter-spacing:-0.01em; margin:0 0 12px; }
+.day-meta-row{ display:flex; gap:16px; margin:12px 0 4px; }
+.day-meta-row .item{ font-size:13px; color:var(--text-dim); display:flex; align-items:center; gap:6px; }
 
-.brief-card{ margin:18px 20px 0; padding:18px; }
-.brief-card p{ margin:0 0 14px; font-size:14.5px; line-height:1.65; color:var(--text); }
+.brief-card{ margin:16px 24px 0; padding:24px; }
+.brief-card p{ margin:0 0 16px; font-size:15px; line-height:1.65; color:var(--text); }
 .req-list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-.req-list li{ display:flex; gap:10px; font-size:13.5px; color:var(--text-dim); line-height:1.5; }
+.req-list li{ display:flex; gap:10px; font-size:14px; color:var(--text-dim); line-height:1.5; }
 .req-list li::before{ content:"—"; color:var(--turmeric); flex:0 0 auto; }
 
-.hint-toggle{ margin-top:14px; background:var(--surface-2); border:1px dashed var(--border); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; }
+.hint-toggle{ margin-top:16px; background:var(--surface-2); border:1px dashed var(--border); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; }
 .hint-body{ max-height:0; overflow:hidden; transition:max-height .25s ease; }
-.hint-body p{ font-size:13px; color:var(--turmeric-strong); background:var(--turmeric-ink); border-radius:8px; padding:12px; margin:10px 0 0; }
-.hint-toggle.open .hint-body{ max-height:120px; }
+.hint-body p{ font-size:13.5px; color:var(--turmeric-strong); background:var(--turmeric-ink); border-radius:8px; padding:14px; margin:12px 0 0; }
+.hint-toggle.open .hint-body{ max-height:140px; }
 
 .rescue-card{
-  margin:18px 20px 0; padding:16px; border-radius:var(--radius); border:1px solid var(--turmeric-dim);
+  margin:16px 24px 0; padding:20px; border-radius:var(--radius); border:1px solid var(--turmeric-dim);
   background:linear-gradient(155deg, #241A0C, var(--surface));
-  display:flex; gap:12px;
+  display:flex; gap:16px; align-items:flex-start;
 }
-.rescue-ic{ font-size:22px; }
-.rescue-card h4{ margin:0 0 4px; font-family:var(--font-display); font-size:14.5px; }
-.rescue-card p{ margin:0 0 10px; font-size:12.5px; color:var(--text-dim); line-height:1.5; }
-.rescue-actions{ display:flex; gap:8px; }
+.rescue-ic{ font-size:26px; }
+.rescue-card h4{ margin:0 0 6px; font-family:var(--font-display); font-size:16px; }
+.rescue-card p{ margin:0 0 12px; font-size:13px; color:var(--text-dim); line-height:1.5; }
+.rescue-actions{ display:flex; gap:10px; flex-wrap:wrap; }
 
-.submit-card{ margin:20px 20px 0; padding:18px; }
-.field{ margin-bottom:14px; }
-.field label{ display:block; font-size:12.5px; font-weight:600; color:var(--text-dim); margin-bottom:6px; }
+.submit-card{ margin:16px 24px 0; padding:24px; }
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:13px; font-weight:600; color:var(--text-dim); margin-bottom:6px; }
 .field input{
   width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
-  border-radius:10px; padding:12px 14px; font-size:13.5px; outline:none;
+  border-radius:10px; padding:12px 14px; font-size:14px; outline:none;
 }
 .field input.invalid{ border-color:var(--coral); }
 .field input.valid{ border-color:var(--green); }
-.field-hint{ font-size:11.5px; color:var(--text-faint); margin-top:5px; }
+.field-hint{ font-size:12px; color:var(--text-faint); margin-top:6px; }
 .field-hint.err{ color:var(--coral); }
 
-.submitted-view{ margin:20px 20px 0; padding:18px; text-align:center; }
-.submitted-check{ width:52px;height:52px; border-radius:50%; background:var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 12px; }
-.submitted-links{ display:flex; flex-direction:column; gap:8px; margin-top:14px; text-align:left; }
-.submitted-links a{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-size:12.5px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; overflow:hidden; }
-.submitted-links a span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.submitted-view{ margin:16px 24px 0; padding:24px; text-align:center; }
+.submitted-check{ width:56px;height:56px; border-radius:50%; background:var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 14px; }
+.submitted-links{ display:flex; flex-direction:column; gap:10px; margin-top:16px; text-align:left; }
+.submitted-links a{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; overflow:hidden; }
 
-.lock-view{ margin:20px 20px 0; padding:26px 18px; text-align:center; }
-.lock-ic{ font-size:26px; margin-bottom:10px; }
+.lock-view{ margin:16px 24px 0; padding:32px 24px; text-align:center; }
+.lock-ic{ font-size:32px; margin-bottom:12px; }
 
 /* ============================= CHATBOT ============================= */
 #chat-fab{
-  position:fixed; right:20px; bottom:96px; z-index:300;
-  width:52px;height:52px;border-radius:50%;
+  position:fixed; right:24px; bottom:96px; z-index:300;
+  width:56px;height:56px;border-radius:50%;
   background:linear-gradient(145deg, var(--turmeric-strong), var(--turmeric));
-  display:flex;align-items:center;justify-content:center; font-size:20px;
+  display:flex;align-items:center;justify-content:center; font-size:22px;
   box-shadow:0 10px 24px -6px rgba(255,159,67,0.5); border:none;
 }
-@media (min-width:900px){ #chat-fab{ right:calc(50% - 240px + 20px); } .sticky-cta{ right:auto; } }
+@media (min-width:900px){ #chat-fab{ right:calc(50% - 450px + 24px); } }
 
 #chat-panel{
   position:fixed; left:50%; bottom:0; transform:translate(-50%, 100%);
-  width:100%; max-width:480px; height:78vh; max-height:640px;
-  background:var(--surface); border:1px solid var(--border); border-radius:22px 22px 0 0;
+  width:100%; max-width:480px; height:80vh; max-height:680px;
+  background:var(--surface); border:1px solid var(--border); border-radius:24px 24px 0 0;
   z-index:500; display:flex; flex-direction:column; transition:transform .28s cubic-bezier(.2,.9,.3,1.1);
   box-shadow:0 -20px 60px -10px rgba(0,0,0,0.7);
 }
 #chat-panel.open{ transform:translate(-50%, 0); }
-.chat-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--border-soft); }
+.chat-head{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--border-soft); }
 .chat-head-title{ display:flex; align-items:center; gap:10px; }
-.chat-head-title .dot{ width:9px;height:9px;border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); }
-.chat-close{ background:var(--surface-3); border:none; color:var(--text-dim); width:30px;height:30px;border-radius:50%; font-size:15px; }
-.chat-body{ flex:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
-.msg{ max-width:82%; padding:10px 13px; border-radius:14px; font-size:13.5px; line-height:1.5; }
+.chat-head-title .dot{ width:10px;height:10px;border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); }
+.chat-close{ background:var(--surface-3); border:none; color:var(--text-dim); width:32px;height:32px;border-radius:50%; font-size:16px; }
+.chat-body{ flex:1; overflow-y:auto; padding:18px 20px; display:flex; flex-direction:column; gap:12px; }
+.msg{ max-width:85%; padding:12px 14px; border-radius:14px; font-size:14px; line-height:1.5; }
 .msg.bot{ background:var(--surface-2); align-self:flex-start; border-bottom-left-radius:4px; }
 .msg.user{ background:var(--turmeric-dim); color:var(--turmeric-strong); align-self:flex-end; border-bottom-right-radius:4px; font-weight:600; }
-.chat-chips{ display:flex; flex-wrap:wrap; gap:7px; padding:2px 18px 14px; }
-.chip{ background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-size:12px; color:var(--text-dim); }
-.chat-input-row{ display:flex; gap:8px; padding:12px 14px calc(12px + env(safe-area-inset-bottom)); border-top:1px solid var(--border-soft); }
-.chat-input-row input{ flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:11px 14px; color:var(--text); font-size:13.5px; outline:none; }
-.chat-send{ background:var(--turmeric); border:none; border-radius:12px; width:44px; color:#241705; font-weight:700; }
-#chat-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:450; opacity:0; pointer-events:none; transition:opacity .25s ease; }
+.chat-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:4px 20px 16px; }
+.chip{ background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:8px 14px; font-size:12.5px; color:var(--text-dim); }
+.chat-input-row{ display:flex; gap:10px; padding:14px 20px calc(14px + env(safe-area-inset-bottom)); border-top:1px solid var(--border-soft); }
+.chat-input-row input{ flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:12px 16px; color:var(--text); font-size:14px; outline:none; }
+.chat-send{ background:var(--turmeric); border:none; border-radius:12px; width:48px; color:#241705; font-weight:700; }
+#chat-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:450; opacity:0; pointer-events:none; transition:opacity .25s ease; }
 #chat-overlay.open{ opacity:1; pointer-events:auto; }
 
-/* ============================= DEV / QA PANEL (not part of the product) ============================= */
+/* ============================= QA PANEL ============================= */
 #qa-fab{
-  position:fixed; left:16px; bottom:96px; z-index:300;
-  width:40px;height:40px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border);
-  color:var(--text-faint); font-size:15px; display:flex;align-items:center;justify-content:center;
+  position:fixed; left:24px; bottom:96px; z-index:300;
+  width:44px;height:44px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border);
+  color:var(--text-faint); font-size:16px; display:flex;align-items:center;justify-content:center;
 }
-@media (min-width:900px){ #qa-fab{ left:calc(50% - 240px + 16px); } }
+@media (min-width:900px){ #qa-fab{ left:calc(50% - 450px + 24px); } }
 #qa-panel{
-  position:fixed; left:16px; bottom:144px; z-index:301; width:230px;
-  background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:12px;
+  position:fixed; left:24px; bottom:150px; z-index:301; width:240px;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:14px;
   display:none; box-shadow:0 20px 50px -15px rgba(0,0,0,0.7);
 }
-@media (min-width:900px){ #qa-panel{ left:calc(50% - 240px + 16px); } }
+@media (min-width:900px){ #qa-panel{ left:calc(50% - 450px + 24px); } }
 #qa-panel.open{ display:block; }
 #qa-panel h5{ margin:0 0 8px; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); }
-.qa-opt{ display:block; width:100%; text-align:left; background:none; border:none; color:var(--text-dim); font-size:12.5px; padding:7px 8px; border-radius:8px; }
+.qa-opt{ display:block; width:100%; text-align:left; background:none; border:none; color:var(--text-dim); font-size:13px; padding:8px 10px; border-radius:8px; }
 .qa-opt.active{ background:var(--turmeric-dim); color:var(--turmeric-strong); font-weight:600; }
-.qa-note{ font-size:10.5px; color:var(--text-faint); margin-top:8px; line-height:1.4; padding-top:8px; border-top:1px solid var(--border-soft); }
+.qa-note{ font-size:11px; color:var(--text-faint); margin-top:10px; line-height:1.4; padding-top:8px; border-top:1px solid var(--border-soft); }
 
 .fade-in{ animation:fadeIn .35s ease; }
 @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
@@ -417,8 +434,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
     <div class="chat-head-title">
       <span class="dot"></span>
       <div>
-        <div style="font-weight:700; font-size:13.5px;">ABTalks Assistant</div>
-        <div style="font-size:11px; color:var(--text-faint);">Usually replies instantly</div>
+        <div style="font-weight:700; font-size:14px;">ABTalks Assistant</div>
+        <div style="font-size:11.5px; color:var(--text-faint);">Usually replies instantly</div>
       </div>
     </div>
     <button class="chat-close" id="chat-close-btn">✕</button>
@@ -437,7 +454,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   <button class="qa-opt" data-user="newUser">🌱 New user — Day 1</button>
   <button class="qa-opt" data-user="activeUser">🔥 Active streak</button>
   <button class="qa-opt" data-user="missedUser">⚠️ Missed a day</button>
-  <div class="qa-note">This panel is a testing aid for this prototype only — it isn't part of the real product.</div>
+  <div class="qa-note">Testing aid for this prototype — isn't part of the real product.</div>
 </div>
 
 <script>
@@ -553,7 +570,7 @@ function dayStatus(user, dayId){
 }
 
 /* ======================================================================
-   COMMIT GRAPH (signature element)
+   COMMIT GRAPH
    ====================================================================== */
 function renderMiniGrid(){
   let cells="";
@@ -608,20 +625,21 @@ function viewLanding(){
   </div>
 
   <section class="hero fade-in">
-    <div class="eyebrow">60-day build streak · Indian college coders</div>
-    <h1 class="h1">Your GitHub graph is about to get loud.</h1>
-    <p class="p-muted" style="margin-top:10px;">One task a day for 60 days. Ship it, commit it, post it. By Day 60 you won't just have a streak — you'll have a portfolio a recruiter actually opens.</p>
-
-    <div class="hero-graph">
-      <div class="hero-graph-head">
-        <span class="h3">What 60 days looks like</span>
-        <span class="mono">Day 43/60</span>
+    <div class="hero-grid-layout">
+      <div>
+        <div class="eyebrow">60-day build streak · College coders</div>
+        <h1 class="h1">Your GitHub graph is about to get loud.</h1>
+        <p class="p-muted" style="margin-top:14px;">One task a day for 60 days. Ship it, commit it, post it. By Day 60 you won't just have a streak — you'll have a portfolio a recruiter actually opens.</p>
+        <a href="#/signup" class="btn btn-primary" style="margin-top:20px; max-width:240px;">Start Day 1 — it's free →</a>
       </div>
-      ${renderMiniGrid()}
+      <div class="hero-graph">
+        <div class="hero-graph-head">
+          <span class="h3">What 60 days looks like</span>
+          <span class="mono">Day 43/60</span>
+        </div>
+        ${renderMiniGrid()}
+      </div>
     </div>
-
-    <a href="#/signup" class="btn btn-primary" style="margin-top:16px;">Start Day 1 — it's free →</a>
-    <p style="text-align:center; font-size:11.5px; color:var(--text-faint); margin:10px 0 0;">Join thousands of students building consistency.</p>
   </section>
 
   <div class="trust-strip">
@@ -634,38 +652,43 @@ function viewLanding(){
     <span class="eyebrow">How it works</span>
     <div class="steps">
       <div class="step"><div class="step-num">01</div><div class="step-body"><h4>Pick your track</h4><p>Web Dev, DSA, Python, or App Dev. Switch anytime before Day 10.</p></div></div>
-      <div class="step"><div class="step-num">02</div><div class="step-body"><h4>Solve today's build</h4><p>One scoped task, sized for 30–75 minutes, right from your phone.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-body"><h4>Solve today's build</h4><p>One scoped task, sized for 30–75 minutes, right from your device.</p></div></div>
       <div class="step"><div class="step-num">03</div><div class="step-body"><h4>Commit + post proof</h4><p>Link the GitHub commit and a LinkedIn post. We track the streak automatically.</p></div></div>
     </div>
-    <div class="track-row">
+    <div class="track-row" style="margin-top:20px;">
       ${PLATFORM.tracks.map(t=>`<span class="track-chip">${t}</span>`).join('')}
     </div>
   </section>
 
   <section class="section">
     <span class="eyebrow">Why students stick with it</span>
-    <div class="testi">
-      <p class="testi-quote">"I've started five DSA sheets and finished none. The daily streak is the only thing that's made me actually show up — even on placement-season weeks."</p>
-      <div class="testi-who"><span class="avatar" style="background:var(--turmeric-strong)">P</span><div><div class="name">Priya · 3rd yr, ECE</div><div class="meta">Day 38 of 60</div></div></div>
-    </div>
-    <div class="testi">
-      <p class="testi-quote">"My LinkedIn used to be empty. Now it's 40 posts of things I actually built. A recruiter messaged me because of Day 22."</p>
-      <div class="testi-who"><span class="avatar" style="background:var(--green-strong)">S</span><div><div class="name">Sahil · 2nd yr, IT</div><div class="meta">Completed the 60</div></div></div>
+    <div class="testimonials-grid">
+      <div class="testi">
+        <p class="testi-quote">"I've started five DSA sheets and finished none. The daily streak is the only thing that's made me actually show up — even on placement-season weeks."</p>
+        <div class="testi-who"><span class="avatar" style="background:var(--turmeric-strong)">P</span><div><div class="name">Priya · 3rd yr, ECE</div><div class="meta">Day 38 of 60</div></div></div>
+      </div>
+      <div class="testi">
+        <p class="testi-quote">"My LinkedIn used to be empty. Now it's 40 posts of things I actually built. A recruiter messaged me because of Day 22."</p>
+        <div class="testi-who"><span class="avatar" style="background:var(--green-strong)">S</span><div><div class="name">Sahil · 2nd yr, IT</div><div class="meta">Completed the 60</div></div></div>
+      </div>
     </div>
   </section>
 
-  <section class="section" style="padding-bottom:28px;">
+  <section class="section" style="padding-bottom:36px;">
     <span class="eyebrow">Before you start</span>
-    <div class="card" style="margin-top:12px;">
+    <div class="card" style="margin-top:12px; padding:0 16px;">
       ${faqItem("Is ABTalks actually free?", "Yes. All 60 days, every track, no paywall. We don't ask for a payment method to preview or start Day 1.")}
-      ${faqItem("What if I miss a day?", "Your streak resets, but your progress doesn't — completed days stay logged. You also get one streak-freeze token a month to protect against exactly this.")}
+      ${faqItem("What if I miss a day?", "Your streak resets, but your progress doesn't — completed days stay logged. You also get one streak-freeze token a month.")}
       ${faqItem("Do I need to already know DSA?", "No. Beginner days (1–15) assume first-year fundamentals only. Difficulty ramps gradually through the 60 days.")}
-      ${faqItem("Do I need a GitHub or LinkedIn account?", "Yes, both — that's how proof-of-work is verified. If you don't have accounts yet, Day 1's brief includes a 5-minute setup guide.")}
+      ${faqItem("Do I need a GitHub or LinkedIn account?", "Yes, both — that's how proof-of-work is verified.")}
     </div>
   </section>
 
-  <div style="height:76px;"></div>
-  <div class="sticky-cta"><div class="sticky-cta-inner"><a href="#/signup" class="btn btn-primary">Start Day 1 — Free →</a></div></div>
+  <div style="height:84px;"></div>
+  <div class="sticky-cta"><div class="sticky-cta-inner">
+    <div><strong>Ready to launch your streak?</strong></div>
+    <a href="#/signup" class="btn btn-primary btn-sm">Start Day 1 — Free →</a>
+  </div></div>
   `;
 }
 function faqItem(q,a){
@@ -696,9 +719,7 @@ function viewLogin(){
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top:8px;">Log In</button>
       </form>
-      <div class="auth-switch">
-        Don't have an account? <a href="#/signup">Sign up</a>
-      </div>
+      <div class="auth-switch">Don't have an account? <a href="#/signup">Sign up</a></div>
     </div>
   </div>
   `;
@@ -737,9 +758,7 @@ function viewSignup(){
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top:8px;">Create Account & Start Day 1</button>
       </form>
-      <div class="auth-switch">
-        Already have an account? <a href="#/login">Log in</a>
-      </div>
+      <div class="auth-switch">Already have an account? <a href="#/login">Log in</a></div>
     </div>
   </div>
   `;
@@ -770,66 +789,67 @@ function viewDashboard(){
   <div class="dash-header fade-in">
     <div>
       <div class="greeting">${isNewUser? `Welcome, ${u.name||'friend'} 👋` : night? `Burning the midnight oil, ${u.name}?` : `Good going, ${u.name} 👋`}</div>
-      <div class="greeting-sub">${isNewUser? "Let's get your first day shipped." : night? "Late-night sessions count double in spirit, if not in streak." : `${new Date().toLocaleDateString('en-IN',{weekday:'long', day:'numeric', month:'short'})}`}</div>
+      <div class="greeting-sub">${isNewUser? "Let's get your first day shipped." : night? "Late-night sessions count double in spirit." : `${new Date().toLocaleDateString('en-IN',{weekday:'long', day:'numeric', month:'short'})}`}</div>
     </div>
     <div class="profile-dot">${initials(u.name)}</div>
   </div>
 
   ${u.missedDay ? `
-  <div class="missed-banner fade-in">
+  <div class="missed-banner fade-in" style="margin-bottom:16px;">
     <span style="font-size:18px;">⚠️</span>
-    <div class="txt"><b>You missed Day ${u.missedDay}.</b> Your streak reset to 0 — it happens to almost everyone once. ${u.freezeTokens>0 ? `You still have <b>${u.freezeTokens} streak-freeze token</b> to protect the next slip.` : `You're out of streak-freeze tokens this month — Day ${u.currentDay} starts a clean streak.`}</div>
+    <div class="txt"><b>You missed Day ${u.missedDay}.</b> Your streak reset to 0 — it happens. ${u.freezeTokens>0 ? `You still have <b>${u.freezeTokens} streak-freeze token</b> left.` : `You're out of freeze tokens this month.`}</div>
   </div>` : ``}
 
-  <div class="streak-hero ${u.streak===0?'zero':''} fade-in">
+  <div class="dashboard-grid fade-in">
     <div>
-      <div class="streak-num-wrap"><span class="streak-num">${u.streak}</span><span class="streak-unit">day${u.streak===1?'':'s'} streak</span></div>
-      <div class="streak-caption">${u.streak===0? "No active streak yet — Day 1 starts it." : `Longest this challenge: ${Math.max(u.streak, totalDone)} days`}</div>
+      <div class="streak-hero ${u.streak===0?'zero':''}" style="margin:0 0 16px 0;">
+        <div>
+          <div class="streak-num-wrap"><span class="streak-num">${u.streak}</span><span class="streak-unit">day${u.streak===1?'':'s'} streak</span></div>
+          <div class="streak-caption">${u.streak===0? "No active streak yet — Day 1 starts it." : `Longest this challenge: ${Math.max(u.streak, totalDone)} days`}</div>
+        </div>
+        <div class="streak-flame">${u.streak>0?'🔥':'🕯️'}</div>
+      </div>
+
+      <a href="#/day/${u.currentDay}" class="card today-card" style="display:block; margin-bottom:16px;">
+        <div class="top-row">
+          <span class="pill pill-turmeric">Day ${u.currentDay} of ${PLATFORM.totalDays}</span>
+          <span class="pill pill-neutral">${today.difficulty}</span>
+        </div>
+        <div style="font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono);">${today.track}</div>
+        <div class="today-title">${today.title}</div>
+        <div class="today-meta"><span class="pill pill-neutral">⏱ ~${today.estMinutes} min</span></div>
+        <div class="btn btn-primary">${isNewUser? "Start Day 1 →" : "Open today's challenge →"}</div>
+      </a>
     </div>
-    <div class="streak-flame">${u.streak>0?'🔥':'🕯️'}</div>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="stat-grid" style="margin:0;">
+        <div class="card stat-box"><div class="num">${u.rank || '—'}</div><div class="lbl">Standing</div></div>
+        <div class="card stat-box"><div class="num">${u.freezeTokens} 🧊</div><div class="lbl">Freezes left</div></div>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+          <span class="h3">Progress</span>
+          <span class="mono" style="font-size:13px; color:var(--turmeric-strong);">${pct}%</span>
+        </div>
+        <div class="progress-bar-track" style="margin:0;"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        <div class="progress-labels"><span>${totalDone} shipped</span><span>${PLATFORM.totalDays-totalDone} remaining</span></div>
+      </div>
+    </div>
   </div>
 
-  <a href="#/day/${u.currentDay}" class="card today-card fade-in" style="display:block;">
-    <div class="top-row">
-      <span class="pill pill-turmeric">Day ${u.currentDay} of ${PLATFORM.totalDays}</span>
-      <span class="pill pill-neutral">${today.difficulty}</span>
-    </div>
-    <div style="font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono);">${today.track}</div>
-    <div class="today-title">${today.title}</div>
-    <div class="today-meta"><span class="pill pill-neutral">⏱ ~${today.estMinutes} min</span></div>
-    <div class="btn btn-primary">${isNewUser? "Start Day 1 →" : "Open today's challenge →"}</div>
-  </a>
-
-  <div class="progress-block fade-in">
-    <div style="display:flex; justify-content:space-between; align-items:baseline;">
-      <span class="h3">Overall progress</span>
-      <span class="mono" style="font-size:13px; color:var(--turmeric-strong);">${pct}%</span>
-    </div>
-    <div class="progress-bar-track"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-    <div class="progress-labels"><span>${totalDone} days shipped</span><span>${PLATFORM.totalDays-totalDone} to go</span></div>
-  </div>
-
-  <div class="graph-section fade-in">
+  <div class="graph-section fade-in" style="margin:0 24px 16px 24px;">
     <span class="eyebrow">Your commit graph</span>
     ${renderCommitGraph(u)}
   </div>
 
-  <div class="stat-grid fade-in">
-    <div class="card stat-box"><div class="num">${u.rank || '—'}</div><div class="lbl">Standing</div></div>
-    <div class="card stat-box"><div class="num">${u.freezeTokens} 🧊</div><div class="lbl">Freeze tokens left</div></div>
-  </div>
-
   ${u.badges.length ? `
-  <div class="badge-row fade-in">
+  <div class="badge-row fade-in" style="margin-bottom:20px;">
     ${u.badges.map(b=>`<div class="badge-chip">🏅 ${b}</div>`).join('')}
-  </div>` : `
-  <div class="section fade-in" style="padding-top:6px;">
-    <div class="card" style="padding:16px; text-align:center;">
-      <div style="font-size:20px; margin-bottom:6px;">🏅</div>
-      <div class="p-muted">No badges yet — your first one unlocks at a 3-day streak.</div>
-    </div>
-  </div>`}
+  </div>` : ``}
 
+  <div style="height:30px;"></div>
   ${renderBottomNav('dash')}
   `;
 }
@@ -853,7 +873,7 @@ function viewDay(id){
       <div class="lock-ic">🔒</div>
       <div class="h3">Day ${dayId} is locked</div>
       <p class="p-muted" style="margin-top:8px;">This unlocks once you complete Day ${u.currentDay}. One day at a time — that's the whole method.</p>
-      <a href="#/day/${u.currentDay}" class="btn btn-primary" style="margin-top:16px;">Go to Day ${u.currentDay} →</a>
+      <a href="#/day/${u.currentDay}" class="btn btn-primary" style="margin-top:16px; max-width:220px; margin-inline:auto;">Go to Day ${u.currentDay} →</a>
     </div>`;
   } else {
     body = `
@@ -868,19 +888,19 @@ function viewDay(id){
 
     if(status==="missed"){
       body += `
-      <div class="missed-banner fade-in" style="margin-top:18px;">
+      <div class="missed-banner fade-in" style="margin-top:16px;">
         <span style="font-size:18px;">⚠️</span>
-        <div class="txt"><b>This day was missed.</b> It's kept here for your record, but it no longer counts toward today's streak. Focus on Day ${u.currentDay} instead.</div>
+        <div class="txt"><b>This day was missed.</b> It's kept here for record, but no longer counts toward today's streak.</div>
       </div>`;
     }
 
     if(showRescue){
       body += `
-      <div class="rescue-card fade-in">
+      <div class="rescue-card fade-in" style="margin-top:16px;">
         <div class="rescue-ic">🦉</div>
         <div style="flex:1;">
           <h4>Night Owl Rescue</h4>
-          <p>It's late and today's task is still open. Swap to a 15-minute micro-version to keep the streak alive, or spend a freeze token and finish properly tomorrow.</p>
+          <p>It's late and today's task is still open. Swap to a 15-minute micro-version to keep the chain alive.</p>
           <div class="rescue-actions">
             <button class="btn btn-secondary btn-sm" id="rescue-micro">Try micro-task</button>
             <button class="btn btn-ghost btn-sm" id="rescue-freeze" ${u.freezeTokens<1?'disabled':''}>Use freeze (${u.freezeTokens})</button>
@@ -892,7 +912,7 @@ function viewDay(id){
     if(status==="completed"){
       const sub = u.completedDays[dayId];
       body += `
-      <div class="submitted-view card fade-in">
+      <div class="submitted-view card fade-in" style="margin-top:16px;">
         <div class="submitted-check">✅</div>
         <div class="h3">Day ${dayId} logged</div>
         <p class="p-muted" style="margin-top:6px;">Submitted ${timeAgo(sub.submittedAt)}. Nice work.</p>
@@ -932,9 +952,9 @@ function viewDay(id){
 
 function renderSubmitForm(dayId, status){
   return `
-  <div class="submit-card card fade-in" id="submit-card">
+  <div class="submit-card card fade-in" style="margin-top:16px;" id="submit-card">
     <span class="h3">Submit proof of work</span>
-    <p class="p-muted" style="margin:6px 0 16px;">Two links, that's it. We check the URL shape — not the code — so keep it honest.</p>
+    <p class="p-muted" style="margin:6px 0 16px;">Two links, that's it. We check the URL shape — not the code.</p>
 
     <div class="field">
       <label for="gh-input">GitHub commit or repo URL</label>
@@ -973,7 +993,7 @@ function render(){
   else if(route.name==='signup') app.innerHTML = viewSignup();
   else if(route.name==='dashboard') app.innerHTML = viewDashboard();
   else if(route.name==='day') app.innerHTML = viewDay(route.id);
-  window.scrollTo(0,0);
+  app.scrollTop = 0;
   bindPageEvents(route);
   syncQaPanel();
 }
@@ -1032,10 +1052,10 @@ function bindPageEvents(route){
 
     const rescueMicro = document.getElementById('rescue-micro');
     if(rescueMicro) rescueMicro.addEventListener('click', ()=>{
-      toast("Micro-task unlocked — a 15-min version replaces today's brief below.");
+      toast("Micro-task unlocked — a 15-min version replaces today's brief.");
       const day = DAYS[dayId-1];
-      day.brief = "Rescue mode: skip the full build. Just get one working piece on screen — even ugly — and commit it. You can finish properly tomorrow; tonight is about not breaking the chain.";
-      day.requirements = ["Any visible, working fragment of today's task","Commit it, even if incomplete","Come back tomorrow to finish the rest"];
+      day.brief = "Rescue mode: skip the full build. Just get one working piece on screen and commit it. You can finish properly tomorrow; tonight is about not breaking the chain.";
+      day.requirements = ["Any visible, working fragment","Commit it","Come back tomorrow to finish"];
       day.estMinutes = 15;
       render();
     });
@@ -1043,44 +1063,39 @@ function bindPageEvents(route){
     if(rescueFreeze) rescueFreeze.addEventListener('click', ()=>{
       if(u.freezeTokens<1) return;
       u.freezeTokens -= 1;
-      toast("Freeze token used — Day " + dayId + " is protected until tomorrow.");
+      toast("Freeze token used — Day " + dayId + " protected.");
       render();
     });
   }
 }
 
 /* ======================================================================
-   ENHANCED INTERACTIVE AI CHATBOT
+   AI CHATBOT
    ====================================================================== */
 const CHAT_KNOWLEDGE = [
-  { k:["miss","missed","skip"], a:"If you miss a day, your streak resets to 0 — but every day you already shipped stays on your profile forever. Use a freeze token if you're at risk!" },
+  { k:["miss","missed","skip"], a:"If you miss a day, your streak resets to 0 — but every day you already shipped stays on your profile forever. Use a freeze token!" },
   { k:["github","commit","repo"], a:"Paste a link to your exact GitHub commit or repo for the day's task to log your progress." },
-  { k:["linkedin","post"], a:"Sharing your build on LinkedIn is a great way to stay accountable and showcase your consistency to recruiters." },
+  { k:["linkedin","post"], a:"Sharing your build on LinkedIn is a great way to stay accountable and showcase your consistency." },
   { k:["track","switch","change"], a:"You can switch tracks anytime up to Day 10. Your progress and streak will carry over safely." },
   { k:["free","cost","price","pay"], a:"ABTalks is 100% free across all 60 days and tracks. No payment info required." },
   { k:["freeze","token"], a:"Streak-freeze tokens protect your streak when life gets busy. You get one per month automatically." },
   { k:["hello","hi","hey"], a:"Hey there! Ready to crush today's coding challenge and grow your streak?" },
-  { k:["help","stuck","hint"], a:"If you're stuck, check the hint toggle inside today's challenge card, or ask me for clarification on the requirements!" }
+  { k:["help","stuck","hint"], a:"If you're stuck, check the hint toggle inside today's challenge card, or ask me for clarification!" }
 ];
 
 function chatReply(text){
   const q = text.toLowerCase();
-  
-  // Dynamic intent matching or conversational AI responses
   const hit = CHAT_KNOWLEDGE.find(f=> f.k.some(k=>q.includes(k)));
   if(hit) return hit.a;
 
-  // Context-aware intelligent fallback responses
   if(q.includes('day')) {
     const u = currentUser();
     return `You are currently on Day ${u.currentDay} with an active streak of ${u.streak} days! Keep the momentum going.`;
   }
-  
   if(q.includes('code') || q.includes('debug') || q.includes('error')) {
-    return "Debugging is part of the grind! Make sure your logic handles edge cases properly, or check the task hint for guidance.";
+    return "Debugging is part of the grind! Make sure your logic handles edge cases properly, or check the task hint.";
   }
-
-  return `That's an interesting question about "${text}". As your AI assistant, I recommend checking out today's brief or asking me specifically about streaks, submissions, tracks, or hints!`;
+  return `That's a great question about "${text}". Check out today's brief or ask me about streaks, submissions, tracks, or hints!`;
 }
 
 function addMsg(text, who){
@@ -1104,18 +1119,15 @@ function sendChat(text){
   if(!text || !text.trim()) return;
   addMsg(text, 'user');
   const input = document.getElementById('chat-input'); if(input) input.value='';
-  
-  // Simulated interactive AI thinking delay
   setTimeout(()=> {
-    const response = chatReply(text);
-    addMsg(response, 'bot');
+    addMsg(chatReply(text), 'bot');
   }, 450);
 }
 </script>
 
 <script>
 /* ======================================================================
-   GLOBAL WIRE-UP (chat panel, QA panel, router boot)
+   GLOBAL WIRE-UP
    ====================================================================== */
 const chatFab = document.getElementById('chat-fab');
 const chatPanel = document.getElementById('chat-panel');
