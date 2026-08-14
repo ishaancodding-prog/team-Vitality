@@ -44,7 +44,7 @@
 }
 
 *{box-sizing:border-box;}
-html,body{margin:0;padding:0;width:100%;height:100%;}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;}
 body{
   background:var(--bg);
   color:var(--text);
@@ -60,7 +60,6 @@ button{font-family:inherit;cursor:pointer;}
 input{font-family:inherit;}
 ::selection{background:var(--turmeric-dim);color:var(--turmeric-strong);}
 
-/* focus visibility */
 a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible{
   outline:2px solid var(--turmeric);
   outline-offset:2px;
@@ -71,7 +70,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
 }
 
-/* ============================= LAYOUT SHELL (FULL SCREEN RESPONSIVE) ============================= */
+/* ============================= FULL SCREEN LAPTOP LAYOUT SHELL ============================= */
 #app{
   width:100%;
   height:100%;
@@ -88,45 +87,47 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
 @media (min-width:900px){
   #app{
-    max-width:900px;
-    height:92vh;
-    box-shadow:0 0 0 1px var(--border), 0 40px 100px -30px rgba(0,0,0,0.8);
-    margin:auto;
-    border-radius:28px;
-    overflow-y:auto;
+    max-width:100%;
+    height:100%;
+    border-radius:0;
+    box-shadow:none;
+    margin:0;
   }
 }
 
-.container{ padding:0 20px; }
+.max-container{
+  max-width:1200px;
+  margin:0 auto;
+  width:100%;
+}
 
-/* top brand bar */
 .topbar{
   display:flex; align-items:center; justify-content:space-between;
-  padding:16px 24px 12px;
+  padding:16px 32px;
   border-bottom:1px solid var(--border-soft);
   background:var(--surface);
   position:sticky;
   top:0;
   z-index:100;
 }
-.brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:18px; letter-spacing:-0.01em; cursor:pointer; }
+.brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:19px; letter-spacing:-0.01em; cursor:pointer; }
 .brand-mark{
-  width:30px;height:30px;border-radius:8px;
+  width:32px;height:32px;border-radius:8px;
   background:linear-gradient(145deg, var(--turmeric), #E8792B);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-mono); font-weight:700; font-size:13px; color:#20140A;
+  font-family:var(--font-mono); font-weight:700; font-size:14px; color:#20140A;
 }
 
 /* ============================= UTILITY ============================= */
 .eyebrow{
-  font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+  font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--turmeric); font-weight:600; display:flex; align-items:center; gap:8px;
 }
-.eyebrow::before{content:"";width:14px;height:1px;background:var(--turmeric);display:inline-block;}
-.h1{ font-family:var(--font-display); font-weight:700; font-size:clamp(26px, 4vw, 36px); line-height:1.12; letter-spacing:-0.02em; margin:10px 0 0; }
-.h2{ font-family:var(--font-display); font-weight:700; font-size:21px; line-height:1.2; letter-spacing:-0.01em; margin:0; }
-.h3{ font-family:var(--font-display); font-weight:600; font-size:16px; margin:0; }
-.p-muted{ color:var(--text-dim); font-size:14.5px; line-height:1.6; margin:0; }
+.eyebrow::before{content:"";width:16px;height:1px;background:var(--turmeric);display:inline-block;}
+.h1{ font-family:var(--font-display); font-weight:700; font-size:clamp(30px, 4vw, 44px); line-height:1.12; letter-spacing:-0.02em; margin:10px 0 0; }
+.h2{ font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.2; letter-spacing:-0.01em; margin:0; }
+.h3{ font-family:var(--font-display); font-weight:600; font-size:17px; margin:0; }
+.p-muted{ color:var(--text-dim); font-size:15.5px; line-height:1.6; margin:0; }
 .mono{ font-family:var(--font-mono); }
 
 .card{
@@ -138,7 +139,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   border:none; border-radius:12px; font-weight:600; font-size:15px;
-  padding:14px 20px; transition:transform .12s ease, filter .12s ease, background .12s ease;
+  padding:14px 22px; transition:transform .12s ease, filter .12s ease, background .12s ease;
   width:100%;
 }
 .btn:active{ transform:scale(0.98); }
@@ -146,12 +147,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .btn-primary:hover{ filter:brightness(1.06); }
 .btn-secondary{ background:var(--surface-3); color:var(--text); border:1px solid var(--border); }
 .btn-ghost{ background:transparent; color:var(--text-dim); border:1px solid var(--border); }
-.btn-sm{ padding:10px 14px; font-size:13.5px; width:auto; }
+.btn-sm{ padding:10px 16px; font-size:14px; width:auto; }
 .btn[disabled]{ opacity:0.45; cursor:not-allowed; }
 
 .pill{
   display:inline-flex; align-items:center; gap:6px;
-  font-size:12px; font-weight:600; padding:5px 10px; border-radius:999px;
+  font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:999px;
   font-family:var(--font-mono);
 }
 .pill-green{ background:var(--green-dim); color:var(--green-strong); }
@@ -163,7 +164,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 #toast{
   position:fixed; left:50%; bottom:96px; transform:translate(-50%, 20px);
   background:var(--surface-3); border:1px solid var(--border); color:var(--text);
-  padding:12px 18px; border-radius:999px; font-size:13.5px; font-weight:600;
+  padding:12px 20px; border-radius:999px; font-size:14px; font-weight:600;
   box-shadow:0 12px 30px -8px rgba(0,0,0,0.6);
   opacity:0; pointer-events:none; transition:all .25s cubic-bezier(.2,.9,.3,1.3);
   z-index:400; display:flex; align-items:center; gap:8px; white-space:nowrap;
@@ -171,252 +172,254 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 #toast.show{ opacity:1; transform:translate(-50%, 0); }
 
 /* ============================= LANDING ============================= */
-.hero{ padding:24px; }
-.hero-grid-layout { display:grid; grid-template-columns: 1fr; gap:24px; }
-@media(min-width:768px){ .hero-grid-layout { grid-template-columns: 1.2fr 0.8fr; align-items:center; } }
+.hero{ padding:40px 32px; }
+.hero-grid-layout { display:grid; grid-template-columns: 1fr; gap:36px; }
+@media(min-width:900px){ .hero-grid-layout { grid-template-columns: 1.3fr 0.9fr; align-items:center; } }
 
 .hero-graph{
   margin-top:16px; border-radius:var(--radius-lg); overflow:hidden;
-  background:var(--surface); border:1px solid var(--border-soft); padding:16px;
+  background:var(--surface); border:1px solid var(--border-soft); padding:20px;
 }
-.hero-graph-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
-.mini-grid{ display:grid; grid-template-columns:repeat(20, 1fr); gap:3px; }
+.hero-graph-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;}
+.mini-grid{ display:grid; grid-template-columns:repeat(20, 1fr); gap:4px; }
 .mini-cell{ aspect-ratio:1; border-radius:3px; background:var(--surface-3); }
 
 .trust-strip{
-  display:flex; gap:12px; padding:12px 24px; overflow-x:auto;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; padding:16px 32px; max-width:1200px; margin:0 auto;
 }
+@media(max-width:768px){ .trust-strip { grid-template-columns:1fr; } }
 .trust-stat{
-  flex:1; min-width:130px; background:var(--surface); border:1px solid var(--border-soft);
-  border-radius:var(--radius); padding:16px;
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:var(--radius); padding:20px;
 }
-.trust-stat .num{ font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--turmeric-strong); }
-.trust-stat .lbl{ font-size:12px; color:var(--text-dim); margin-top:2px; }
+.trust-stat .num{ font-family:var(--font-mono); font-size:26px; font-weight:700; color:var(--turmeric-strong); }
+.trust-stat .lbl{ font-size:13px; color:var(--text-dim); margin-top:4px; }
 
-.section{ padding:30px 24px 6px; }
-.steps{ margin-top:16px; display:grid; grid-template-columns:1fr; gap:16px; }
+.section{ padding:40px 32px 10px; max-width:1200px; margin:0 auto; width:100%; }
+.steps{ margin-top:20px; display:grid; grid-template-columns:1fr; gap:20px; }
 @media(min-width:768px){ .steps{ grid-template-columns:repeat(3, 1fr); } }
-.step{ display:flex; flex-direction:column; gap:8px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
-.step-num{ font-family:var(--font-mono); font-weight:700; font-size:14px; color:var(--turmeric); }
-.step-body h4{ margin:0; font-family:var(--font-display); font-size:16px; font-weight:600; }
-.step-body p{ margin:0; font-size:13.5px; color:var(--text-dim); }
+.step{ display:flex; flex-direction:column; gap:10px; padding:24px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
+.step-num{ font-family:var(--font-mono); font-weight:700; font-size:15px; color:var(--turmeric); }
+.step-body h4{ margin:0; font-family:var(--font-display); font-size:18px; font-weight:600; }
+.step-body p{ margin:0; font-size:14.5px; color:var(--text-dim); }
 
-.track-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.track-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
 .track-chip{
   background:var(--surface); border:1px solid var(--border); border-radius:999px;
-  padding:8px 14px; font-size:13px; font-weight:600; color:var(--text-dim);
+  padding:10px 18px; font-size:13.5px; font-weight:600; color:var(--text-dim);
 }
 
-.testimonials-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px; }
+.testimonials-grid { display:grid; grid-template-columns:1fr; gap:20px; margin-top:20px; }
 @media(min-width:768px){ .testimonials-grid { grid-template-columns:repeat(2, 1fr); } }
-.testi{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); padding:20px; }
-.testi-quote{ font-size:14px; line-height:1.55; }
-.testi-who{ display:flex; align-items:center; gap:10px; margin-top:12px; }
-.avatar{ width:32px;height:32px;border-radius:50%; display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:12px; color:#171a20; }
-.testi-who .name{ font-size:13px; font-weight:600; }
-.testi-who .meta{ font-size:11.5px; color:var(--text-faint); }
+.testi{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); padding:24px; }
+.testi-quote{ font-size:15px; line-height:1.6; }
+.testi-who{ display:flex; align-items:center; gap:12px; margin-top:16px; }
+.avatar{ width:36px;height:36px;border-radius:50%; display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:13px; color:#171a20; }
+.testi-who .name{ font-size:14px; font-weight:600; }
+.testi-who .meta{ font-size:12px; color:var(--text-faint); }
 
 .faq-item{ border-bottom:1px solid var(--border-soft); }
-.faq-q{ width:100%; text-align:left; background:none; border:none; color:var(--text); padding:16px 0; display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:14.5px; }
+.faq-q{ width:100%; text-align:left; background:none; border:none; color:var(--text); padding:18px 0; display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:15.5px; }
 .faq-a{ max-height:0; overflow:hidden; transition:max-height .25s ease; }
-.faq-a p{ margin:0 0 16px; font-size:13.5px; color:var(--text-dim); line-height:1.6; }
-.faq-item.open .faq-a{ max-height:200px; }
+.faq-a p{ margin:0 0 18px; font-size:14.5px; color:var(--text-dim); line-height:1.6; }
+.faq-item.open .faq-a{ max-height:220px; }
 .faq-chevron{ transition:transform .2s ease; color:var(--text-faint); font-family:var(--font-mono); }
 .faq-item.open .faq-chevron{ transform:rotate(45deg); color:var(--turmeric); }
 
 .sticky-cta{
-  position:fixed; left:50%; bottom:0; transform:translateX(-50%);
-  width:100%; max-width:900px; padding:12px 24px calc(14px + env(safe-area-inset-bottom));
-  background:linear-gradient(0deg, var(--bg) 80%, transparent);
+  position:fixed; left:0; bottom:0; width:100%; padding:14px 32px calc(16px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg, var(--bg) 85%, transparent);
   z-index:200;
 }
-.sticky-cta-inner{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:12px; box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5); display:flex; justify-content:space-between; align-items:center;}
+.sticky-cta-inner{ max-width:1200px; margin:0 auto; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:16px 24px; box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5); display:flex; justify-content:space-between; align-items:center;}
 
 /* ============================= AUTH PAGES ============================= */
-.auth-container{ padding:40px 24px; display:flex; justify-content:center; align-items:center; min-height:75vh; }
-.auth-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow-card); width:100%; max-width:440px; }
-.auth-title{ font-family:var(--font-display); font-size:26px; font-weight:700; margin-bottom:6px; }
-.auth-subtitle{ font-size:13.5px; color:var(--text-dim); margin-bottom:24px; }
-.auth-switch{ text-align:center; font-size:13px; color:var(--text-dim); margin-top:20px; }
+.auth-container{ padding:60px 32px; display:flex; justify-content:center; align-items:center; min-height:80vh; }
+.auth-card{ background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius-lg); padding:36px; box-shadow:var(--shadow-card); width:100%; max-width:480px; }
+.auth-title{ font-family:var(--font-display); font-size:28px; font-weight:700; margin-bottom:8px; }
+.auth-subtitle{ font-size:14.5px; color:var(--text-dim); margin-bottom:28px; }
+.auth-switch{ text-align:center; font-size:13.5px; color:var(--text-dim); margin-top:24px; }
 .auth-switch a{ color:var(--turmeric-strong); font-weight:600; text-decoration:underline; }
 
 /* ============================= DASHBOARD & LAYOUTS ============================= */
-.dash-header{ padding:16px 24px 8px; display:flex; align-items:center; justify-content:space-between; }
-.greeting{ font-family:var(--font-display); font-weight:700; font-size:21px; }
-.greeting-sub{ font-size:13px; color:var(--text-faint); margin-top:2px; }
-.profile-dot{ width:40px;height:40px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:15px; }
+.dash-header{ padding:24px 32px 12px; max-width:1200px; margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; }
+.greeting{ font-family:var(--font-display); font-weight:700; font-size:24px; }
+.greeting-sub{ font-size:14px; color:var(--text-faint); margin-top:4px; }
+.profile-dot{ width:44px;height:44px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border); display:flex;align-items:center;justify-content:center; font-family:var(--font-mono); font-weight:700; font-size:16px; }
 
-.dashboard-grid { display:grid; grid-template-columns:1fr; gap:16px; padding:0 24px; }
-@media(min-width:768px){ .dashboard-grid { grid-template-columns: 2fr 1fr; } }
+.dashboard-grid { display:grid; grid-template-columns:1fr; gap:24px; max-width:1200px; margin:0 auto; padding:0 32px; width:100%; }
+@media(min-width:900px){ .dashboard-grid { grid-template-columns: 2fr 1fr; } }
 
 .streak-hero{
-  border-radius:var(--radius-lg); padding:24px;
+  border-radius:var(--radius-lg); padding:28px;
   background:linear-gradient(155deg, #22190C, var(--surface) 55%);
   border:1px solid var(--turmeric-dim);
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
 .streak-hero.zero{ background:var(--surface); border-color:var(--border-soft); }
-.streak-num-wrap{ display:flex; align-items:baseline; gap:8px; }
-.streak-num{ font-family:var(--font-mono); font-weight:700; font-size:48px; color:var(--turmeric-strong); letter-spacing:-0.02em; }
+.streak-num-wrap{ display:flex; align-items:baseline; gap:10px; }
+.streak-num{ font-family:var(--font-mono); font-weight:700; font-size:56px; color:var(--turmeric-strong); letter-spacing:-0.02em; }
 .streak-hero.zero .streak-num{ color:var(--text-dim); }
-.streak-unit{ font-size:14px; color:var(--text-dim); font-weight:600; }
-.streak-flame{ font-size:32px; }
-.streak-caption{ font-size:12.5px; color:var(--text-dim); margin-top:4px; }
+.streak-unit{ font-size:15px; color:var(--text-dim); font-weight:600; }
+.streak-flame{ font-size:38px; }
+.streak-caption{ font-size:13.5px; color:var(--text-dim); margin-top:6px; }
 
 .missed-banner{
-  margin:0 24px; border-radius:var(--radius); padding:14px 18px;
-  background:var(--coral-dim); border:1px solid #5A3030;
-  display:flex; gap:12px; align-items:flex-start;
+  max-width:1200px; margin:0 auto 20px auto; padding:0 32px; width:100%;
 }
-.missed-banner .txt{ font-size:13.5px; color:#FFD9D9; line-height:1.5; }
+.missed-banner-inner{
+  border-radius:var(--radius); padding:16px 20px;
+  background:var(--coral-dim); border:1px solid #5A3030;
+  display:flex; gap:14px; align-items:flex-start;
+}
+.missed-banner .txt{ font-size:14px; color:#FFD9D9; line-height:1.5; }
 .missed-banner b{ color:#fff; }
 
-.today-card{ padding:20px; }
-.today-card .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
-.today-title{ font-family:var(--font-display); font-weight:700; font-size:19px; margin:6px 0 6px; line-height:1.3; }
-.today-meta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.today-card{ padding:24px; }
+.today-card .top-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:12px;}
+.today-title{ font-family:var(--font-display); font-weight:700; font-size:22px; margin:8px 0 8px; line-height:1.3; }
+.today-meta{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
 
-.progress-block{ margin:0 24px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
-.progress-bar-track{ height:10px; border-radius:999px; background:var(--surface-3); overflow:hidden; margin-top:10px; }
+.progress-block{ padding:24px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
+.progress-bar-track{ height:12px; border-radius:999px; background:var(--surface-3); overflow:hidden; margin-top:12px; }
 .progress-bar-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--turmeric), var(--green)); transition:width .5s ease; }
-.progress-labels{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-dim); margin-top:8px; }
+.progress-labels{ display:flex; justify-content:space-between; font-size:13.5px; color:var(--text-dim); margin-top:10px; }
 
-.graph-section{ margin:0 24px; padding:20px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
-.graph-scroll{ overflow-x:auto; padding-bottom:6px; margin-top:12px; scrollbar-width:thin; }
-.graph-grid{ display:grid; grid-template-rows:repeat(6, 1fr); grid-auto-flow:column; gap:5px; width:max-content; }
-.g-cell{ width:16px;height:16px;border-radius:4px; background:var(--surface-3); border:1px solid var(--border-soft); position:relative; }
+.graph-section{ max-width:1200px; margin:0 auto 24px auto; padding:0 32px; width:100%; }
+.graph-card { padding:24px; background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); }
+.graph-scroll{ overflow-x:auto; padding-bottom:8px; margin-top:16px; scrollbar-width:thin; }
+.graph-grid{ display:grid; grid-template-rows:repeat(6, 1fr); grid-auto-flow:column; gap:6px; width:max-content; }
+.g-cell{ width:18px;height:18px;border-radius:4px; background:var(--surface-3); border:1px solid var(--border-soft); position:relative; }
 .g-cell.done{ background:var(--green); border-color:var(--green); }
 .g-cell.missed{ background:var(--coral-dim); border-color:var(--coral); }
 .g-cell.today{ background:var(--turmeric); border-color:var(--turmeric); box-shadow:0 0 0 3px rgba(255,159,67,0.18); animation:pulse 2s infinite; }
 .g-cell.future{ opacity:0.5; }
 @keyframes pulse{ 0%,100%{box-shadow:0 0 0 3px rgba(255,159,67,0.18);} 50%{box-shadow:0 0 0 6px rgba(255,159,67,0.05);} }
-.graph-legend{ display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
-.graph-legend span{ font-size:12px; color:var(--text-faint); display:flex; align-items:center; gap:6px; }
-.legend-dot{ width:10px;height:10px;border-radius:3px; display:inline-block; }
+.graph-legend{ display:flex; gap:20px; margin-top:16px; flex-wrap:wrap; }
+.graph-legend span{ font-size:13px; color:var(--text-faint); display:flex; align-items:center; gap:6px; }
+.legend-dot{ width:11px;height:11px;border-radius:3px; display:inline-block; }
 
-.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 24px; }
-.stat-box{ padding:18px; }
-.stat-box .num{ font-family:var(--font-mono); font-size:22px; font-weight:700; }
-.stat-box .lbl{ font-size:12px; color:var(--text-dim); margin-top:4px; }
+.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.stat-box{ padding:20px; }
+.stat-box .num{ font-family:var(--font-mono); font-size:26px; font-weight:700; }
+.stat-box .lbl{ font-size:13px; color:var(--text-dim); margin-top:6px; }
 
-.badge-row{ display:flex; gap:10px; margin:0 24px; overflow-x:auto; scrollbar-width:none; }
+.badge-row{ max-width:1200px; margin:0 auto 24px auto; padding:0 32px; width:100%; display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; }
 .badge-chip{
-  flex:0 0 auto; display:flex; align-items:center; gap:8px;
-  background:var(--surface); border:1px solid var(--border-soft); border-radius:999px; padding:10px 16px;
-  font-size:13px; font-weight:600; color:var(--text-dim);
+  flex:0 0 auto; display:flex; align-items:center; gap:10px;
+  background:var(--surface); border:1px solid var(--border-soft); border-radius:999px; padding:12px 20px;
+  font-size:14px; font-weight:600; color:var(--text-dim);
 }
 
 .bottom-nav{
-  position:fixed; left:50%; bottom:0; transform:translateX(-50%);
-  width:100%; max-width:900px; background:rgba(26,32,41,0.95); backdrop-filter:blur(10px);
+  position:fixed; left:0; bottom:0; width:100%; background:rgba(26,32,41,0.95); backdrop-filter:blur(10px);
   border-top:1px solid var(--border); display:flex; z-index:250;
   padding-bottom:env(safe-area-inset-bottom);
 }
-.nav-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:12px 0 10px; font-size:11px; color:var(--text-faint); font-weight:600; }
+.bottom-nav-inner{ max-width:1200px; margin:0 auto; width:100%; display:flex; }
+.nav-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:14px 0 12px; font-size:12px; color:var(--text-faint); font-weight:600; }
 .nav-item.active{ color:var(--turmeric); }
-.nav-ic{ font-size:18px; line-height:1; }
+.nav-ic{ font-size:20px; line-height:1; }
 
 /* ============================= CHALLENGE DAY ============================= */
-.day-hero{ padding:16px 24px 0; }
-.day-back{ display:inline-flex; align-items:center; gap:6px; color:var(--text-dim); font-size:13.5px; font-weight:600; padding:6px 0 10px; }
-.day-badge-row{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
-.day-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(22px, 3vw, 28px); line-height:1.25; letter-spacing:-0.01em; margin:0 0 12px; }
-.day-meta-row{ display:flex; gap:16px; margin:12px 0 4px; }
-.day-meta-row .item{ font-size:13px; color:var(--text-dim); display:flex; align-items:center; gap:6px; }
+.day-container{ max-width:900px; margin:0 auto; padding:0 32px; width:100%; }
+.day-hero{ padding:24px 32px 0; }
+.day-back{ display:inline-flex; align-items:center; gap:8px; color:var(--text-dim); font-size:14px; font-weight:600; padding:8px 0 12px; }
+.day-badge-row{ display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+.day-title{ font-family:var(--font-display); font-weight:700; font-size:clamp(26px, 3.5vw, 34px); line-height:1.25; letter-spacing:-0.01em; margin:0 0 14px; }
+.day-meta-row{ display:flex; gap:20px; margin:14px 0 6px; }
+.day-meta-row .item{ font-size:14px; color:var(--text-dim); display:flex; align-items:center; gap:8px; }
 
-.brief-card{ margin:16px 24px 0; padding:24px; }
-.brief-card p{ margin:0 0 16px; font-size:15px; line-height:1.65; color:var(--text); }
-.req-list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-.req-list li{ display:flex; gap:10px; font-size:14px; color:var(--text-dim); line-height:1.5; }
+.brief-card{ margin-top:20px; padding:32px; }
+.brief-card p{ margin:0 0 18px; font-size:16px; line-height:1.7; color:var(--text); }
+.req-list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px; }
+.req-list li{ display:flex; gap:12px; font-size:14.5px; color:var(--text-dim); line-height:1.55; }
 .req-list li::before{ content:"—"; color:var(--turmeric); flex:0 0 auto; }
 
-.hint-toggle{ margin-top:16px; background:var(--surface-2); border:1px dashed var(--border); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; }
+.hint-toggle{ margin-top:20px; background:var(--surface-2); border:1px dashed var(--border); border-radius:12px; padding:16px 20px; font-size:14.5px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; }
 .hint-body{ max-height:0; overflow:hidden; transition:max-height .25s ease; }
-.hint-body p{ font-size:13.5px; color:var(--turmeric-strong); background:var(--turmeric-ink); border-radius:8px; padding:14px; margin:12px 0 0; }
-.hint-toggle.open .hint-body{ max-height:140px; }
+.hint-body p{ font-size:14px; color:var(--turmeric-strong); background:var(--turmeric-ink); border-radius:10px; padding:16px; margin:14px 0 0; }
+.hint-toggle.open .hint-body{ max-height:160px; }
 
 .rescue-card{
-  margin:16px 24px 0; padding:20px; border-radius:var(--radius); border:1px solid var(--turmeric-dim);
+  margin-top:20px; padding:24px; border-radius:var(--radius); border:1px solid var(--turmeric-dim);
   background:linear-gradient(155deg, #241A0C, var(--surface));
-  display:flex; gap:16px; align-items:flex-start;
+  display:flex; gap:20px; align-items:flex-start;
 }
-.rescue-ic{ font-size:26px; }
-.rescue-card h4{ margin:0 0 6px; font-family:var(--font-display); font-size:16px; }
-.rescue-card p{ margin:0 0 12px; font-size:13px; color:var(--text-dim); line-height:1.5; }
-.rescue-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.rescue-ic{ font-size:32px; }
+.rescue-card h4{ margin:0 0 8px; font-family:var(--font-display); font-size:18px; }
+.rescue-card p{ margin:0 0 14px; font-size:14px; color:var(--text-dim); line-height:1.55; }
+.rescue-actions{ display:flex; gap:12px; flex-wrap:wrap; }
 
-.submit-card{ margin:16px 24px 0; padding:24px; }
-.field{ margin-bottom:16px; }
-.field label{ display:block; font-size:13px; font-weight:600; color:var(--text-dim); margin-bottom:6px; }
+.submit-card{ margin-top:20px; padding:32px; }
+.field{ margin-bottom:20px; }
+.field label{ display:block; font-size:14px; font-weight:600; color:var(--text-dim); margin-bottom:8px; }
 .field input{
   width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
-  border-radius:10px; padding:12px 14px; font-size:14px; outline:none;
+  border-radius:12px; padding:14px 18px; font-size:15px; outline:none;
 }
 .field input.invalid{ border-color:var(--coral); }
 .field input.valid{ border-color:var(--green); }
-.field-hint{ font-size:12px; color:var(--text-faint); margin-top:6px; }
+.field-hint{ font-size:12.5px; color:var(--text-faint); margin-top:6px; }
 .field-hint.err{ color:var(--coral); }
 
-.submitted-view{ margin:16px 24px 0; padding:24px; text-align:center; }
-.submitted-check{ width:56px;height:56px; border-radius:50%; background:var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 14px; }
-.submitted-links{ display:flex; flex-direction:column; gap:10px; margin-top:16px; text-align:left; }
-.submitted-links a{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; overflow:hidden; }
+.submitted-view{ margin-top:20px; padding:36px; text-align:center; }
+.submitted-check{ width:64px;height:64px; border-radius:50%; background:var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:30px; margin:0 auto 16px; }
+.submitted-links{ display:flex; flex-direction:column; gap:12px; margin-top:20px; text-align:left; }
+.submitted-links a{ background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-size:14px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; overflow:hidden; }
 
-.lock-view{ margin:16px 24px 0; padding:32px 24px; text-align:center; }
-.lock-ic{ font-size:32px; margin-bottom:12px; }
+.lock-view{ margin-top:20px; padding:48px 32px; text-align:center; }
+.lock-ic{ font-size:38px; margin-bottom:14px; }
 
 /* ============================= CHATBOT ============================= */
 #chat-fab{
-  position:fixed; right:24px; bottom:96px; z-index:300;
-  width:56px;height:56px;border-radius:50%;
+  position:fixed; right:32px; bottom:96px; z-index:300;
+  width:64px;height:64px;border-radius:50%;
   background:linear-gradient(145deg, var(--turmeric-strong), var(--turmeric));
-  display:flex;align-items:center;justify-content:center; font-size:22px;
-  box-shadow:0 10px 24px -6px rgba(255,159,67,0.5); border:none;
+  display:flex;align-items:center;justify-content:center; font-size:26px;
+  box-shadow:0 12px 28px -6px rgba(255,159,67,0.5); border:none;
 }
-@media (min-width:900px){ #chat-fab{ right:calc(50% - 450px + 24px); } }
 
 #chat-panel{
-  position:fixed; left:50%; bottom:0; transform:translate(-50%, 100%);
-  width:100%; max-width:480px; height:80vh; max-height:680px;
-  background:var(--surface); border:1px solid var(--border); border-radius:24px 24px 0 0;
-  z-index:500; display:flex; flex-direction:column; transition:transform .28s cubic-bezier(.2,.9,.3,1.1);
-  box-shadow:0 -20px 60px -10px rgba(0,0,0,0.7);
+  position:fixed; right:32px; bottom:110px; transform:translateY(20px);
+  width:100%; max-width:420px; height:600px; max-height:80vh;
+  background:var(--surface); border:1px solid var(--border); border-radius:24px;
+  z-index:500; display:flex; flex-direction:column; opacity:0; pointer-events:none;
+  transition:all .25s cubic-bezier(.2,.9,.3,1.1);
+  box-shadow:0 20px 60px -10px rgba(0,0,0,0.8);
 }
-#chat-panel.open{ transform:translate(-50%, 0); }
-.chat-head{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--border-soft); }
-.chat-head-title{ display:flex; align-items:center; gap:10px; }
+#chat-panel.open{ opacity:1; pointer-events:auto; transform:translateY(0); }
+.chat-head{ display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border-soft); }
+.chat-head-title{ display:flex; align-items:center; gap:12px; }
 .chat-head-title .dot{ width:10px;height:10px;border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-dim); }
-.chat-close{ background:var(--surface-3); border:none; color:var(--text-dim); width:32px;height:32px;border-radius:50%; font-size:16px; }
-.chat-body{ flex:1; overflow-y:auto; padding:18px 20px; display:flex; flex-direction:column; gap:12px; }
-.msg{ max-width:85%; padding:12px 14px; border-radius:14px; font-size:14px; line-height:1.5; }
+.chat-close{ background:var(--surface-3); border:none; color:var(--text-dim); width:34px;height:34px;border-radius:50%; font-size:16px; }
+.chat-body{ flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:14px; }
+.msg{ max-width:85%; padding:14px 16px; border-radius:16px; font-size:14.5px; line-height:1.55; }
 .msg.bot{ background:var(--surface-2); align-self:flex-start; border-bottom-left-radius:4px; }
 .msg.user{ background:var(--turmeric-dim); color:var(--turmeric-strong); align-self:flex-end; border-bottom-right-radius:4px; font-weight:600; }
-.chat-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:4px 20px 16px; }
-.chip{ background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:8px 14px; font-size:12.5px; color:var(--text-dim); }
-.chat-input-row{ display:flex; gap:10px; padding:14px 20px calc(14px + env(safe-area-inset-bottom)); border-top:1px solid var(--border-soft); }
-.chat-input-row input{ flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:12px 16px; color:var(--text); font-size:14px; outline:none; }
-.chat-send{ background:var(--turmeric); border:none; border-radius:12px; width:48px; color:#241705; font-weight:700; }
-#chat-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:450; opacity:0; pointer-events:none; transition:opacity .25s ease; }
-#chat-overlay.open{ opacity:1; pointer-events:auto; }
+.chat-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:6px 24px 18px; }
+.chip{ background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:9px 16px; font-size:13px; color:var(--text-dim); }
+.chat-input-row{ display:flex; gap:12px; padding:16px 24px calc(16px + env(safe-area-inset-bottom)); border-top:1px solid var(--border-soft); }
+.chat-input-row input{ flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:14px 18px; color:var(--text); font-size:14.5px; outline:none; }
+.chat-send{ background:var(--turmeric); border:none; border-radius:14px; width:52px; color:#241705; font-weight:700; font-size:16px; }
+#chat-overlay{ display:none; }
 
 /* ============================= QA PANEL ============================= */
 #qa-fab{
-  position:fixed; left:24px; bottom:96px; z-index:300;
-  width:44px;height:44px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border);
-  color:var(--text-faint); font-size:16px; display:flex;align-items:center;justify-content:center;
+  position:fixed; left:32px; bottom:96px; z-index:300;
+  width:48px;height:48px;border-radius:50%; background:var(--surface-3); border:1px solid var(--border);
+  color:var(--text-faint); font-size:18px; display:flex;align-items:center;justify-content:center;
 }
-@media (min-width:900px){ #qa-fab{ left:calc(50% - 450px + 24px); } }
 #qa-panel{
-  position:fixed; left:24px; bottom:150px; z-index:301; width:240px;
-  background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:14px;
+  position:fixed; left:32px; bottom:156px; z-index:301; width:260px;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:16px; padding:16px;
   display:none; box-shadow:0 20px 50px -15px rgba(0,0,0,0.7);
 }
-@media (min-width:900px){ #qa-panel{ left:calc(50% - 450px + 24px); } }
 #qa-panel.open{ display:block; }
-#qa-panel h5{ margin:0 0 8px; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); }
-.qa-opt{ display:block; width:100%; text-align:left; background:none; border:none; color:var(--text-dim); font-size:13px; padding:8px 10px; border-radius:8px; }
+#qa-panel h5{ margin:0 0 10px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); }
+.qa-opt{ display:block; width:100%; text-align:left; background:none; border:none; color:var(--text-dim); font-size:13.5px; padding:9px 12px; border-radius:8px; }
 .qa-opt.active{ background:var(--turmeric-dim); color:var(--turmeric-strong); font-weight:600; }
-.qa-note{ font-size:11px; color:var(--text-faint); margin-top:10px; line-height:1.4; padding-top:8px; border-top:1px solid var(--border-soft); }
+.qa-note{ font-size:11.5px; color:var(--text-faint); margin-top:12px; line-height:1.4; padding-top:10px; border-top:1px solid var(--border-soft); }
 
 .fade-in{ animation:fadeIn .35s ease; }
 @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
@@ -428,14 +431,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 <div id="toast"></div>
 
 <button id="chat-fab" aria-label="Open ABTalks chat" title="Ask ABTalks">💬</button>
-<div id="chat-overlay"></div>
 <div id="chat-panel" role="dialog" aria-label="ABTalks assistant">
   <div class="chat-head">
     <div class="chat-head-title">
       <span class="dot"></span>
       <div>
-        <div style="font-weight:700; font-size:14px;">ABTalks Assistant</div>
-        <div style="font-size:11.5px; color:var(--text-faint);">Usually replies instantly</div>
+        <div style="font-weight:700; font-size:15px;">ABTalks Assistant</div>
+        <div style="font-size:12px; color:var(--text-faint);">Usually replies instantly</div>
       </div>
     </div>
     <button class="chat-close" id="chat-close-btn">✕</button>
@@ -604,9 +606,11 @@ function renderCommitGraph(user){
 function renderBottomNav(active){
   return `
   <nav class="bottom-nav">
-    <a href="#/" class="nav-item ${active==='home'?'active':''}"><span class="nav-ic">⌂</span>Home</a>
-    <a href="#/dashboard" class="nav-item ${active==='dash'?'active':''}"><span class="nav-ic">◧</span>Dashboard</a>
-    <a href="#/day/${currentUser().currentDay}" class="nav-item ${active==='day'?'active':''}"><span class="nav-ic">▣</span>Today</a>
+    <div class="bottom-nav-inner">
+      <a href="#/" class="nav-item ${active==='home'?'active':''}"><span class="nav-ic">⌂</span>Home</a>
+      <a href="#/dashboard" class="nav-item ${active==='dash'?'active':''}"><span class="nav-ic">◧</span>Dashboard</a>
+      <a href="#/day/${currentUser().currentDay}" class="nav-item ${active==='day'?'active':''}"><span class="nav-ic">▣</span>Today</a>
+    </div>
   </nav>`;
 }
 
@@ -617,27 +621,31 @@ function viewLanding(){
   const s = PLATFORM.stats;
   return `
   <div class="topbar">
-    <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
-    <div style="display:flex; gap:8px;">
-      <a href="#/login" class="btn btn-ghost btn-sm">Log in</a>
-      <a href="#/signup" class="btn btn-primary btn-sm">Sign up</a>
+    <div class="max-container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
+      <div style="display:flex; gap:12px;">
+        <a href="#/login" class="btn btn-ghost btn-sm">Log in</a>
+        <a href="#/signup" class="btn btn-primary btn-sm">Sign up</a>
+      </div>
     </div>
   </div>
 
   <section class="hero fade-in">
-    <div class="hero-grid-layout">
-      <div>
-        <div class="eyebrow">60-day build streak · College coders</div>
-        <h1 class="h1">Your GitHub graph is about to get loud.</h1>
-        <p class="p-muted" style="margin-top:14px;">One task a day for 60 days. Ship it, commit it, post it. By Day 60 you won't just have a streak — you'll have a portfolio a recruiter actually opens.</p>
-        <a href="#/signup" class="btn btn-primary" style="margin-top:20px; max-width:240px;">Start Day 1 — it's free →</a>
-      </div>
-      <div class="hero-graph">
-        <div class="hero-graph-head">
-          <span class="h3">What 60 days looks like</span>
-          <span class="mono">Day 43/60</span>
+    <div class="max-container">
+      <div class="hero-grid-layout">
+        <div>
+          <div class="eyebrow">60-day build streak · College coders</div>
+          <h1 class="h1">Your GitHub graph is about to get loud.</h1>
+          <p class="p-muted" style="margin-top:16px;">One task a day for 60 days. Ship it, commit it, post it. By Day 60 you won't just have a streak — you'll have a portfolio a recruiter actually opens.</p>
+          <a href="#/signup" class="btn btn-primary" style="margin-top:24px; max-width:260px;">Start Day 1 — it's free →</a>
         </div>
-        ${renderMiniGrid()}
+        <div class="hero-graph">
+          <div class="hero-graph-head">
+            <span class="h3">What 60 days looks like</span>
+            <span class="mono">Day 43/60</span>
+          </div>
+          ${renderMiniGrid()}
+        </div>
       </div>
     </div>
   </section>
@@ -652,10 +660,10 @@ function viewLanding(){
     <span class="eyebrow">How it works</span>
     <div class="steps">
       <div class="step"><div class="step-num">01</div><div class="step-body"><h4>Pick your track</h4><p>Web Dev, DSA, Python, or App Dev. Switch anytime before Day 10.</p></div></div>
-      <div class="step"><div class="step-num">02</div><div class="step-body"><h4>Solve today's build</h4><p>One scoped task, sized for 30–75 minutes, right from your device.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-body"><h4>Solve today's build</h4><p>One scoped task, sized for 30–75 minutes, right from your desktop.</p></div></div>
       <div class="step"><div class="step-num">03</div><div class="step-body"><h4>Commit + post proof</h4><p>Link the GitHub commit and a LinkedIn post. We track the streak automatically.</p></div></div>
     </div>
-    <div class="track-row" style="margin-top:20px;">
+    <div class="track-row" style="margin-top:24px;">
       ${PLATFORM.tracks.map(t=>`<span class="track-chip">${t}</span>`).join('')}
     </div>
   </section>
@@ -674,9 +682,9 @@ function viewLanding(){
     </div>
   </section>
 
-  <section class="section" style="padding-bottom:36px;">
+  <section class="section" style="padding-bottom:50px;">
     <span class="eyebrow">Before you start</span>
-    <div class="card" style="margin-top:12px; padding:0 16px;">
+    <div class="card" style="margin-top:16px; padding:0 24px;">
       ${faqItem("Is ABTalks actually free?", "Yes. All 60 days, every track, no paywall. We don't ask for a payment method to preview or start Day 1.")}
       ${faqItem("What if I miss a day?", "Your streak resets, but your progress doesn't — completed days stay logged. You also get one streak-freeze token a month.")}
       ${faqItem("Do I need to already know DSA?", "No. Beginner days (1–15) assume first-year fundamentals only. Difficulty ramps gradually through the 60 days.")}
@@ -684,7 +692,7 @@ function viewLanding(){
     </div>
   </section>
 
-  <div style="height:84px;"></div>
+  <div style="height:90px;"></div>
   <div class="sticky-cta"><div class="sticky-cta-inner">
     <div><strong>Ready to launch your streak?</strong></div>
     <a href="#/signup" class="btn btn-primary btn-sm">Start Day 1 — Free →</a>
@@ -701,8 +709,10 @@ function faqItem(q,a){
 function viewLogin(){
   return `
   <div class="topbar">
-    <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
-    <a href="#/signup" class="btn btn-ghost btn-sm">Sign up</a>
+    <div class="max-container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
+      <a href="#/signup" class="btn btn-ghost btn-sm">Sign up</a>
+    </div>
   </div>
   <div class="auth-container fade-in">
     <div class="auth-card">
@@ -717,7 +727,7 @@ function viewLogin(){
           <label for="login-pass">Password</label>
           <input type="password" id="login-pass" placeholder="••••••••" required />
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top:8px;">Log In</button>
+        <button type="submit" class="btn btn-primary" style="margin-top:10px;">Log In</button>
       </form>
       <div class="auth-switch">Don't have an account? <a href="#/signup">Sign up</a></div>
     </div>
@@ -736,8 +746,10 @@ function handleLogin(){
 function viewSignup(){
   return `
   <div class="topbar">
-    <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
-    <a href="#/login" class="btn btn-ghost btn-sm">Log in</a>
+    <div class="max-container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
+      <a href="#/login" class="btn btn-ghost btn-sm">Log in</a>
+    </div>
   </div>
   <div class="auth-container fade-in">
     <div class="auth-card">
@@ -756,7 +768,7 @@ function viewSignup(){
           <label for="signup-pass">Password</label>
           <input type="password" id="signup-pass" placeholder="Create a password" required />
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top:8px;">Create Account & Start Day 1</button>
+        <button type="submit" class="btn btn-primary" style="margin-top:10px;">Create Account & Start Day 1</button>
       </form>
       <div class="auth-switch">Already have an account? <a href="#/login">Log in</a></div>
     </div>
@@ -782,8 +794,10 @@ function viewDashboard(){
 
   return `
   <div class="topbar">
-    <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
-    <a href="#/login" class="btn btn-ghost btn-sm" style="font-size:12px; padding:6px 10px;">Log out</a>
+    <div class="max-container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
+      <a href="#/login" class="btn btn-ghost btn-sm" style="font-size:13px; padding:6px 12px;">Log out</a>
+    </div>
   </div>
 
   <div class="dash-header fade-in">
@@ -795,14 +809,16 @@ function viewDashboard(){
   </div>
 
   ${u.missedDay ? `
-  <div class="missed-banner fade-in" style="margin-bottom:16px;">
-    <span style="font-size:18px;">⚠️</span>
-    <div class="txt"><b>You missed Day ${u.missedDay}.</b> Your streak reset to 0 — it happens. ${u.freezeTokens>0 ? `You still have <b>${u.freezeTokens} streak-freeze token</b> left.` : `You're out of freeze tokens this month.`}</div>
+  <div class="missed-banner fade-in">
+    <div class="missed-banner-inner">
+      <span style="font-size:20px;">⚠️</span>
+      <div class="txt"><b>You missed Day ${u.missedDay}.</b> Your streak reset to 0 — it happens. ${u.freezeTokens>0 ? `You still have <b>${u.freezeTokens} streak-freeze token</b> left.` : `You're out of freeze tokens this month.`}</div>
+    </div>
   </div>` : ``}
 
   <div class="dashboard-grid fade-in">
     <div>
-      <div class="streak-hero ${u.streak===0?'zero':''}" style="margin:0 0 16px 0;">
+      <div class="streak-hero ${u.streak===0?'zero':''}" style="margin-bottom:24px;">
         <div>
           <div class="streak-num-wrap"><span class="streak-num">${u.streak}</span><span class="streak-unit">day${u.streak===1?'':'s'} streak</span></div>
           <div class="streak-caption">${u.streak===0? "No active streak yet — Day 1 starts it." : `Longest this challenge: ${Math.max(u.streak, totalDone)} days`}</div>
@@ -810,28 +826,28 @@ function viewDashboard(){
         <div class="streak-flame">${u.streak>0?'🔥':'🕯️'}</div>
       </div>
 
-      <a href="#/day/${u.currentDay}" class="card today-card" style="display:block; margin-bottom:16px;">
+      <a href="#/day/${u.currentDay}" class="card today-card" style="display:block; margin-bottom:24px;">
         <div class="top-row">
           <span class="pill pill-turmeric">Day ${u.currentDay} of ${PLATFORM.totalDays}</span>
           <span class="pill pill-neutral">${today.difficulty}</span>
         </div>
-        <div style="font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono);">${today.track}</div>
+        <div style="font-size:12px; color:var(--text-faint); font-family:var(--font-mono);">${today.track}</div>
         <div class="today-title">${today.title}</div>
         <div class="today-meta"><span class="pill pill-neutral">⏱ ~${today.estMinutes} min</span></div>
         <div class="btn btn-primary">${isNewUser? "Start Day 1 →" : "Open today's challenge →"}</div>
       </a>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:16px;">
+    <div style="display:flex; flex-direction:column; gap:24px;">
       <div class="stat-grid" style="margin:0;">
         <div class="card stat-box"><div class="num">${u.rank || '—'}</div><div class="lbl">Standing</div></div>
         <div class="card stat-box"><div class="num">${u.freezeTokens} 🧊</div><div class="lbl">Freezes left</div></div>
       </div>
 
-      <div class="card" style="padding:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+      <div class="progress-block">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
           <span class="h3">Progress</span>
-          <span class="mono" style="font-size:13px; color:var(--turmeric-strong);">${pct}%</span>
+          <span class="mono" style="font-size:14px; color:var(--turmeric-strong);">${pct}%</span>
         </div>
         <div class="progress-bar-track" style="margin:0;"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
         <div class="progress-labels"><span>${totalDone} shipped</span><span>${PLATFORM.totalDays-totalDone} remaining</span></div>
@@ -839,17 +855,19 @@ function viewDashboard(){
     </div>
   </div>
 
-  <div class="graph-section fade-in" style="margin:0 24px 16px 24px;">
-    <span class="eyebrow">Your commit graph</span>
-    ${renderCommitGraph(u)}
+  <div class="graph-section fade-in">
+    <div class="graph-card">
+      <span class="eyebrow">Your commit graph</span>
+      ${renderCommitGraph(u)}
+    </div>
   </div>
 
   ${u.badges.length ? `
-  <div class="badge-row fade-in" style="margin-bottom:20px;">
+  <div class="badge-row fade-in">
     ${u.badges.map(b=>`<div class="badge-chip">🏅 ${b}</div>`).join('')}
   </div>` : ``}
 
-  <div style="height:30px;"></div>
+  <div style="height:40px;"></div>
   ${renderBottomNav('dash')}
   `;
 }
@@ -872,8 +890,8 @@ function viewDay(id){
     <div class="card lock-view fade-in">
       <div class="lock-ic">🔒</div>
       <div class="h3">Day ${dayId} is locked</div>
-      <p class="p-muted" style="margin-top:8px;">This unlocks once you complete Day ${u.currentDay}. One day at a time — that's the whole method.</p>
-      <a href="#/day/${u.currentDay}" class="btn btn-primary" style="margin-top:16px; max-width:220px; margin-inline:auto;">Go to Day ${u.currentDay} →</a>
+      <p class="p-muted" style="margin-top:10px;">This unlocks once you complete Day ${u.currentDay}. One day at a time — that's the whole method.</p>
+      <a href="#/day/${u.currentDay}" class="btn btn-primary" style="margin-top:20px; max-width:240px; margin-inline:auto;">Go to Day ${u.currentDay} →</a>
     </div>`;
   } else {
     body = `
@@ -888,15 +906,17 @@ function viewDay(id){
 
     if(status==="missed"){
       body += `
-      <div class="missed-banner fade-in" style="margin-top:16px;">
-        <span style="font-size:18px;">⚠️</span>
-        <div class="txt"><b>This day was missed.</b> It's kept here for record, but no longer counts toward today's streak.</div>
+      <div class="missed-banner fade-in" style="margin-top:20px; padding:0;">
+        <div class="missed-banner-inner">
+          <span style="font-size:20px;">⚠️</span>
+          <div class="txt"><b>This day was missed.</b> It's kept here for record, but no longer counts toward today's streak.</div>
+        </div>
       </div>`;
     }
 
     if(showRescue){
       body += `
-      <div class="rescue-card fade-in" style="margin-top:16px;">
+      <div class="rescue-card fade-in" style="margin-top:20px;">
         <div class="rescue-ic">🦉</div>
         <div style="flex:1;">
           <h4>Night Owl Rescue</h4>
@@ -912,15 +932,15 @@ function viewDay(id){
     if(status==="completed"){
       const sub = u.completedDays[dayId];
       body += `
-      <div class="submitted-view card fade-in" style="margin-top:16px;">
+      <div class="submitted-view card fade-in" style="margin-top:20px;">
         <div class="submitted-check">✅</div>
         <div class="h3">Day ${dayId} logged</div>
-        <p class="p-muted" style="margin-top:6px;">Submitted ${timeAgo(sub.submittedAt)}. Nice work.</p>
+        <p class="p-muted" style="margin-top:8px;">Submitted ${timeAgo(sub.submittedAt)}. Nice work.</p>
         <div class="submitted-links">
           <a href="${sub.githubUrl}" target="_blank" rel="noopener"><span>⌥ ${sub.githubUrl.replace('https://','')}</span><span>↗</span></a>
           <a href="${sub.linkedinUrl}" target="_blank" rel="noopener"><span>in ${sub.linkedinUrl.replace('https://www.','')}</span><span>↗</span></a>
         </div>
-        <button class="btn btn-ghost btn-sm" style="margin-top:14px; width:100%;" id="edit-submission">Edit submission</button>
+        <button class="btn btn-ghost btn-sm" style="margin-top:16px; width:100%;" id="edit-submission">Edit submission</button>
       </div>`;
     } else if(status==="today" || status==="missed" || status==="past-empty"){
       body += renderSubmitForm(dayId, status);
@@ -929,32 +949,36 @@ function viewDay(id){
 
   return `
   <div class="topbar">
-    <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
-  </div>
-  <div class="day-hero fade-in">
-    <a href="#/dashboard" class="day-back">← Dashboard</a>
-    <div class="day-badge-row">
-      <span class="pill pill-turmeric">Day ${dayId} / ${PLATFORM.totalDays}</span>
-      <span class="pill pill-neutral">${day.track}</span>
-      <span class="pill ${status==='completed'?'pill-green':status==='missed'?'pill-coral':'pill-neutral'}">${day.difficulty}</span>
-    </div>
-    <h1 class="day-title">${day.title}</h1>
-    <div class="day-meta-row">
-      <span class="item">⏱ ~${day.estMinutes} min</span>
-      <span class="item">${status==='completed'?'✅ Completed':status==='missed'?'⚠️ Missed':status==='locked'?'🔒 Locked':'🟠 In progress'}</span>
+    <div class="max-container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <div class="brand" onclick="location.hash='#/'"><span class="brand-mark">AB</span>${PLATFORM.name}</div>
     </div>
   </div>
-  ${body}
-  <div style="height:30px;"></div>
+  <div class="day-container">
+    <div class="day-hero fade-in">
+      <a href="#/dashboard" class="day-back">← Dashboard</a>
+      <div class="day-badge-row">
+        <span class="pill pill-turmeric">Day ${dayId} / ${PLATFORM.totalDays}</span>
+        <span class="pill pill-neutral">${day.track}</span>
+        <span class="pill ${status==='completed'?'pill-green':status==='missed'?'pill-coral':'pill-neutral'}">${day.difficulty}</span>
+      </div>
+      <h1 class="day-title">${day.title}</h1>
+      <div class="day-meta-row">
+        <span class="item">⏱ ~${day.estMinutes} min</span>
+        <span class="item">${status==='completed'?'✅ Completed':status==='missed'?'⚠️ Missed':status==='locked'?'🔒 Locked':'🟠 In progress'}</span>
+      </div>
+    </div>
+    ${body}
+  </div>
+  <div style="height:40px;"></div>
   ${renderBottomNav('day')}
   `;
 }
 
 function renderSubmitForm(dayId, status){
   return `
-  <div class="submit-card card fade-in" style="margin-top:16px;" id="submit-card">
+  <div class="submit-card card fade-in" style="margin-top:20px;" id="submit-card">
     <span class="h3">Submit proof of work</span>
-    <p class="p-muted" style="margin:6px 0 16px;">Two links, that's it. We check the URL shape — not the code.</p>
+    <p class="p-muted" style="margin:8px 0 20px;">Two links, that's it. We check the URL shape — not the code.</p>
 
     <div class="field">
       <label for="gh-input">GitHub commit or repo URL</label>
@@ -1131,18 +1155,19 @@ function sendChat(text){
    ====================================================================== */
 const chatFab = document.getElementById('chat-fab');
 const chatPanel = document.getElementById('chat-panel');
-const chatOverlay = document.getElementById('chat-overlay');
 let chatBooted = false;
 
-function openChat(){
-  chatPanel.classList.add('open'); chatOverlay.classList.add('open');
-  if(!chatBooted){ initChat(); chatBooted = true; }
+function toggleChat(){
+  chatPanel.classList.toggle('open');
+  if(chatPanel.classList.contains('open') && !chatBooted){
+    initChat();
+    chatBooted = true;
+  }
 }
-function closeChat(){ chatPanel.classList.remove('open'); chatOverlay.classList.remove('open'); }
+function closeChat(){ chatPanel.classList.remove('open'); }
 
-chatFab.addEventListener('click', openChat);
+chatFab.addEventListener('click', toggleChat);
 document.getElementById('chat-close-btn').addEventListener('click', closeChat);
-chatOverlay.addEventListener('click', closeChat);
 document.getElementById('chat-send-btn').addEventListener('click', ()=> sendChat(document.getElementById('chat-input').value));
 document.getElementById('chat-input').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(e.target.value); });
 
