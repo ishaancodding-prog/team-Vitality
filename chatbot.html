@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot Assistant</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-md flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <span class="text-2xl">🤖</span>
+            <div>
+                <h1 class="font-bold text-lg">Vitality AI Assistant</h1>
+                <p class="text-xs text-emerald-400 font-medium">● Online</p>
+            </div>
+        </div>
+        <a href="./" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg transition-colors">Home Hub</a>
+    </header>
+
+    <!-- Chat Messages Container -->
+    <main id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4 max-w-3xl w-full mx-auto">
+        <!-- Welcome Message -->
+        <div class="flex items-start space-x-3">
+            <div class="bg-emerald-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold shrink-0">AI</div>
+            <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl max-w-[80%] text-sm shadow-sm">
+                Hello! I am your AI assistant. How can I help you today?
+            </div>
+        </div>
+    </main>
+
+    <!-- Input Footer Area -->
+    <footer class="bg-slate-800 border-t border-slate-700 p-4">
+        <form id="chat-form" class="max-w-3xl mx-auto flex gap-2">
+            <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Type your message here..." 
+                autocomplete="off"
+                required
+                class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+            >
+            <button 
+                type="submit" 
+                class="bg-emerald-600 hover:bg-emerald-500 px-5 py-3 rounded-xl font-medium text-sm transition-colors cursor-pointer flex items-center justify-center"
+            >
+                Send
+            </button>
+        </form>
+    </footer>
+
+    <!-- JavaScript Chat Logic -->
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+
+        // Simple automated responses based on user keywords or fallback
+        function getBotResponse(input) {
+            const query = input.toLowerCase();
+            if (query.includes('hello') || query.includes('hi')) {
+                return "Hi there! What project or challenge are we working on today?";
+            } else if (query.includes('challenge') || query.includes('vitality')) {
+                return "This is the 60-Day Challenge Hub! Keep pushing forward toward your goals.";
+            } else if (query.includes('help')) {
+                return "I can answer questions, give suggestions, or keep you motivated!";
+            } else {
+                return `That's interesting! You mentioned: "${input}". How else can I assist you with this?`;
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const isUser = sender === 'user';
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.className = `flex items-start space-x-3 ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = `${isUser ? 'bg-indigo-600' : 'bg-emerald-600'} text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-xs shrink-0`;
+            avatar.textContent = isUser ? 'You' : 'AI';
+
+            const bubble = document.createElement('div');
+            bubble.className = `${isUser ? 'bg-indigo-900/50 border-indigo-700' : 'bg-slate-800 border-slate-700'} border p-3.5 rounded-2xl max-w-[80%] text-sm shadow-sm`;
+            bubble.textContent = text;
+
+            wrapperDiv.appendChild(avatar);
+            wrapperDiv.appendChild(bubble);
+            chatContainer.appendChild(wrapperDiv);
+            
+            // Auto scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            appendMessage('user', text);
+            userInput.value = '';
+
+            // Simulate typing delay for AI response
+            setTimeout(() => {
+                const response = getBotResponse(text);
+                appendMessage('ai', response);
+            }, 600);
+        });
+    </script>
+</body>
+</html>
