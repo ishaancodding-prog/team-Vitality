@@ -58,7 +58,6 @@
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
 
-        // Simple automated responses based on user keywords or fallback
         function getBotResponse(input) {
             const query = input.toLowerCase();
             if (query.includes('hello') || query.includes('hi')) {
@@ -89,7 +88,6 @@
             wrapperDiv.appendChild(bubble);
             chatContainer.appendChild(wrapperDiv);
             
-            // Auto scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
@@ -101,7 +99,6 @@
             appendMessage('user', text);
             userInput.value = '';
 
-            // Simulate typing delay for AI response
             setTimeout(() => {
                 const response = getBotResponse(text);
                 appendMessage('ai', response);
